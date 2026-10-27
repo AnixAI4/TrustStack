@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "entries": {
+    "n3j2aw": {
+      "normal": "DPDP + AI governance + data governance + cybersecurity - integrated into one program, because compliance in the AI era requires exactly that.",
+      "easy": "We bring four things together in one plan - the privacy law, safe use of AI, careful handling of data, and security - because staying on the right side of the law in the age of AI needs all four working as one.",
+      "reviewed": true,
+      "files": [
+        "src/components/sections/WhyUsSection.tsx"
+      ],
+      "updatedAt": "2026-07-07T19:12:14.733Z"
+    }
+  }
+}

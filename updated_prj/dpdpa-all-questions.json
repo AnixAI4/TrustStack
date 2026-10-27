@@ -1,0 +1,3834 @@
+[
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the primary objective of the Digital Personal Data Protection Act, 2023?",
+    "options": [
+      "To regulate all data processing in India",
+      "To balance the right to protection of personal data with the need to process such data",
+      "To prevent all cross-border data transfers",
+      "To establish a data localization mandate"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under DPDPA 2023, what is 'Personal Data'?",
+    "options": [
+      "Only biometric and financial information",
+      "Data about a natural person who is identifiable by or in relation to such data",
+      "Any data stored in electronic format",
+      "Only data collected with consent"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "When did the DPDPA 2023 receive Presidential assent?",
+    "options": [
+      "June 15, 2023",
+      "August 11, 2023",
+      "December 15, 2023",
+      "January 10, 2024"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the territorial scope of DPDPA?",
+    "options": [
+      "Applies only within India",
+      "Applies to processing in India and outside India if offering goods/services to Data Principals in India",
+      "Applies only to Indian companies",
+      "Applies only to government entities"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which constitutional judgment forms the foundation of the DPDPA, 2023?",
+    "options": [
+      "Maneka Gandhi v. Union of India",
+      "K.S. Puttaswamy v. Union of India",
+      "ADM Jabalpur v. Shivkant Shukla",
+      "Shreya Singhal v. Union of India"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which category of data is explicitly excluded from the scope of the DPDPA?",
+    "options": [
+      "Digitised personal data",
+      "Personal data processed by private companies",
+      "Anonymised data",
+      "Personal data processed by the State"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Does the DPDPA apply to personal data processed for household purposes?",
+    "options": [
+      "Yes, without exception",
+      "Yes, only if digital",
+      "No, personal or domestic purposes are exempt",
+      "Only if shared on social media"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which form of data triggers applicability of the DPDPA?",
+    "options": [
+      "Only paper-based records",
+      "Only biometric databases",
+      "Digital personal data or data digitised subsequently",
+      "Only government-held data"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Who is the primary rights-holder under the DPDPA?",
+    "options": [
+      "Data Fiduciary",
+      "Data Processor",
+      "Data Principal",
+      "Data Protection Board"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Does DPDPA protect data of companies and firms?",
+    "options": [
+      "Yes, all entities",
+      "Yes, listed companies only",
+      "No, it applies only to natural persons",
+      "Only startups"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which of the following best describes the nature of DPDPA?",
+    "options": [
+      "Criminal statute",
+      "Purely contractual framework",
+      "Rights-based data protection law",
+      "Cybercrime legislation"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Is intent of the data fiduciary relevant for determining applicability of DPDPA?",
+    "options": [
+      "Yes, intent is mandatory",
+      "Only in criminal cases",
+      "No, applicability depends on processing activity",
+      "Only for government entities"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which authority enforces compliance under the DPDPA?",
+    "options": [
+      "CERT-In",
+      "MeitY",
+      "Data Protection Board of India",
+      "Supreme Court of India"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Does DPDPA apply to non-digital data stored permanently in files?",
+    "options": [
+      "Yes, always",
+      "Yes, if consent exists",
+      "No, unless digitised",
+      "Only for government departments"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the legislative nature of penalties under DPDPA?",
+    "options": [
+      "Criminal imprisonment",
+      "Civil penalties without compensation",
+      "Administrative monetary penalties",
+      "Contractual damages"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which principle best reflects the philosophy of DPDPA?",
+    "options": [
+      "Absolute data localization",
+      "Consent at all costs",
+      "Balance between privacy and lawful processing",
+      "Government data ownership"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Does the DPDPA override the IT Act, 2000?",
+    "options": [
+      "Yes, fully repeals it",
+      "Only Section 43A",
+      "No, both operate concurrently",
+      "Only for private companies"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What happens if offline data is later digitised?",
+    "options": [
+      "DPDPA still does not apply",
+      "DPDPA applies prospectively",
+      "DPDPA applies once digitised",
+      "Only consent provisions apply"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which entity determines the purpose and means of processing?",
+    "options": [
+      "Data Processor",
+      "Data Principal",
+      "Data Fiduciary",
+      "Data Auditor"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Is harm mandatory to establish a DPDPA violation?",
+    "options": [
+      "Yes, harm must be proven",
+      "Only financial harm",
+      "No, breach of obligation is sufficient",
+      "Only reputational harm"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which body appoints members of the Data Protection Board?",
+    "options": [
+      "Supreme Court",
+      "Parliament",
+      "Central Government",
+      "Election Commission"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Does DPDPA recognise data ownership?",
+    "options": [
+      "Yes, Data Principal owns data",
+      "Yes, Government owns data",
+      "No, it recognises data rights, not ownership",
+      "Only companies own data"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which category of processing is exempt from DPDPA?",
+    "options": [
+      "Commercial analytics",
+      "Personal data for domestic purposes",
+      "Employee monitoring",
+      "Marketing databases"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Is DPDPA a technology-neutral law?",
+    "options": [
+      "No, applies only to AI systems",
+      "No, applies only to cloud platforms",
+      "Yes, applies regardless of technology used",
+      "Only applies to mobile apps"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under DPDPA, who is a 'Data Fiduciary'?",
+    "options": [
+      "The person whose data is being processed",
+      "Any person who determines the purpose and means of processing personal data",
+      "Only the Data Protection Board",
+      "Any IT company"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is a 'Data Processor' under DPDPA?",
+    "options": [
+      "The individual data subject",
+      "Any person who processes personal data on behalf of a Data Fiduciary",
+      "The Data Protection Board",
+      "Any government official"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which of the following is considered 'processing' under DPDPA?",
+    "options": [
+      "Only storage of data",
+      "Only deletion of data",
+      "Collection, storage, use, sharing, and deletion of data",
+      "Only sharing of data"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A US-based e-commerce company has no physical presence in India but sells products to Indian customers through its website. Does DPDPA apply?",
+    "options": [
+      "No, because the company has no offices in India",
+      "Yes, due to extraterritorial application under Section 3",
+      "Only if the company stores data in India",
+      "Only if annual sales exceed ₹100 crore"
+    ],
+    "correct": 1,
+    "module": 1,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the definition of 'Data Principal' under DPDPA?",
+    "options": [
+      "The person who controls the data",
+      "The natural person to whom the personal data relates",
+      "The Chief Data Officer",
+      "The Data Protection Board"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under DPDPA, can children's personal data be processed?",
+    "options": [
+      "No, never",
+      "Yes, with verifiable parental consent",
+      "Yes, without any restrictions",
+      "Only for educational purposes"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What age is considered a 'child' under DPDPA?",
+    "options": [
+      "Under 16 years",
+      "Under 18 years",
+      "Under 21 years",
+      "As prescribed by the Central Government"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which body is responsible for enforcement of DPDPA?",
+    "options": [
+      "Supreme Court of India",
+      "Ministry of Electronics and IT",
+      "Data Protection Board of India",
+      "Reserve Bank of India"
+    ],
+    "correct": 2,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A hospital in Mumbai treats patients from Nepal and Bangladesh. When processing their medical data, does DPDPA apply?",
+    "options": [
+      "Yes, because processing occurs in India",
+      "No, because patients are not Indian citizens",
+      "Only for emergency treatments",
+      "Only if patients provide consent in writing"
+    ],
+    "correct": 0,
+    "module": 1,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the primary legal basis for processing personal data under DPDPA?",
+    "options": [
+      "Legitimate interest only",
+      "Consent of the Data Principal",
+      "Government authorization",
+      "Payment of fees"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Can personal data be processed for purposes other than the original purpose?",
+    "options": [
+      "Yes, anytime without restrictions",
+      "Only with fresh consent or if covered under specified legitimate uses",
+      "Never allowed under any circumstances",
+      "Only with Data Protection Board approval"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Section 7, which of these is a 'specified purpose' for processing without consent?",
+    "options": [
+      "Marketing purposes",
+      "Functions of the State",
+      "Third-party advertising",
+      "Employee monitoring"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What does 'anonymization' mean under DPDPA?",
+    "options": [
+      "Encrypting personal data",
+      "Irreversible process of transforming data such that a Data Principal cannot be identified",
+      "Temporarily hiding identifiers",
+      "Storing data in a secure location"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Is anonymized data covered under DPDPA?",
+    "options": [
+      "Yes, fully regulated",
+      "No, because Data Principals cannot be identified",
+      "Only if re-identification is possible",
+      "Only for commercial purposes"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] An Indian fintech startup uses AWS (US-based) to store customer financial data. The fintech is the Data Fiduciary. What is AWS?",
+    "options": [
+      "Also a Data Fiduciary",
+      "A Data Processor",
+      "A Data Principal",
+      "Not covered under DPDPA"
+    ],
+    "correct": 1,
+    "module": 1,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "How many sections are there in the DPDPA 2023?",
+    "options": [
+      "33 sections",
+      "44 sections",
+      "55 sections",
+      "66 sections"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "When were the DPDP Rules 2025 notified?",
+    "options": [
+      "January 3, 2025",
+      "November 13, 2025",
+      "December 1, 2024",
+      "February 1, 2025"
+    ],
+    "correct": 1,
+    "module": 1
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which of the following is NOT a right of Data Principals under DPDPA?",
+    "options": [
+      "Right to correction",
+      "Right to erasure",
+      "Right to data portability",
+      "Right to nominate"
+    ],
+    "correct": 2,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "When must a Data Fiduciary provide a notice to Data Principals?",
+    "options": [
+      "Only when requested by the Data Principal",
+      "Before or at the time of asking for consent",
+      "Within 30 days of data collection",
+      "Only if processing sensitive personal data"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What must be included in the notice to Data Principals under Section 5?",
+    "options": [
+      "Only the Data Fiduciary's name",
+      "Personal data being collected, purpose, manner of exercising rights, and grievance redressal",
+      "Only the purpose of processing",
+      "Only contact details"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Section 6, valid consent must be which of the following?",
+    "options": [
+      "Implied, general, and permanent",
+      "Free, specific, informed, unambiguous, and involve clear affirmative action",
+      "Written, notarized, and witnessed",
+      "Verbal and recorded"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] An e-commerce app has a pre-ticked checkbox that says 'I agree to share my data with partners for marketing.' Is this valid consent?",
+    "options": [
+      "Yes, if users can untick it",
+      "No, consent must involve clear affirmative action (user must actively tick)",
+      "Yes, if mentioned in terms & conditions",
+      "Only valid for existing customers"
+    ],
+    "correct": 1,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Can consent be withdrawn under DPDPA?",
+    "options": [
+      "No, consent is permanent",
+      "Yes, as easily as it was given",
+      "Only with Data Protection Board approval",
+      "Only after 30 days"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the Right to Correction under Section 12?",
+    "options": [
+      "Right to sue for damages",
+      "Right to correct inaccurate or misleading personal data",
+      "Right to modify consent",
+      "Right to delete the Data Fiduciary's records"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the Right to Erasure under Section 10?",
+    "options": [
+      "Right to erase the Data Fiduciary's servers",
+      "Right to require cessation of data processing and deletion when consent is withdrawn or purpose is fulfilled",
+      "Right to delete other people's data",
+      "Right to erase public records"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A user withdraws consent for a shopping app to use their data for recommendations. The app says it will take 90 days to stop processing. Is this compliant?",
+    "options": [
+      "Yes, 90 days is reasonable",
+      "No, processing must cease promptly unless another legal basis exists",
+      "Yes, if mentioned in privacy policy",
+      "Only if the user agrees to the delay"
+    ],
+    "correct": 1,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the Right to Grievance Redressal under Section 13?",
+    "options": [
+      "Right to file criminal complaints",
+      "Right to seek remedies for failure to comply with DPDPA provisions",
+      "Right to compensation from the government",
+      "Right to data portability"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the Right to Nominate under Section 14?",
+    "options": [
+      "Right to nominate a Data Fiduciary",
+      "Right to nominate another person to exercise rights in the event of death or incapacity",
+      "Right to nominate a lawyer",
+      "Right to nominate data for deletion"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Section 8, what are the obligations of a Data Fiduciary?",
+    "options": [
+      "Only to store data securely",
+      "Process lawfully, ensure accuracy, implement security safeguards, delete data upon purpose completion",
+      "Only to obtain consent",
+      "Only to respond to requests"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the purpose limitation principle under Section 4?",
+    "options": [
+      "Data can be used for any purpose",
+      "Personal data shall be processed only for lawful purposes for which consent was given",
+      "Purpose can be changed without notice",
+      "Purpose is decided by the Data Protection Board"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A telecom company collects customer data for billing purposes but starts using it for targeted advertising without fresh consent. Is this allowed?",
+    "options": [
+      "Yes, if disclosed in privacy policy",
+      "No, violates purpose limitation - fresh consent is required",
+      "Yes, if customers are notified",
+      "Only for existing customers"
+    ],
+    "correct": 1,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Section 8(3), what is the accuracy obligation?",
+    "options": [
+      "Data must be 100% perfect",
+      "Data Fiduciary must ensure completeness, accuracy, and consistency of personal data",
+      "Only financial data must be accurate",
+      "Accuracy is optional"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is data minimization under Section 4?",
+    "options": [
+      "Collecting as much data as possible",
+      "Collecting only data necessary for the specified purpose",
+      "Minimizing storage costs",
+      "Collecting data from minimal sources"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Section 8(7), when must personal data be deleted?",
+    "options": [
+      "Never, data can be kept indefinitely",
+      "When it is no longer necessary for the purpose or consent is withdrawn",
+      "After 10 years",
+      "Only when requested by Data Principal"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A job portal keeps candidate data for 5 years after the hiring process ends 'for future opportunities.' Is this compliant without fresh consent?",
+    "options": [
+      "Yes, it's good practice",
+      "No, violates data retention principles - must delete or obtain fresh consent for new purpose",
+      "Yes, if mentioned in privacy policy",
+      "Only for successful candidates"
+    ],
+    "correct": 1,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What are 'reasonable security safeguards' under Section 8(5)?",
+    "options": [
+      "Only antivirus software",
+      "Measures to prevent data breaches, including technical, operational, and organizational measures",
+      "Only passwords",
+      "Only firewalls"
+    ],
+    "correct": 1,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Section 8(6), when must a Data Fiduciary notify a breach to the Board?",
+    "options": [
+      "Within 72 hours",
+      "As soon as reasonably possible after becoming aware",
+      "Within 30 days",
+      "Never, only Data Principals need notification"
+    ],
+    "correct": 0,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A mobile app uses pre-ticked boxes for accepting its privacy policy. Under DPDPA, is this valid consent?",
+    "options": [
+      "No, consent must be by clear affirmative action",
+      "Yes, if disclosed in the policy",
+      "Yes, if users can later opt out",
+      "Only for government apps"
+    ],
+    "correct": 0,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] An e-commerce platform bundles consent for marketing emails with account creation. Is this compliant?",
+    "options": [
+      "Yes, bundled consent is permitted",
+      "No, consent must be specific and granular",
+      "Only if emails are infrequent",
+      "Yes, for registered users"
+    ],
+    "correct": 1,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A hospital processes patient data during an emergency without consent. Is this lawful under DPDPA?",
+    "options": [
+      "Only if later consent is taken",
+      "Only for government hospitals",
+      "Yes, under legitimate use for medical emergency",
+      "No, consent is mandatory"
+    ],
+    "correct": 2,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] An employer processes employee attendance data without explicit consent. Is this allowed?",
+    "options": [
+      "Only if employees agree in writing",
+      "Yes, under legitimate use for employment purposes",
+      "No, consent is mandatory",
+      "Only for public sector employers"
+    ],
+    "correct": 1,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A fintech app continues processing personal data after consent has been withdrawn. Is this compliant?",
+    "options": [
+      "Yes, for analytics purposes",
+      "Only if anonymised",
+      "No, processing must stop after withdrawal",
+      "Yes, if data was already collected"
+    ],
+    "correct": 2,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data fiduciary seeks consent using vague language like 'for business purposes'. Is this valid?",
+    "options": [
+      "Yes, broad purposes are allowed",
+      "Only for startups",
+      "No, consent must be informed and specific",
+      "Yes, if explained elsewhere"
+    ],
+    "correct": 2,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A government department processes citizen data for subsidy distribution without consent. Is this lawful?",
+    "options": [
+      "Yes, as a State function under legitimate use",
+      "Only with parliamentary approval",
+      "No, consent is mandatory",
+      "Only if data is encrypted"
+    ],
+    "correct": 0,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company relies on consent obtained before DPDPA enforcement without updating its notice. Is this valid?",
+    "options": [
+      "Yes, old consent continues indefinitely",
+      "Only if users are informed orally",
+      "No, consent must meet DPDPA standards",
+      "Only for one year"
+    ],
+    "correct": 2,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A social media platform processes data of children without parental consent. Is this permitted?",
+    "options": [
+      "Only above age 13",
+      "Yes, if the child agreed",
+      "Only for educational content",
+      "No, verifiable parental consent is required"
+    ],
+    "correct": 3,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A telecom company processes call data records to comply with a court order. Is consent required?",
+    "options": [
+      "Only if data is sensitive",
+      "Yes, consent is mandatory",
+      "Only with DPB approval",
+      "No, processing is permitted for legal obligation"
+    ],
+    "correct": 3,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A user clicks 'Agree' without reading the notice. Is consent still valid?",
+    "options": [
+      "Yes, if notice was accessible",
+      "No, reading is mandatory",
+      "Only if highlighted",
+      "Only for non-sensitive data"
+    ],
+    "correct": 0,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company collects personal data for one purpose and later uses it for another without consent. Is this lawful?",
+    "options": [
+      "Yes, for internal use",
+      "No, fresh consent is required",
+      "Yes, if related purpose",
+      "Only if anonymised"
+    ],
+    "correct": 1,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A food delivery app processes address data after order completion for analytics. Is this allowed?",
+    "options": [
+      "Only if within stated purpose or consent",
+      "Never allowed",
+      "Yes, always",
+      "Only with DPB approval"
+    ],
+    "correct": 0,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data fiduciary refuses service unless consent for marketing is given. Is this valid consent?",
+    "options": [
+      "Yes, service condition is allowed",
+      "Only for premium services",
+      "No, consent must be freely given",
+      "Only if disclosed"
+    ],
+    "correct": 2,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A bank processes KYC data to meet RBI requirements without consent. Is this lawful?",
+    "options": [
+      "Only with customer notice",
+      "Yes, under legal obligation",
+      "No, consent is mandatory",
+      "Only for public banks"
+    ],
+    "correct": 1,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data fiduciary fails to provide consent withdrawal mechanism. Is this compliant?",
+    "options": [
+      "Yes, if consent was once given",
+      "Yes, if stated in policy",
+      "Only for small entities",
+      "No, withdrawal must be as easy as giving consent"
+    ],
+    "correct": 3,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A logistics company processes delivery data after contract completion for dispute resolution. Is this permitted?",
+    "options": [
+      "Yes, under legitimate use",
+      "Only with fresh consent",
+      "No, consent expired",
+      "Only for government contracts"
+    ],
+    "correct": 0,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A user gives consent under pressure to avoid account suspension. Is consent valid?",
+    "options": [
+      "Yes, user agreed",
+      "No, consent must be free of coercion",
+      "Only if approved by DPB",
+      "Yes, if documented"
+    ],
+    "correct": 1,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company processes personal data for fraud prevention without consent. Is this lawful?",
+    "options": [
+      "Yes, under legitimate use",
+      "Only if anonymised",
+      "No, consent mandatory",
+      "Only for banks"
+    ],
+    "correct": 0,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A startup collects consent via long unreadable legal text. Is this compliant?",
+    "options": [
+      "Yes, length does not matter",
+      "Only if lawyer-drafted",
+      "Only for paid users",
+      "No, consent must be informed and clear"
+    ],
+    "correct": 3,
+    "module": 2,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "When must Data Principals be notified about a breach under Section 8(6)?",
+    "options": [
+      "Always, in all cases",
+      "Only if the breach is likely to cause harm to the Data Principal",
+      "Never, only the Board needs notification",
+      "Only for financial data breaches"
+    ],
+    "correct": 0,
+    "module": 2
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What threshold makes a Data Fiduciary a 'Significant Data Fiduciary' (SDF)?",
+    "options": [
+      "Processing data of 10,000 individuals",
+      "Annual revenue exceeding ₹500 crore",
+      "As notified by the Central Government based on prescribed parameters",
+      "Processing any sensitive personal data"
+    ],
+    "correct": 2,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the primary responsibility of a Data Protection Officer (DPO)?",
+    "options": [
+      "To manage IT infrastructure",
+      "To represent the Data Fiduciary before the Data Protection Board and ensure DPDPA compliance",
+      "To audit all third-party vendors",
+      "To approve all data processing activities"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Rule 13, which entities MUST appoint a Data Protection Officer (DPO)?",
+    "options": [
+      "All Data Fiduciaries",
+      "Only Significant Data Fiduciaries",
+      "Only government entities",
+      "Only companies with revenue > ₹100 crore"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What are the additional obligations for Significant Data Fiduciaries under Section 9?",
+    "options": [
+      "Pay higher fees only",
+      "Appoint DPO, conduct DPIA, conduct periodic audits, and other measures as prescribed",
+      "None, same as regular Data Fiduciaries",
+      "Only conduct audits"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A social media platform with 50 million Indian users has been notified as an SDF. What new obligations does it have?",
+    "options": [
+      "No additional obligations",
+      "Must appoint DPO, conduct DPIA, periodic audits, maintain processing records",
+      "Only pay higher penalties",
+      "Only faster breach notification"
+    ],
+    "correct": 1,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is a Data Protection Impact Assessment (DPIA)?",
+    "options": [
+      "Financial impact analysis",
+      "Assessment of potential risks to rights of Data Principals from processing activities",
+      "Assessment of IT infrastructure",
+      "Market research"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Rule 13, when must an SDF conduct a DPIA?",
+    "options": [
+      "Never required",
+      "Before undertaking processing likely to involve significant risk to Data Principals",
+      "After a breach occurs",
+      "Every 5 years"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the purpose of periodic audits for SDFs?",
+    "options": [
+      "Financial compliance only",
+      "To assess compliance with DPDPA provisions and identify vulnerabilities",
+      "Tax purposes",
+      "Marketing assessment"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] An e-commerce company designated as SDF wants to launch a new AI-powered facial recognition payment system. What must it do first?",
+    "options": [
+      "Launch immediately if technically ready",
+      "Conduct a Data Protection Impact Assessment (DPIA) to assess risks",
+      "Only obtain consent from users",
+      "Pay a fee to the Data Protection Board"
+    ],
+    "correct": 1,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A user asks a company whether their personal data is being processed and requests a summary. Which right is being exercised?",
+    "options": [
+      "Right to erasure",
+      "Right to grievance redressal",
+      "Right to access information",
+      "Right to correction"
+    ],
+    "correct": 2,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A Data Principal requests correction of an incorrect address, but the company ignores the request. Which right is violated?",
+    "options": [
+      "Right to nomination",
+      "Right to access",
+      "Right to correction and erasure",
+      "Right to consent withdrawal"
+    ],
+    "correct": 2,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A user withdraws consent but the data fiduciary retains the data without lawful basis. Which right applies?",
+    "options": [
+      "Right to erasure",
+      "Right to information",
+      "Right to grievance redressal",
+      "Right to correction"
+    ],
+    "correct": 0,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company provides incomplete information in response to an access request. Which right is impacted?",
+    "options": [
+      "Right to grievance redressal",
+      "Right to access information",
+      "Right to nomination",
+      "Right to correction"
+    ],
+    "correct": 1,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A Data Principal nominates their spouse to exercise rights after death. Which right is this?",
+    "options": [
+      "Right to access",
+      "Right to correction",
+      "Right to nomination",
+      "Right to erasure"
+    ],
+    "correct": 2,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company refuses to delete personal data even after consent withdrawal and purpose completion. Which right is violated?",
+    "options": [
+      "Right to erasure",
+      "Right to access",
+      "Right to nomination",
+      "Right to grievance redressal"
+    ],
+    "correct": 0,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A Data Principal files a complaint but the company does not respond within reasonable time. Which right applies?",
+    "options": [
+      "Right to information",
+      "Right to grievance redressal",
+      "Right to erasure",
+      "Right to correction"
+    ],
+    "correct": 1,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A platform refuses to correct inaccurate personal data citing internal policy. Which right is breached?",
+    "options": [
+      "Right to access",
+      "Right to grievance redressal",
+      "Right to correction",
+      "Right to nomination"
+    ],
+    "correct": 2,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A user requests information about third parties with whom their data is shared. Which right applies?",
+    "options": [
+      "Right to erasure",
+      "Right to access information",
+      "Right to nomination",
+      "Right to correction"
+    ],
+    "correct": 1,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A Data Principal nominates a legal heir using an online portal. Is this valid under DPDPA?",
+    "options": [
+      "No, nomination must be physical",
+      "Only for government services",
+      "Yes, digital nomination is permitted",
+      "Only after DPB approval"
+    ],
+    "correct": 2,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A user seeks deletion of data that is still required under law. Can the fiduciary refuse?",
+    "options": [
+      "Yes, legal obligation overrides erasure",
+      "No, erasure is absolute",
+      "Only with DPB approval",
+      "Only for government data"
+    ],
+    "correct": 0,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company demands a fee for correcting inaccurate personal data. Is this compliant?",
+    "options": [
+      "Yes, administrative fees are allowed",
+      "Only for repeated requests",
+      "No, correction must be free of charge",
+      "Only for private companies"
+    ],
+    "correct": 2,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A Data Principal requests data access in an unreadable format. Is the fiduciary compliant?",
+    "options": [
+      "Yes, format does not matter",
+      "Only if data is complete",
+      "No, information must be understandable",
+      "Only for technical users"
+    ],
+    "correct": 2,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A platform delays responding to a rights request indefinitely. Which remedy is available?",
+    "options": [
+      "Direct criminal complaint",
+      "Approach Data Protection Board after grievance",
+      "Immediate civil suit",
+      "No remedy exists"
+    ],
+    "correct": 1,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A user seeks erasure, but data has been anonymised. Is erasure still required?",
+    "options": [
+      "Yes, anonymised data must be erased",
+      "No, anonymised data is outside DPDPA scope",
+      "Only for sensitive data",
+      "Only with consent"
+    ],
+    "correct": 1,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company denies access request claiming trade secrets. Is blanket denial allowed?",
+    "options": [
+      "Yes, trade secrets override rights",
+      "Only with court order",
+      "No, limited disclosure must still be given",
+      "Only for startups"
+    ],
+    "correct": 2,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A Data Principal submits a correction request with supporting documents. What must the fiduciary do?",
+    "options": [
+      "Ignore unless court ordered",
+      "Verify and update data",
+      "Delete entire record",
+      "Forward to DPB"
+    ],
+    "correct": 1,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company requires Aadhaar to process a grievance request. Is this lawful?",
+    "options": [
+      "Yes, for identity verification",
+      "Only with government approval",
+      "No, excessive data collection violates proportionality",
+      "Only for financial services"
+    ],
+    "correct": 2,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A deceased user’s nominee requests account access. Which provision enables this?",
+    "options": [
+      "Right to access",
+      "Right to nomination",
+      "Right to erasure",
+      "Right to correction"
+    ],
+    "correct": 1,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company auto-closes grievance tickets without resolution. Which right is affected?",
+    "options": [
+      "Right to grievance redressal",
+      "Right to correction",
+      "Right to nomination",
+      "Right to erasure"
+    ],
+    "correct": 0,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is 'privacy by design' under DPDPA?",
+    "options": [
+      "Designing beautiful privacy policies",
+      "Integrating privacy considerations into the design of systems, processes, and products from the outset",
+      "Designing secure buildings",
+      "Graphic design for privacy notices"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Section 16, what is required when processing personal data outside India?",
+    "options": [
+      "Completely prohibited",
+      "Allowed to prescribed countries/territories with adequate data protection measures",
+      "Requires payment of fees",
+      "Requires individual permission for each transfer"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What are 'Standard Contractual Clauses' (SCCs) in the context of data transfers?",
+    "options": [
+      "Marketing contracts",
+      "Pre-approved contractual terms to ensure adequate protection for cross-border transfers",
+      "Employment contracts",
+      "Vendor payment terms"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] An Indian bank wants to use a US-based cloud provider for storing customer data. What safeguards are needed?",
+    "options": [
+      "None, cloud providers are automatically compliant",
+      "Data Processing Agreement ensuring DPDPA compliance, security measures, and proper transfer mechanisms",
+      "Only encryption",
+      "Only inform customers"
+    ],
+    "correct": 1,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is a 'Data Processing Agreement' (DPA)?",
+    "options": [
+      "Agreement between two Data Principals",
+      "Contract between Data Fiduciary and Data Processor defining terms of processing",
+      "Agreement with the Data Protection Board",
+      "Marketing agreement"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What are the minimum elements required in a Data Processing Agreement?",
+    "options": [
+      "Only payment terms",
+      "Scope of processing, processor obligations, data security, return/deletion provisions, sub-processor terms",
+      "Only confidentiality clause",
+      "Only termination clause"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Section 8(1), who is accountable for the Data Processor's compliance?",
+    "options": [
+      "The Data Processor alone",
+      "The Data Fiduciary remains accountable",
+      "The Data Protection Board",
+      "No one is accountable"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is a 'Record of Processing Activities' (RoPA)?",
+    "options": [
+      "Financial records",
+      "Documentation of all processing activities including purposes, data categories, recipients, and retention",
+      "Employee attendance records",
+      "Marketing campaign records"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] During an audit, the Data Protection Board asks an SDF to produce its Record of Processing Activities (RoPA). The SDF doesn't have one. What is the consequence?",
+    "options": [
+      "Warning only for first offense",
+      "Penalty up to ₹250 crore for non-compliance with Section 10 obligations",
+      "No consequence",
+      "1-year grace period given"
+    ],
+    "correct": 1,
+    "module": 3,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the role of the Consent Manager under DPDPA?",
+    "options": [
+      "Manages employee attendance",
+      "Helps Data Principals give, manage, review, and withdraw consent through interoperable platforms",
+      "Manages financial consents only",
+      "Government official"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Who can register as a Consent Manager under DPDPA?",
+    "options": [
+      "Any individual",
+      "Entities registered with the Data Protection Board meeting prescribed requirements",
+      "Only government entities",
+      "Only banks"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the difference between a Data Fiduciary and a Consent Manager?",
+    "options": [
+      "No difference, same role",
+      "Data Fiduciary processes data; Consent Manager facilitates consent management for Data Principals",
+      "Consent Manager is always a government entity",
+      "Data Fiduciary only stores data"
+    ],
+    "correct": 1,
+    "module": 3
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the maximum penalty that the Data Protection Board can impose on a Data Fiduciary for non-compliance?",
+    "options": [
+      "₹100 crore",
+      "₹250 crore",
+      "₹500 crore",
+      "As determined by the Board based on severity"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Within what timeframe must a Data Fiduciary notify a personal data breach to the Board?",
+    "options": [
+      "Immediately upon discovery",
+      "Within 72 hours",
+      "As soon as reasonably possible",
+      "Within 7 days"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under which section can penalties be imposed by the Data Protection Board?",
+    "options": [
+      "Section 29",
+      "Section 33",
+      "Section 40",
+      "Section 50"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What factors does the Data Protection Board consider when determining penalty amounts?",
+    "options": [
+      "Only the company's revenue",
+      "Nature, gravity, and duration of breach; type and nature of personal data; repetitive nature; actions taken to mitigate harm",
+      "Only the number of users affected",
+      "Random determination"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A fintech startup suffers a data breach affecting 10,000 customers but notifies the Board within 2 hours and Data Principals within 24 hours. All affected were given 1 year of credit monitoring. How might this affect the penalty?",
+    "options": [
+      "Maximum penalty automatically applied",
+      "Prompt notification and mitigation efforts are likely to reduce the penalty significantly",
+      "No penalty since notification was fast",
+      "Penalty doubled for having a breach"
+    ],
+    "correct": 1,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Can the Data Protection Board issue directions to Data Fiduciaries?",
+    "options": [
+      "No, only penalties",
+      "Yes, can issue directions to ensure compliance and protect Data Principal rights",
+      "Only to government entities",
+      "Only after court approval"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the appeal mechanism under DPDPA?",
+    "options": [
+      "No appeals allowed",
+      "Appeals to Telecom Disputes Settlement and Appellate Tribunal (TDSAT)",
+      "Appeals to Supreme Court directly",
+      "Appeals to Ministry of IT"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Within what time period can an appeal be filed against a Data Protection Board order?",
+    "options": [
+      "30 days",
+      "60 days",
+      "90 days",
+      "6 months"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A Data Fiduciary is penalized ₹50 crore by the Board. The company believes the penalty is excessive. What is its recourse?",
+    "options": [
+      "Must pay, no recourse",
+      "File appeal to TDSAT within 60 days",
+      "File review petition with the Board",
+      "Approach the Prime Minister's Office"
+    ],
+    "correct": 1,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the role of the Data Protection Board of India?",
+    "options": [
+      "Only collecting penalties",
+      "Enforcement, adjudication of complaints, imposing penalties, issuing directions, and protecting Data Principal rights",
+      "Only policy making",
+      "Only conducting awareness programs"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "How is the Data Protection Board constituted?",
+    "options": [
+      "Single member",
+      "Chairperson and members (whole-time and part-time) appointed by Central Government",
+      "Elected by Data Fiduciaries",
+      "Permanent bureaucrats"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Can Data Principals file complaints directly with the Data Protection Board?",
+    "options": [
+      "No, must go through courts only",
+      "Yes, Data Principals can file complaints regarding violations of their rights",
+      "Only through Consent Managers",
+      "Only if damages exceed ₹1 lakh"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A user's request for data erasure is ignored by an e-commerce platform for 90 days despite multiple follow-ups. What can the user do?",
+    "options": [
+      "Nothing, must wait indefinitely",
+      "File a complaint with the Data Protection Board for violation of Right to Erasure",
+      "File criminal case directly",
+      "Approach consumer court only"
+    ],
+    "correct": 1,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the penalty for non-compliance with Board directions?",
+    "options": [
+      "No specific penalty",
+      "Up to ₹200 crore",
+      "Only warning",
+      "₹10 lakh"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company collects personal data without publishing a privacy notice. Which obligation under DPDPA is violated?",
+    "options": [
+      "Duty to ensure data accuracy",
+      "Duty to provide notice",
+      "Duty to minimise data",
+      "Duty to appoint DPO"
+    ],
+    "correct": 1,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data fiduciary stores outdated customer information leading to incorrect service delivery. Which obligation is breached?",
+    "options": [
+      "Data minimisation",
+      "Consent obligation",
+      "Data accuracy obligation",
+      "Grievance redressal"
+    ],
+    "correct": 2,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A startup collects excessive personal data unrelated to its service. Which principle is violated?",
+    "options": [
+      "Data minimisation",
+      "Purpose limitation",
+      "Consent withdrawal",
+      "Security safeguard"
+    ],
+    "correct": 0,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data fiduciary fails to implement reasonable security safeguards and suffers a breach. Which obligation applies?",
+    "options": [
+      "Notice obligation",
+      "Security safeguard obligation",
+      "Consent obligation",
+      "Nomination obligation"
+    ],
+    "correct": 1,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company does not delete personal data even after the purpose is fulfilled. Which duty is violated?",
+    "options": [
+      "Duty to erase personal data",
+      "Duty to appoint DPO",
+      "Duty to notify breach",
+      "Duty to obtain consent"
+    ],
+    "correct": 0,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A Significant Data Fiduciary fails to appoint a Data Protection Officer. Is this compliant?",
+    "options": [
+      "Yes, DPO is optional",
+      "Only required for government entities",
+      "No, appointment of DPO is mandatory",
+      "Only for foreign companies"
+    ],
+    "correct": 2,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data processor uses personal data for its own analytics without permission. Which rule is violated?",
+    "options": [
+      "Processor limitation obligation",
+      "Consent obligation",
+      "Breach notification rule",
+      "Nomination rule"
+    ],
+    "correct": 0,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A fiduciary outsources processing but fails to ensure contractual safeguards. What is the consequence?",
+    "options": [
+      "Processor bears full liability",
+      "No consequence",
+      "Fiduciary remains responsible",
+      "Only DPB is responsible"
+    ],
+    "correct": 2,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company does not publish grievance redressal contact details. Which obligation is breached?",
+    "options": [
+      "Security obligation",
+      "Grievance redressal obligation",
+      "Consent obligation",
+      "Data accuracy obligation"
+    ],
+    "correct": 1,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A fiduciary continues processing data despite unresolved grievance. Is this allowed?",
+    "options": [
+      "Yes, grievances do not affect processing",
+      "Only for public interest",
+      "No, fiduciary must address grievances promptly",
+      "Only for large companies"
+    ],
+    "correct": 2,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company does not conduct Data Protection Impact Assessment despite high-risk processing. Is this compliant?",
+    "options": [
+      "Yes, DPIA is optional",
+      "Only required outside India",
+      "No, DPIA is mandatory for significant fiduciaries",
+      "Only after breach"
+    ],
+    "correct": 2,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A fiduciary delays breach notification to affected users. Which obligation is violated?",
+    "options": [
+      "Breach notification obligation",
+      "Data minimisation",
+      "Consent requirement",
+      "Nomination obligation"
+    ],
+    "correct": 0,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data fiduciary uses personal data beyond the stated purpose. Which duty is breached?",
+    "options": [
+      "Purpose limitation obligation",
+      "Security safeguard",
+      "Nomination duty",
+      "Grievance handling"
+    ],
+    "correct": 0,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A Significant Data Fiduciary does not appoint an independent auditor. Is this compliant?",
+    "options": [
+      "Yes, audits are voluntary",
+      "Only required for banks",
+      "No, periodic audits are mandatory",
+      "Only after breach"
+    ],
+    "correct": 2,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A fiduciary collects data lawfully but stores it indefinitely. Which principle is violated?",
+    "options": [
+      "Storage limitation",
+      "Consent obligation",
+      "Data accuracy",
+      "Security safeguard"
+    ],
+    "correct": 0,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data processor sub-contracts processing without informing the fiduciary. Is this allowed?",
+    "options": [
+      "Yes, processors are independent",
+      "Only for cloud providers",
+      "No, fiduciary authorisation is required",
+      "Only for government contracts"
+    ],
+    "correct": 2,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company fails to publish details of its DPO on its website. Which obligation applies?",
+    "options": [
+      "Notice obligation",
+      "Security obligation",
+      "DPO disclosure obligation",
+      "Consent withdrawal obligation"
+    ],
+    "correct": 2,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A fiduciary does not verify age before processing children’s data. Is this compliant?",
+    "options": [
+      "Yes, age verification is optional",
+      "Only for social media",
+      "No, reasonable verification is required",
+      "Only for foreign platforms"
+    ],
+    "correct": 2,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data fiduciary ignores DPB directions during inquiry. What is the implication?",
+    "options": [
+      "No impact",
+      "Possible monetary penalty",
+      "Only warning issued",
+      "Only civil liability"
+    ],
+    "correct": 1,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company does not document its data protection measures. Is this compliant?",
+    "options": [
+      "Yes, documentation is optional",
+      "Only required after breach",
+      "No, accountability requires documentation",
+      "Only for government bodies"
+    ],
+    "correct": 2,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the penalty for failure to implement reasonable security safeguards?",
+    "options": [
+      "₹50 crore",
+      "Up to ₹250 crore",
+      "₹10 crore",
+      "No specific penalty"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the penalty for failure to notify a breach to the Board or Data Principals?",
+    "options": [
+      "₹100 crore",
+      "Up to ₹200 crore",
+      "₹50 crore",
+      "Warning only"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A healthcare provider suffers a ransomware attack exposing patient records but delays notification to the Board by 45 days fearing reputational damage. What are the consequences?",
+    "options": [
+      "Only a warning for first offense",
+      "Penalty up to ₹200 crore for breach notification failure, plus penalties for security safeguard failures",
+      "No consequence if data is eventually recovered",
+      "Penalty waived if ransom is paid"
+    ],
+    "correct": 1,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the penalty for processing children's personal data in contravention of Section 9?",
+    "options": [
+      "₹50 crore",
+      "Up to ₹200 crore",
+      "₹100 crore",
+      "Warning only"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Can criminal prosecution be initiated for DPDPA violations?",
+    "options": [
+      "Yes, for all violations",
+      "No, DPDPA provides only civil penalties through the Board",
+      "Only for breaches affecting > 1 million users",
+      "Only if approved by Supreme Court"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the enforcement timeline prescribed in the DPDP Rules 2025?",
+    "options": [
+      "Immediate from notification date",
+      "Sections 3-17 (core provisions) by May 13, 2027 (18 months)",
+      "Full enforcement from January 1, 2030",
+      "No specific timeline"
+    ],
+    "correct": 1,
+    "module": 4
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A startup incorporated in 2026 claims DPDPA doesn't apply to it because it wasn't registered when the Act was passed. Is this correct?",
+    "options": [
+      "Yes, only entities existing in 2023 are covered",
+      "No, DPDPA applies to all entities processing personal data after enforcement dates, regardless of incorporation date",
+      "Yes, 5-year grandfather clause exists",
+      "Only if revenue exceeds threshold"
+    ],
+    "correct": 1,
+    "module": 4,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "In data mapping, what does RoPA stand for?",
+    "options": [
+      "Record of Processing Activities",
+      "Register of Personal Attributes",
+      "Record of Privacy Assessments",
+      "Register of Processing Authorities"
+    ],
+    "correct": 0,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What are the 5 essential elements of valid consent under Section 6 of DPDPA?",
+    "options": [
+      "Written, Documented, Archived, Revocable, Specific",
+      "Free, Specific, Informed, Unambiguous, Withdrawable",
+      "Explicit, Granular, Time-bound, Renewable, Recorded",
+      "Voluntary, Clear, Documented, Limited, Revocable"
+    ],
+    "correct": 1,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "In a consent register, which of these fields is most critical for DPDPA compliance?",
+    "options": [
+      "IP address of user",
+      "Timestamp and withdrawal capability",
+      "Device fingerprint",
+      "Browser type"
+    ],
+    "correct": 1,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] You are building a consent management system for an e-commerce platform. Which feature is mandatory under DPDPA?",
+    "options": [
+      "Biometric authentication for consent",
+      "Ability to withdraw consent as easily as it was given",
+      "Consent valid for lifetime by default",
+      "Consent stored only locally on user device"
+    ],
+    "correct": 1,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Rule 13, when is a Data Protection Impact Assessment (DPIA) mandatory?",
+    "options": [
+      "For all data processing activities",
+      "Only for cross-border transfers",
+      "For Significant Data Fiduciaries processing certain data",
+      "When processing more than 1 million records"
+    ],
+    "correct": 2,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "In a risk assessment matrix, what is typically a 'High Risk' score range?",
+    "options": [
+      "1-4",
+      "5-9",
+      "10-15",
+      "16-25"
+    ],
+    "correct": 2,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company fails to implement reasonable security safeguards leading to a major breach. What is the likely consequence under DPDPA?",
+    "options": [
+      "Criminal prosecution of directors",
+      "Warning only",
+      "Monetary penalty imposed by the Data Protection Board",
+      "Immediate shutdown of business"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data fiduciary repeatedly ignores directions issued by the Data Protection Board. What action can be taken?",
+    "options": [
+      "Only advisory notice",
+      "Imposition of monetary penalty",
+      "Civil imprisonment",
+      "Automatic license cancellation"
+    ],
+    "correct": 1,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A Significant Data Fiduciary fails to appoint a Data Protection Officer despite notification. What follows?",
+    "options": [
+      "No action unless breach occurs",
+      "Only public warning",
+      "Penalty as prescribed under the Act",
+      "Criminal FIR registration"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company delays breach notification causing harm to users. Which enforcement mechanism applies?",
+    "options": [
+      "Adjudication by Data Protection Board",
+      "Civil court suit only",
+      "Criminal prosecution under IPC",
+      "Consumer court action"
+    ],
+    "correct": 0,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data fiduciary violates multiple provisions in a single incident. How are penalties determined?",
+    "options": [
+      "One penalty per incident",
+      "Highest penalty only",
+      "Separate penalties for each violation",
+      "No penalty for first offence"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A startup argues inability to pay penalty due to financial hardship. Is this a valid defence?",
+    "options": [
+      "Yes, hardship exempts liability",
+      "Only for MSMEs",
+      "No, financial status does not negate liability",
+      "Only for first-time offenders"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company challenges a penalty imposed by the Data Protection Board. Where can it appeal?",
+    "options": [
+      "High Court directly",
+      "Supreme Court",
+      "Telecom Disputes Settlement Appellate Tribunal",
+      "Consumer Forum"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data fiduciary provides false information during a DPB inquiry. What is the consequence?",
+    "options": [
+      "No consequence",
+      "Reduced penalty",
+      "Higher penalty for non-cooperation",
+      "Only written warning"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A breach occurs despite best security measures. Is penalty automatic?",
+    "options": [
+      "Yes, strict liability applies",
+      "No, DPB considers mitigating factors",
+      "Only for significant fiduciaries",
+      "Only if harm is proven"
+    ],
+    "correct": 1,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company fails to comply with DPB summons. What power does the Board have?",
+    "options": [
+      "Arrest powers",
+      "Impose monetary penalty",
+      "Issue criminal warrant",
+      "Cancel company registration"
+    ],
+    "correct": 1,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] Can compensation be awarded to Data Principals under DPDPA?",
+    "options": [
+      "Yes, by the DPB",
+      "Yes, by civil courts",
+      "No, DPDPA provides penalties, not compensation",
+      "Only by Supreme Court"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company commits the same violation multiple times. How does DPB respond?",
+    "options": [
+      "Issue only warnings",
+      "Ignore repeat offences",
+      "Consider aggravating factors for higher penalty",
+      "Bar business operations permanently"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A fiduciary claims lack of awareness of DPDPA provisions. Is ignorance a defence?",
+    "options": [
+      "Yes, for first year",
+      "Only for small companies",
+      "No, ignorance of law is not a defence",
+      "Only if disclosure was absent"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A data processor is responsible for breach caused by its negligence. Who is penalised?",
+    "options": [
+      "Only processor",
+      "Only fiduciary",
+      "Both may be held accountable",
+      "Neither"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] What is the maximum penalty that can be imposed under DPDPA?",
+    "options": [
+      "₹100 crore",
+      "₹250 crore",
+      "₹500 crore",
+      "Unlimited"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] Can DPB initiate action without a complaint from a Data Principal?",
+    "options": [
+      "No, complaint is mandatory",
+      "Yes, Board can act suo motu",
+      "Only with court direction",
+      "Only for government entities"
+    ],
+    "correct": 1,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company settles grievance but violation already occurred. Can DPB still impose penalty?",
+    "options": [
+      "No, settlement bars penalty",
+      "Only if user insists",
+      "Yes, regulatory action is independent",
+      "Only for significant fiduciaries"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A fiduciary voluntarily reports a breach promptly. How does DPB treat this?",
+    "options": [
+      "Mandatory maximum penalty",
+      "No inquiry conducted",
+      "As a mitigating factor",
+      "As an admission of guilt only"
+    ],
+    "correct": 2,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A company fails to pay imposed penalty within stipulated time. What can follow?",
+    "options": [
+      "No further action",
+      "Recovery proceedings as per law",
+      "Automatic imprisonment",
+      "Immediate shutdown"
+    ],
+    "correct": 1,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A Data Principal files a frivolous complaint. What power does DPB have?",
+    "options": [
+      "Ignore complaint",
+      "Penalise the Data Principal",
+      "Refer matter to police",
+      "Mandate mediation"
+    ],
+    "correct": 1,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "In the DPIA process, what comes immediately after 'Risk Identification'?",
+    "options": [
+      "Documentation & Review",
+      "Mitigation Design",
+      "Risk Assessment",
+      "Compliance Check"
+    ],
+    "correct": 2,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] Your company wants to implement a new employee monitoring system using AI-powered cameras. Before deployment, what should you conduct?",
+    "options": [
+      "Market research only",
+      "Data Protection Impact Assessment (DPIA) to evaluate privacy risks",
+      "Financial feasibility study only",
+      "No assessment needed if employees are informed"
+    ],
+    "correct": 1,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Section 8(6), when must a Data Fiduciary notify Data Principals about a breach?",
+    "options": [
+      "Always, within 72 hours",
+      "Only if harm is likely to be caused",
+      "Never, only the Board needs notification",
+      "Within 30 days in all cases"
+    ],
+    "correct": 0,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the first phase in the 6-phase incident response lifecycle?",
+    "options": [
+      "Containment",
+      "Detection & Identification",
+      "Assessment & Triage",
+      "Eradication & Recovery"
+    ],
+    "correct": 1,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Rule 6, what characteristics must security safeguards have?",
+    "options": [
+      "Expensive and complex",
+      "Comprehensive, appropriate, effective, and documented",
+      "Outsourced to third parties",
+      "Annual review only"
+    ],
+    "correct": 1,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which encryption standard is recommended for data at rest?",
+    "options": [
+      "DES",
+      "MD5",
+      "AES-256",
+      "SHA-1"
+    ],
+    "correct": 2,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] Your database containing 500,000 customer records is stored without encryption. A disgruntled employee copies it to a USB drive. What DPDPA violations occurred?",
+    "options": [
+      "None, employee theft is not covered",
+      "Failure to implement reasonable security safeguards (Section 8(5)) - penalty up to ₹250 crore",
+      "Only breach notification failure",
+      "No violation if data is recovered"
+    ],
+    "correct": 1,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "According to Section 8(8), who is accountable for Data Processors?",
+    "options": [
+      "The Data Processor themselves",
+      "The Data Protection Board",
+      "The Data Fiduciary",
+      "The Data Principal"
+    ],
+    "correct": 2,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What are the 3 most essential clauses in a Data Processing Agreement (DPA)?",
+    "options": [
+      "Payment terms, SLAs, Termination",
+      "Scope of Processing, Processor Obligations, Data Return/Deletion",
+      "Insurance, Indemnity, Warranties",
+      "Audit rights, Penalties, Force majeure"
+    ],
+    "correct": 1,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "In vendor risk tiering, which tier requires SOC 2 Type II compliance?",
+    "options": [
+      "Low tier vendors",
+      "Medium tier vendors",
+      "High tier vendors",
+      "Critical tier vendors"
+    ],
+    "correct": 3,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] You're selecting a cloud vendor to process sensitive customer data. The vendor has ISO 27001 but no SOC 2. What should you do?",
+    "options": [
+      "Proceed, ISO 27001 is sufficient",
+      "Request SOC 2 Type II certification OR conduct detailed security assessment before onboarding",
+      "Reject immediately",
+      "No security requirements needed for cloud vendors"
+    ],
+    "correct": 1,
+    "module": 5,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the recommended frequency for reviewing access controls?",
+    "options": [
+      "Monthly",
+      "Quarterly",
+      "Annually",
+      "Only when incidents occur"
+    ],
+    "correct": 1,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is 'Machine Unlearning' in the context of Data Principal rights?",
+    "options": [
+      "Deleting AI models completely",
+      "Removing specific data's influence from trained models",
+      "Preventing AI from learning new data",
+      "Disabling machine learning features"
+    ],
+    "correct": 1,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What does 'Technical Safeguard' encompass in the context of Rule 6?",
+    "options": [
+      "Only firewall and antivirus",
+      "Encryption, access control, network security, logging, data masking, backup",
+      "Physical security measures only",
+      "Employee training programs"
+    ],
+    "correct": 1,
+    "module": 5
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "In the AI lifecycle under DPDPA, how many stages are typically identified?",
+    "options": [
+      "4 stages",
+      "6 stages",
+      "8 stages",
+      "10 stages"
+    ],
+    "correct": 2,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the core challenge of applying DPDPA's data minimization principle to AI systems?",
+    "options": [
+      "AI doesn't use personal data",
+      "Tension between 'more data = better models' and 'collect only necessary data'",
+      "AI systems are exempt from minimization",
+      "Minimization only applies to training, not inference"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which privacy-preserving ML technique allows training models without centralizing raw data?",
+    "options": [
+      "Differential Privacy",
+      "Federated Learning",
+      "Homomorphic Encryption",
+      "Synthetic Data Generation"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What does k-anonymity achieve in ML training data?",
+    "options": [
+      "Encrypts all data fields",
+      "Ensures each group has at least k individuals, making re-identification difficult",
+      "Removes all identifiers completely",
+      "Adds random noise to data"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A hospital wants to train an AI model for disease prediction using patient records. Under DPDPA, what is the compliance pathway?",
+    "options": [
+      "Can use data freely for medical research",
+      "Must obtain explicit consent OR use anonymized data OR rely on legitimate medical purpose exemption with safeguards",
+      "AI training is completely prohibited for medical data",
+      "No restrictions for hospitals"
+    ],
+    "correct": 1,
+    "module": 6,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "When is consent required for AI processing under DPDPA?",
+    "options": [
+      "Always, for any AI use",
+      "Never, AI is exempt",
+      "For non-essential AI like marketing/profiling, but not for fraud detection",
+      "Only for AI using biometric data"
+    ],
+    "correct": 2,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What must be included in AI transparency notices to Data Principals?",
+    "options": [
+      "Complete source code of the algorithm",
+      "Meaningful information about logic, significance, and consequences",
+      "Only that AI is used, no details needed",
+      "Mathematical formulas of the model"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Which type of AI bias results from training data reflecting past discrimination?",
+    "options": [
+      "Measurement Bias",
+      "Historical Bias",
+      "Aggregation Bias",
+      "Evaluation Bias"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What does 'Demographic Parity' mean in algorithmic fairness?",
+    "options": [
+      "All demographics must be represented in training data",
+      "Positive outcome rate is equal across groups",
+      "AI must never use demographic data",
+      "Models must be retrained for each demographic"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] Your AI-powered loan approval system approves 70% of male applicants but only 45% of equally qualified female applicants. What DPDPA issue exists?",
+    "options": [
+      "None, AI decisions are objective",
+      "Violates accuracy obligation (Section 8(3)) due to algorithmic bias creating unfair outcomes",
+      "Only an issue if explicitly programmed",
+      "Acceptable if disclosed to users"
+    ],
+    "correct": 1,
+    "module": 6,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is LIME in the context of Explainable AI (XAI)?",
+    "options": [
+      "Legal Information Management Engine",
+      "Local Interpretable Model-agnostic Explanations",
+      "Limited Information Minimal Exposure",
+      "Layered Intelligence Model Engine"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under Section 8(3), why is accuracy particularly important for AI systems?",
+    "options": [
+      "It's not, AI is exempt from accuracy requirements",
+      "Biased training data violates accuracy obligation; inaccurate data leads to unfair AI decisions",
+      "Accuracy only matters for traditional databases",
+      "AI systems self-correct so accuracy isn't a concern"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is a 'Model Extraction Attack'?",
+    "options": [
+      "Physically stealing servers containing models",
+      "Querying a model repeatedly to reconstruct it and steal IP/data insights",
+      "Extracting features from raw data",
+      "Removing trained models from production"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] Your company uses ChatGPT (free version) and employees paste customer emails with personal data for summarization. What is the DPDPA issue?",
+    "options": [
+      "No issue, ChatGPT is a tool like email",
+      "Unauthorized third-party data transfer without consent or DPA; personal data sent to OpenAI",
+      "Issue only if sensitive personal data is involved",
+      "OpenAI is a Data Fiduciary so no concern"
+    ],
+    "correct": 1,
+    "module": 6,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is the purpose of an 'AI Model Card'?",
+    "options": [
+      "Payment card for AI services",
+      "Standardized documentation of model's purpose, training data, performance, and limitations",
+      "Business card for AI developers",
+      "Credit scoring card generated by AI"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "Under EU AI Act risk classification, which AI systems are prohibited (Unacceptable Risk)?",
+    "options": [
+      "All AI systems in healthcare",
+      "Social scoring by governments, subliminal manipulation",
+      "Any AI using personal data",
+      "AI systems without human oversight"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What does 'Differential Privacy' add to data/models?",
+    "options": [
+      "Encryption",
+      "Carefully calibrated noise to prevent identification of individuals",
+      "Access controls",
+      "Watermarks"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "If a Data Principal exercises right to erasure, what challenge does this pose for AI?",
+    "options": [
+      "No challenge, just delete from database",
+      "Need to remove data's influence from already-trained models (machine unlearning)",
+      "Can ignore since AI is exempt",
+      "Only affects future model training"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "[SCENARIO] A fintech uses AI to predict loan defaults. A customer requests erasure of their data. The company says AI models can't be modified. Is this acceptable?",
+    "options": [
+      "Yes, technical impossibility is a valid excuse",
+      "No, must implement machine unlearning OR retrain model OR cease using that model for the individual",
+      "Yes, if mentioned in privacy policy",
+      "Only acceptable for older models"
+    ],
+    "correct": 1,
+    "module": 6,
+    "scenario": true
+  },
+  {
+    "from": "dpdpa-examination.html",
+    "bank": "questionBank",
+    "question": "What is 'prompt engineering for privacy' in the context of GenAI?",
+    "options": [
+      "Making prompts longer to confuse AI",
+      "Designing prompts that don't include personal data while still achieving the goal",
+      "Encrypting prompts before sending",
+      "Only using AI in private mode"
+    ],
+    "correct": 1,
+    "module": 6
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 1,
+    "question": "What does DPDPA stand for?",
+    "options": [
+      "Digital Personal Data Privacy Act",
+      "Digital Personal Data Protection Act",
+      "Data Protection and Digital Privacy Act",
+      "Digital Privacy Data Protection Act"
+    ],
+    "correct": 1,
+    "explanation": "DPDPA stands for Digital Personal Data Protection Act, 2023. This is India's primary legislation for data protection enacted to regulate the processing of digital personal data.",
+    "category": "Fundamentals",
+    "difficulty": "basic",
+    "reference": "DPDPA 2023, Title"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 2,
+    "question": "When did the Digital Personal Data Protection Act receive Presidential assent?",
+    "options": [
+      "August 11, 2022",
+      "August 11, 2023",
+      "December 15, 2023",
+      "January 1, 2024"
+    ],
+    "correct": 1,
+    "explanation": "The DPDPA received Presidential assent on August 11, 2023, marking a significant milestone in India's data protection framework.",
+    "category": "Fundamentals",
+    "difficulty": "basic",
+    "reference": "DPDPA 2023, Enactment Date"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 3,
+    "question": "Who is a 'Data Fiduciary' under DPDPA?",
+    "options": [
+      "Any person whose data is being processed",
+      "Any person who processes personal data",
+      "Any person who alone or in conjunction with others determines the purpose and means of processing personal data",
+      "Only government entities processing data"
+    ],
+    "correct": 2,
+    "explanation": "Section 2(i) defines Data Fiduciary as any person who alone or in conjunction with others determines the purpose and means of processing of personal data. This includes both public and private entities that control data processing activities.",
+    "category": "Definitions",
+    "difficulty": "basic",
+    "reference": "Section 2(i), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 4,
+    "question": "What is a 'Data Principal' according to DPDPA?",
+    "options": [
+      "The head of the Data Protection Board",
+      "The Chief Technology Officer of a company",
+      "The individual to whom the personal data relates",
+      "The Data Protection Officer"
+    ],
+    "correct": 2,
+    "explanation": "Section 2(j) defines Data Principal as the individual to whom the personal data relates. The Data Principal is the person whose data is being processed and who has rights under the Act.",
+    "category": "Definitions",
+    "difficulty": "basic",
+    "reference": "Section 2(j), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 5,
+    "question": "How many sections does the DPDPA 2023 contain?",
+    "options": [
+      "25 sections",
+      "44 sections",
+      "60 sections",
+      "100 sections"
+    ],
+    "correct": 1,
+    "explanation": "The Digital Personal Data Protection Act, 2023 is a compact legislation containing 44 sections organized across multiple chapters covering various aspects of data protection.",
+    "category": "Fundamentals",
+    "difficulty": "basic",
+    "reference": "DPDPA 2023, Structure"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 7,
+    "question": "What is 'Personal Data' under DPDPA?",
+    "options": [
+      "Only biometric information",
+      "Data about legal entities",
+      "Data about an individual who is identifiable by or in relation to such data",
+      "Only financial information"
+    ],
+    "correct": 2,
+    "explanation": "Section 2(t) defines Personal Data as data about an individual who is identifiable by or in relation to such data. This is a broad definition covering any data that can identify a natural person.",
+    "category": "Definitions",
+    "difficulty": "basic",
+    "reference": "Section 2(t), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 8,
+    "question": "Who is the central authority responsible for enforcement of DPDPA?",
+    "options": [
+      "Supreme Court of India",
+      "Ministry of Electronics and Information Technology",
+      "Data Protection Board of India",
+      "CERT-In"
+    ],
+    "correct": 2,
+    "explanation": "Chapter VII establishes the Data Protection Board of India as the independent authority responsible for monitoring and enforcing compliance with the provisions of DPDPA. The Board has adjudicatory and regulatory powers.",
+    "category": "Enforcement",
+    "difficulty": "basic",
+    "reference": "Section 18, Chapter VII, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 9,
+    "question": "What is meant by 'processing' of personal data?",
+    "options": [
+      "Only storing data",
+      "Only sharing data",
+      "A wholly or partly automated operation or set of operations performed on digital personal data",
+      "Only deleting data"
+    ],
+    "correct": 2,
+    "explanation": "Section 2(u) defines Processing as a wholly or partly automated operation or set of operations performed on digital personal data, including collection, recording, organization, structuring, storage, adaptation, retrieval, use, alignment, disclosure, erasure, or destruction.",
+    "category": "Definitions",
+    "difficulty": "basic",
+    "reference": "Section 2(u), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 10,
+    "question": "Can DPDPA apply to non-automated processing of personal data?",
+    "options": [
+      "Yes, it applies to all personal data processing",
+      "No, it only applies to digital personal data",
+      "Yes, but only for government entities",
+      "It depends on the sector"
+    ],
+    "correct": 1,
+    "explanation": "DPDPA specifically applies to 'digital personal data' which means personal data in digitized form. The Act does not regulate manual or non-automated processing of data unless it's part of a filing system. This is a key distinction from GDPR.",
+    "category": "Scope",
+    "difficulty": "basic",
+    "reference": "Section 2(h), Section 3, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 11,
+    "question": "Which of the following is NOT a ground for processing personal data under DPDPA?",
+    "options": [
+      "Consent of the Data Principal",
+      "For certain legitimate uses",
+      "Commercial interests of the Data Fiduciary",
+      "For compliance with any law"
+    ],
+    "correct": 2,
+    "explanation": "Section 6 specifies lawful grounds for processing including consent, legitimate uses, and legal compliance. However, 'commercial interests' alone is not a lawful ground. Processing must be based on consent or fall within specified legitimate purposes defined in Section 7.",
+    "category": "Processing Grounds",
+    "difficulty": "intermediate",
+    "reference": "Section 6, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 12,
+    "question": "What are the essential characteristics of valid consent under DPDPA?",
+    "options": [
+      "Free and specific",
+      "Free, specific, informed, unconditional and unambiguous",
+      "Written and notarized",
+      "Verbal or written"
+    ],
+    "correct": 1,
+    "explanation": "Section 6(1) mandates that consent must be free, specific, informed, unconditional, and unambiguous with a clear affirmative action. This ensures Data Principals have genuine control. Bundled or coerced consent is invalid under this framework.",
+    "category": "Consent",
+    "difficulty": "intermediate",
+    "reference": "Section 6(1), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 13,
+    "question": "Can a Data Principal withdraw consent once given?",
+    "options": [
+      "No, consent is irrevocable",
+      "Yes, and it should be as easy as giving consent",
+      "Only with written application to Data Protection Board",
+      "Only if Data Fiduciary agrees"
+    ],
+    "correct": 1,
+    "explanation": "Section 6(3) provides that withdrawal of consent shall be as easy as giving consent, ensuring Data Principals maintain continuous control over their data. However, withdrawal doesn't affect lawfulness of processing done before withdrawal.",
+    "category": "Consent",
+    "difficulty": "intermediate",
+    "reference": "Section 6(3), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 14,
+    "question": "Which right allows a Data Principal to correct inaccurate personal data?",
+    "options": [
+      "Right to information",
+      "Right to correction and erasure",
+      "Right to data portability",
+      "Right to grievance redressal"
+    ],
+    "correct": 1,
+    "explanation": "Section 12 provides Data Principals the right to correction of inaccurate or misleading personal data and completion of incomplete personal data, as well as erasure of personal data when retention is no longer necessary or consent is withdrawn.",
+    "category": "Data Principal Rights",
+    "difficulty": "intermediate",
+    "reference": "Section 12, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 15,
+    "question": "What must a Data Fiduciary do when processing children's data?",
+    "options": [
+      "No special obligations",
+      "Obtain verifiable consent of parent or lawful guardian",
+      "Only process for educational purposes",
+      "Register with the Data Protection Board"
+    ],
+    "correct": 1,
+    "explanation": "Section 9 mandates that Data Fiduciaries must obtain verifiable consent of parents or lawful guardians before processing children's data. The government may specify age thresholds and exempt certain categories of Data Fiduciaries from this requirement.",
+    "category": "Special Categories",
+    "difficulty": "intermediate",
+    "reference": "Section 9, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 16,
+    "question": "What is the maximum penalty for non-compliance with Data Protection Board directions?",
+    "options": [
+      "₹50 crore",
+      "₹100 crore",
+      "₹200 crore",
+      "₹250 crore"
+    ],
+    "correct": 3,
+    "explanation": "Section 33(1) prescribes that Data Fiduciaries failing to comply with Board directions may face penalties up to ₹250 crore. This represents the highest category of penalties under DPDPA, reflecting the seriousness of non-compliance with regulatory orders.",
+    "category": "Penalties",
+    "difficulty": "intermediate",
+    "reference": "Section 33(1), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 17,
+    "question": "Who can file a complaint with the Data Protection Board?",
+    "options": [
+      "Only lawyers",
+      "Only Data Principals affected",
+      "Any Data Principal or any person authorized by Data Principal",
+      "Only NGOs and civil society organizations"
+    ],
+    "correct": 2,
+    "explanation": "Section 17 permits any Data Principal or any person authorized by the Data Principal to file a complaint with the Board regarding violation of provisions of the Act. This ensures accessibility to grievance mechanisms.",
+    "category": "Grievance Redressal",
+    "difficulty": "intermediate",
+    "reference": "Section 17, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 18,
+    "question": "What is the purpose limitation principle under DPDPA?",
+    "options": [
+      "Data can be used for any purpose",
+      "Personal data should be processed only for specified, clear, and lawful purposes",
+      "Data processing has time limitations",
+      "Only specific sectors can process data"
+    ],
+    "correct": 1,
+    "explanation": "Section 8(2) embodies the purpose limitation principle requiring Data Fiduciaries to process personal data only for purposes that are clear and specified. Further processing must be compatible with the original purpose or require fresh consent.",
+    "category": "Processing Principles",
+    "difficulty": "intermediate",
+    "reference": "Section 8(2), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 20,
+    "question": "How long can a Data Fiduciary retain personal data?",
+    "options": [
+      "Indefinitely",
+      "Maximum 5 years",
+      "Only for as long as necessary for the specified purpose or as required by law",
+      "Until Data Principal withdraws consent"
+    ],
+    "correct": 2,
+    "explanation": "Section 8(5) requires that personal data shall not be retained beyond the period necessary to satisfy the purpose for which it is processed, unless required by law. This storage limitation principle prevents indefinite data hoarding.",
+    "category": "Data Retention",
+    "difficulty": "intermediate",
+    "reference": "Section 8(5), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 21,
+    "question": "What is a 'Significant Data Fiduciary' and who determines this classification?",
+    "options": [
+      "Any Data Fiduciary processing more than 1 lakh data subjects",
+      "Data Fiduciaries designated by the Central Government based on specific factors",
+      "Only government departments",
+      "Data Fiduciaries who have faced penalties"
+    ],
+    "correct": 1,
+    "explanation": "Section 10 empowers the Central Government to notify certain Data Fiduciaries as Significant Data Fiduciaries based on factors like volume and sensitivity of data, risk to rights of Data Principals, potential impact on sovereignty and integrity of India, among others. These entities face enhanced obligations.",
+    "category": "Significant Data Fiduciaries",
+    "difficulty": "advanced",
+    "reference": "Section 10, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 22,
+    "question": "What additional obligations do Significant Data Fiduciaries have?",
+    "options": [
+      "Only higher penalties",
+      "Must appoint a Data Protection Officer, conduct periodic audits, and conduct Data Protection Impact Assessments",
+      "Must relocate servers to India",
+      "Must obtain annual certification"
+    ],
+    "correct": 1,
+    "explanation": "Section 10(3) mandates that Significant Data Fiduciaries must: (a) appoint a Data Protection Officer; (b) appoint an independent data auditor; (c) conduct periodic Data Protection Impact Assessments; and (d) undertake other measures as may be prescribed. These enhanced obligations reflect greater responsibility.",
+    "category": "Significant Data Fiduciaries",
+    "difficulty": "advanced",
+    "reference": "Section 10(3), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 23,
+    "question": "Under what circumstances can personal data be processed without consent?",
+    "options": [
+      "Never, consent is always mandatory",
+      "For specified legitimate uses including state functions, legal obligations, employment, medical emergency, etc.",
+      "Whenever commercially necessary",
+      "Only with court orders"
+    ],
+    "correct": 1,
+    "explanation": "Section 7 lists legitimate uses where consent is not required, including: voluntary provision by Data Principal, functions of the State, legal rights/claims, employment purposes, medical emergency, disaster management, public health, research, and certain specified purposes. Each has specific conditions.",
+    "category": "Legitimate Uses",
+    "difficulty": "advanced",
+    "reference": "Section 7, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 24,
+    "question": "What is the consequence if a Data Fiduciary fails to implement reasonable security safeguards?",
+    "options": [
+      "Warning only",
+      "₹50 crore penalty",
+      "₹250 crore penalty",
+      "₹10,000 penalty"
+    ],
+    "correct": 2,
+    "explanation": "Section 33(2) specifies penalties up to ₹250 crore for failure to implement reasonable security safeguards under Section 8(4). However, Section 33(2) itemizes specific violations with ₹50 crore penalties, while Section 33(3) provides for ₹200 crore penalties for breach of children's data obligations.",
+    "category": "Penalties",
+    "difficulty": "advanced",
+    "reference": "Section 33(2), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 25,
+    "question": "Can the Central Government exempt certain Data Fiduciaries from DPDPA provisions?",
+    "options": [
+      "No, the Act applies universally without exemptions",
+      "Yes, in the interests of sovereignty, security, public order, or friendly relations with foreign states",
+      "Only with parliamentary approval",
+      "Only for temporary periods not exceeding 6 months"
+    ],
+    "correct": 1,
+    "explanation": "Section 17 empowers the Central Government to exempt any instrumentality of the State from provisions of the Act in the interests of sovereignty and integrity of India, security of the State, friendly relations with foreign states, maintenance of public order, or preventing incitement to any cognizable offense. These exemptions are subject to procedural safeguards.",
+    "category": "Exemptions",
+    "difficulty": "advanced",
+    "reference": "Section 17, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 26,
+    "question": "What is the time limit for Data Fiduciaries to respond to Data Principal rights requests?",
+    "options": [
+      "7 days",
+      "As may be prescribed, considering volume and complexity",
+      "30 days",
+      "No time limit specified"
+    ],
+    "correct": 1,
+    "explanation": "While the Act doesn't specify exact timelines in the statute itself, Section 8(9) requires Data Fiduciaries to address grievances and respond to requests in such manner and within such period as may be prescribed by rules. The DPDP Rules 2025 specify detailed timelines.",
+    "category": "Compliance",
+    "difficulty": "advanced",
+    "reference": "Section 8(9), DPDPA 2023; DPDP Rules 2025"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 27,
+    "question": "What happens if there is a personal data breach?",
+    "options": [
+      "No obligations on Data Fiduciary",
+      "Data Fiduciary must notify the Board and affected Data Principals as prescribed",
+      "Only notify if more than 10,000 users affected",
+      "Only criminal liability"
+    ],
+    "correct": 1,
+    "explanation": "Section 8(7) mandates that in case of a personal data breach, the Data Fiduciary shall give the Board and each affected Data Principal intimation of such breach in such form and manner as may be prescribed. This ensures transparency and enables affected individuals to take protective measures.",
+    "category": "Data Breach",
+    "difficulty": "advanced",
+    "reference": "Section 8(7), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 28,
+    "question": "Does DPDPA create a right to be forgotten?",
+    "options": [
+      "Yes, explicitly mentioned",
+      "No such right exists",
+      "Indirectly through right to erasure when retention is no longer necessary",
+      "Only for minors"
+    ],
+    "correct": 2,
+    "explanation": "Section 12 provides a right to correction and erasure. While not explicitly termed 'right to be forgotten' like GDPR Article 17, the erasure right applies when retention is no longer necessary for the specified purpose or consent is withdrawn, achieving a similar outcome with Indian context.",
+    "category": "Data Principal Rights",
+    "difficulty": "advanced",
+    "reference": "Section 12, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 29,
+    "question": "What is the composition of the Data Protection Board of India?",
+    "options": [
+      "One Chairperson only",
+      "Chairperson and members as prescribed by Central Government",
+      "Chairperson and 10 members",
+      "Chairperson, State representatives, and industry members"
+    ],
+    "correct": 1,
+    "explanation": "Section 19 establishes that the Board shall consist of a Chairperson and such number of members as the Central Government may prescribe. The qualification, appointment, tenure, and conditions of service are to be prescribed, ensuring appropriate expertise and independence.",
+    "category": "Data Protection Board",
+    "difficulty": "advanced",
+    "reference": "Section 19, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 30,
+    "question": "Can decisions of the Data Protection Board be appealed?",
+    "options": [
+      "No appeals allowed",
+      "Yes, to Supreme Court only",
+      "Yes, to Telecom Disputes Settlement and Appellate Tribunal (TDSAT)",
+      "Yes, to High Court"
+    ],
+    "correct": 2,
+    "explanation": "Section 29 provides that any person aggrieved by a decision or order of the Board may file an appeal to the Telecom Disputes Settlement and Appellate Tribunal. This ensures judicial oversight while leveraging existing specialized tribunals familiar with digital economy issues.",
+    "category": "Appeals",
+    "difficulty": "advanced",
+    "reference": "Section 29, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 31,
+    "question": "What is meant by 'verifiable consent' for children's data?",
+    "options": [
+      "Any consent from the child",
+      "Consent that ensures reasonable verification of the identity and age of parent/guardian",
+      "Notarized consent",
+      "Consent via Aadhaar authentication"
+    ],
+    "correct": 1,
+    "explanation": "Section 9 requires 'verifiable consent of parents or lawful guardian' meaning the Data Fiduciary must implement reasonable methods to verify the identity and relationship of the person providing consent, ensuring genuine parental authorization before processing children's data.",
+    "category": "Special Categories",
+    "difficulty": "intermediate",
+    "reference": "Section 9, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 32,
+    "question": "Is there a data localization requirement under DPDPA?",
+    "options": [
+      "Yes, all data must be stored in India",
+      "No restriction on data transfer",
+      "Government may restrict transfer to certain countries",
+      "Only financial data must be localized"
+    ],
+    "correct": 2,
+    "explanation": "Section 16 empowers the Central Government to restrict transfer of personal data by a Data Fiduciary to certain countries or territories. Unlike earlier drafts, DPDPA doesn't mandate blanket data localization but gives government power to restrict based on specific concerns.",
+    "category": "Data Transfer",
+    "difficulty": "intermediate",
+    "reference": "Section 16, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 33,
+    "question": "What is the penalty for Data Principals providing false information?",
+    "options": [
+      "No penalty on Data Principals",
+      "₹10,000 per default",
+      "₹1 lakh",
+      "Criminal prosecution"
+    ],
+    "correct": 1,
+    "explanation": "Section 35 uniquely imposes obligations on Data Principals not to impersonate others, suppress material information, or register false complaints. Violation may result in penalty up to ₹10,000 per default, balancing rights with responsibilities.",
+    "category": "Data Principal Duties",
+    "difficulty": "intermediate",
+    "reference": "Section 35, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 34,
+    "question": "Can a Data Fiduciary use personal data for targeted advertising without consent?",
+    "options": [
+      "Yes, always allowed",
+      "No, explicit consent required for targeted advertising to children; general advertising may fall under legitimate use",
+      "Only if user doesn't opt-out",
+      "Only for free services"
+    ],
+    "correct": 1,
+    "explanation": "Section 9 specifically prohibits tracking or behavioral monitoring of children or targeted advertising directed at children. For adults, targeted advertising may require consent as it involves profiling, though this area awaits detailed regulatory guidance.",
+    "category": "Advertising & Marketing",
+    "difficulty": "advanced",
+    "reference": "Section 9, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 35,
+    "question": "What is the notice requirement when collecting personal data?",
+    "options": [
+      "No notice required",
+      "Notice must be given in clear and plain language",
+      "Legal notice format mandatory",
+      "Notice only if specifically requested"
+    ],
+    "correct": 1,
+    "explanation": "Section 8(3) mandates that Data Fiduciaries must give Data Principals a notice containing prescribed particulars before or at the time of seeking consent or collecting data. The notice must be in clear and plain language, enabling informed decision-making.",
+    "category": "Notice Requirements",
+    "difficulty": "intermediate",
+    "reference": "Section 8(3), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 36,
+    "question": "Which principle requires processing only the minimum data necessary?",
+    "options": [
+      "Purpose Limitation",
+      "Data Minimization",
+      "Storage Limitation",
+      "Accuracy"
+    ],
+    "correct": 1,
+    "explanation": "Though not explicitly stated as 'data minimization' in a single section, this principle is embedded throughout DPDPA. Section 8 requires that processing be necessary for the specified purpose, implicitly requiring collection of only essential data. This aligns with global best practices.",
+    "category": "Processing Principles",
+    "difficulty": "intermediate",
+    "reference": "Section 8, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 37,
+    "question": "What duty does a Data Processor have under DPDPA?",
+    "options": [
+      "Same as Data Fiduciary",
+      "Process data only pursuant to contract and instructions of Data Fiduciary",
+      "No specific duties mentioned",
+      "Only data security duties"
+    ],
+    "correct": 1,
+    "explanation": "Section 8(6) specifies that Data Processors may process personal data only pursuant to a valid contract with and on instructions of the Data Fiduciary. They cannot process data for their own purposes or beyond the scope of instructions received.",
+    "category": "Data Processor Obligations",
+    "difficulty": "advanced",
+    "reference": "Section 8(6), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 38,
+    "question": "Can research institutions process personal data without consent?",
+    "options": [
+      "Never without consent",
+      "Yes, for research, archiving or statistical purposes subject to safeguards",
+      "Only government research institutions",
+      "Only anonymized data"
+    ],
+    "correct": 1,
+    "explanation": "Section 7(j) permits processing for research, archiving, or statistical purposes without consent, provided certain safeguards specified by government are followed. This balances research needs with privacy protection, following the K.S. Puttaswamy judgment's emphasis on proportionality.",
+    "category": "Legitimate Uses",
+    "difficulty": "advanced",
+    "reference": "Section 7(j), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 39,
+    "question": "What is the penalty for breach of confidentiality by Board members?",
+    "options": [
+      "Dismissal from service",
+      "₹1 lakh",
+      "No specific penalty under DPPA for Board members",
+      "Imprisonment up to 2 years and fine"
+    ],
+    "correct": 2,
+    "explanation": "Just that sections 8,9 and 10 places indirect responsibility on Board members and officers to maintain confidentiality, ensuring high standards of data protection at the regulatory level itself.",
+    "category": "Board Confidentiality",
+    "difficulty": "advanced",
+    "reference": "Sections 8, 9 and 10 DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 40,
+    "question": "When did the DPDP Rules, 2025 come into force?",
+    "options": [
+      "November 14, 2025",
+      "November 13, 2025",
+      "December 15, 2024",
+      "Rules not yet notified"
+    ],
+    "correct": 1,
+    "explanation": "The Digital Personal Data Protection Rules, 2025 were notified on November 13, 2025, providing the operational framework for implementing the DPDPA. These rules detail procedural aspects, forms, timelines, and technical requirements for compliance.",
+    "category": "Rules & Regulations",
+    "difficulty": "basic",
+    "reference": "DPDP Rules 2025, Notification Date"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 41,
+    "question": "What is the philosophical foundation of DPDPA rooted in?",
+    "options": [
+      "Contract Theory",
+      "Right to Privacy as Fundamental Right (K.S. Puttaswamy judgment)",
+      "Property Rights",
+      "Commercial Law"
+    ],
+    "correct": 1,
+    "explanation": "DPDPA is rooted in the landmark Justice K.S. Puttaswamy v. Union of India (2017) judgment which declared privacy as a fundamental right under Article 21 of the Constitution. The Act operationalizes this right in the digital context, balancing individual autonomy with legitimate state and commercial interests.",
+    "category": "Constitutional Framework",
+    "difficulty": "intermediate",
+    "reference": "K.S. Puttaswamy v. Union of India (2017) 10 SCC 1; DPDPA 2023 Preamble"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 42,
+    "question": "How does DPDPA balance innovation with privacy?",
+    "options": [
+      "It doesn't, privacy is absolute",
+      "Through exemptions for startups and legitimate use provisions",
+      "Innovation is not considered",
+      "Only through penalties"
+    ],
+    "correct": 1,
+    "explanation": "DPDPA embodies proportionality by providing legitimate use exemptions (Section 7), permitting research (Section 7(j)), allowing government to exempt certain processing for innovation, and adopting lighter obligations compared to GDPR. This reflects the Puttaswamy judgment's emphasis on balancing fundamental rights with other legitimate interests.",
+    "category": "Policy Framework",
+    "difficulty": "advanced",
+    "reference": "Section 7, DPDPA 2023; Puttaswamy judgment (proportionality test)"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 43,
+    "question": "What is the significance of 'digital personal data' limitation?",
+    "options": [
+      "No significance",
+      "Excludes manual/paper records from Act's scope, focusing on digital economy risks",
+      "Only applies to cloud data",
+      "Applies only to encrypted data"
+    ],
+    "correct": 1,
+    "explanation": "By limiting scope to 'digital personal data' (Section 2(h)), DPDPA acknowledges the unique risks of digital processing - scale, speed, profiling capabilities, and cross-border flows. This focused approach differs from GDPR and reflects India's priority to regulate digital economy harms while not overburdening traditional paper-based operations.",
+    "category": "Scope & Philosophy",
+    "difficulty": "advanced",
+    "reference": "Section 2(h), Section 3, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 44,
+    "question": "Which factor is NOT considered for designating a Significant Data Fiduciary?",
+    "options": [
+      "Volume and sensitivity of personal data",
+      "Annual revenue of the organization",
+      "Risk to rights of Data Principals",
+      "Potential impact on sovereignty of India"
+    ],
+    "correct": 1,
+    "explanation": "Section 10(1) lists factors including: (a) volume and sensitivity of data; (b) risk to rights of Data Principals; (c) potential impact on sovereignty and integrity of India; (d) risk to electoral democracy; (e) security of State; and (f) public order. Annual revenue is not a statutory criterion, though it may be indirectly relevant to volume.",
+    "category": "Significant Data Fiduciaries",
+    "difficulty": "advanced",
+    "reference": "Section 10(1), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 45,
+    "question": "What is the role of a Data Protection Officer?",
+    "options": [
+      "Marketing role",
+      "Represent Significant Data Fiduciary for compliance and interface with Board and Data Principals",
+      "Only technical role",
+      "Financial auditor"
+    ],
+    "correct": 1,
+    "explanation": "Section 10(3)(a) mandates Significant Data Fiduciaries to appoint a Data Protection Officer (DPO) who serves as the point of contact with the Data Protection Board and Data Principals. The DPO ensures organizational compliance, conducts training, and represents the entity on data protection matters.",
+    "category": "Significant Data Fiduciaries",
+    "difficulty": "intermediate",
+    "reference": "Section 10(3)(a), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 46,
+    "question": "Can personal data of deceased persons be processed under DPDPA?",
+    "options": [
+      "Yes, same rules apply",
+      "No, Act doesn't apply to deceased persons",
+      "Only with legal heir consent",
+      "Only government can process"
+    ],
+    "correct": 1,
+    "explanation": "DPDPA defines Data Principal as an 'individual' to whom the data relates. Since deceased persons are not 'individuals' in the legal sense of having rights, the Act does not apply to data of deceased persons. However, processing such data may be regulated under other laws or ethical frameworks.",
+    "category": "Scope",
+    "difficulty": "advanced",
+    "reference": "Section 2(j), DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 47,
+    "question": "What is consent fatigue and how does DPDPA address it?",
+    "options": [
+      "DPDPA doesn't address consent fatigue",
+      "Through legitimate use provisions and implied consent for certain processing",
+      "By making all consent permanent",
+      "Through simplified consent forms only"
+    ],
+    "correct": 1,
+    "explanation": "Consent fatigue occurs when users are overwhelmed with consent requests. DPDPA addresses this through Section 7's legitimate use provisions, allowing processing without consent for specified purposes like employment, legal obligations, and voluntary provision by Data Principal, reducing unnecessary consent requests while maintaining protection.",
+    "category": "Practical Compliance",
+    "difficulty": "advanced",
+    "reference": "Section 7, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 48,
+    "question": "Which constitutional article forms the basis of the right to privacy?",
+    "options": [
+      "Article 19",
+      "Article 21",
+      "Article 14",
+      "Article 32"
+    ],
+    "correct": 1,
+    "explanation": "The Supreme Court in K.S. Puttaswamy v. Union of India held that the right to privacy is a fundamental right protected under Article 21 (right to life and personal liberty) read with Article 19 (freedom of speech and expression) of the Constitution. DPDPA operationalizes this constitutional mandate.",
+    "category": "Constitutional Framework",
+    "difficulty": "intermediate",
+    "reference": "Article 21, Constitution of India; Puttaswamy judgment"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 49,
+    "question": "What test must government exemptions satisfy as per constitutional principles?",
+    "options": [
+      "Rational nexus test",
+      "Proportionality test (legitimate aim, necessity, proportionality, procedural safeguards)",
+      "Reasonableness test only",
+      "No test required"
+    ],
+    "correct": 1,
+    "explanation": "The Puttaswamy judgment established that any restriction on privacy must satisfy the proportionality test: (i) legitimate state aim, (ii) suitable/necessary measure, (iii) proportionate means, and (iv) procedural safeguards. Section 17 exemptions must satisfy these constitutional standards to withstand judicial scrutiny.",
+    "category": "Constitutional Framework",
+    "difficulty": "advanced",
+    "reference": "Puttaswamy judgment; Section 17, DPDPA 2023"
+  },
+  {
+    "from": "dpdpa-quiz.js",
+    "bank": "questionBank",
+    "id": 50,
+    "question": "How does DPDPA differ from GDPR in enforcement approach?",
+    "options": [
+      "No difference",
+      "DPDPA uses administrative penalties by Board; GDPR has both administrative fines and civil liability",
+      "DPDPA has criminal penalties only",
+      "DPDPA has no enforcement mechanism"
+    ],
+    "correct": 1,
+    "explanation": "DPDPA establishes an administrative enforcement model through the Data Protection Board with prescribed penalties (Sections 33-34), while GDPR provides for administrative fines by supervisory authorities plus civil liability. DPDPA's approach reflects India's regulatory preference for specialized tribunals with sectoral expertise.",
+    "category": "Comparative Analysis",
+    "difficulty": "advanced",
+    "reference": "Sections 18, 33-34, DPDPA 2023; GDPR Articles 82-83"
+  }
+]

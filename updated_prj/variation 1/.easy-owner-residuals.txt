@@ -1,0 +1,177 @@
+
+### certification 28
+{"normal":"Any data about an individual who is identifiable by or in relation to such data.","current":"Any data about an person who is identifiable by or about such data.","grade":10.4}
+{"normal":"Identify which data is digital or will be digitised (in scope) versus purely paper (out of scope).","grade":11.2}
+{"normal":"The 22 official Indian languages in which a notice must be made available, alongside English.","grade":10.9}
+{"normal":"Provision of medical treatment or health services during an epidemic or threat to public health","grade":10.7}
+{"normal":"Safety and assistance during a disaster or breakdown of public order","grade":11.2}
+{"normal":"Employment purposes ΓÇö safeguarding the employer, providing services or benefits to employees","grade":16.6}
+{"normal":"Voluntary provision","grade":0}
+{"normal":"Using the employment ground to justify marketing or unrelated profiling of staff.","grade":11.7}
+{"normal":"It allows any purpose a business considers reasonable","grade":14.1}
+{"normal":"Only a court order can authorise it","grade":0}
+{"normal":"Deleting data that another law actually requires you to retain.","grade":10.7}
+{"normal":"Keep decision-grade data correct, and lock the data down with real controls ΓÇö encryption, access limits, logging, backups ΓÇö not just a policy document.","grade":13.4}
+{"normal":"Retention limitation","grade":0}
+{"normal":"Treating security as an IT checkbox rather than encryption, access control, logging and backups.","grade":11.8}
+{"normal":"Put a valid, security-bearing contract in place with every processor.","current":"Put a valid, security-bearing contract in place with every data handler.","grade":10.7}
+{"normal":"Forgetting persons with disability who have a lawful guardian.","grade":11.5}
+{"normal":"Build an age-assurance step that does real due diligence, not a self-declared checkbox.","grade":6.8}
+{"normal":"Remove all behavioural tracking and targeted advertising from flows reachable by children.","grade":13.7}
+{"normal":"Appoint a Data Protection Officer based in India, answerable to the board","grade":10.7}
+{"normal":"Big-platform duties: a real DPO in India who reports to the top, outside audits, and impact assessments before you ship risky features.","grade":11.3}
+{"normal":"Expect yearly DPIAs and audits, a duty to check your algorithms aren't harming users, and possible localisation of certain sensitive data.","grade":15}
+{"normal":"Algorithmic risk verification","grade":0}
+{"normal":"Engage an independent data auditor and schedule periodic audits.","grade":15.5}
+{"normal":"The Government notifies SDFs based on data volume, sensitivity and systemic risk ΓÇö it is not self-selected.","grade":11.9}
+{"normal":"Two caveats: sector-specific laws with stricter localisation (for example in banking) continue to apply, and an SDF may face additional localisation duties for specified categories of data under the Rules.","current":"Two caveats: made for this industry laws with stricter localisation (for example in banking) continue to apply, and an SDF may face extra localisation duties for specified categories of data under the Rules.","grade":19.1}
+{"normal":"A fintech's security team detects unauthorised access to a customer database at 9pm on a Friday. Leadership wants to wait until Monday to 'understand the full picture' before telling anyone.","current":"A fintech's security team detects not allowed access to a customer database at 9pm on a Friday. Leadership wants to wait until Monday to 'understand the full picture' before telling anyone.","grade":10.6}
+{"normal":"Thinking penalties are criminal ΓÇö they are civil and financial, credited to the Consolidated Fund.","current":"Thinking fines are criminal ΓÇö they are civil and financial, credited to the Consolidated Fund.","grade":10.1}
+{"normal":"Claim a verifiable certificate naming you a Certified DPDP Practitioner.","grade":14.3}
+
+### course-activities 21
+{"normal":"Valid consent","grade":0}
+{"normal":"A shopping app lets you tick ΓÇ£Use my address to deliver ordersΓÇ¥ separately from ΓÇ£Send me offersΓÇ¥, and you can leave either unticked.","grade":11.3}
+{"normal":"Ask for a summary of your personal data and the identities of everyone it has been shared with.","grade":9.8}
+{"normal":"Do you process digital personal data ΓÇö anything that can identify a person?","grade":12.7}
+{"normal":"Think a personal contacts app ΓÇö not a business activity.","grade":10.2}
+{"normal":"Needs fresh consent","grade":0}
+{"normal":"Needs consent","grade":0}
+{"normal":"Processing agreement","grade":0}
+{"normal":"A fiduciary keeps closed-account KYC documents for ten years ΓÇ£just in caseΓÇ¥, with no legal requirement to.","current":"A responsible organisation keeps closed-account KYC documents for ten years ΓÇ£just in caseΓÇ¥, with no legal requirement to.","grade":12.3}
+{"normal":"A processor may act only under a valid contract with the fiduciary. Sub-contracting outside that contract isn't allowed.","current":"A data handler may act only under a valid contract with the responsible organisation. Sub-contracting outside that contract isn't allowed.","grade":10.2}
+{"normal":"Do you process a high volume of sensitive personal data with real risk to people's rights, security or public order?","grade":11.7}
+{"normal":"A fiduciary notified for higher-risk, higher-volume processing","current":"A responsible organisation notified for higher-risk, higher-volume handling","grade":15.4}
+{"normal":"Before transferring data abroad, the client checks whether the destination is a country the Central Government has restricted.","current":"Before transferring data abroad, the client checks whether the destination is a country the Central Government has limited.","grade":12.4}
+{"normal":"Encryption, access control and masking of personal data","grade":11.1}
+{"normal":"Can you irreversibly anonymise it so individuals can't be re-identified?","current":"Can you irreversibly make anonymous it so people can't be re-identified?","grade":11.3}
+{"normal":"Pseudonymisation isn't enough if re-identification is feasible.","grade":16.8}
+{"normal":"The individual the personal data is about","current":"The person the personal data is about","grade":0}
+{"normal":"Processes data on a fiduciary's instructions","current":"Processes data on a responsible organisation's instructions","grade":15.6}
+{"normal":"Higher-risk fiduciary with extra Section 10 duties","current":"Higher-risk responsible organisation with extra Section 10 duties","grade":15.6}
+{"normal":"The adjudicating and enforcement authority","grade":0}
+{"normal":"The Act covers digital personal data ΓÇö collected digitally, or collected on paper and then digitised.","grade":13.1}
+
+### course-lessons 59
+{"normal":"For years, what companies did with your personal data was governed only by a thin set of IT-Act rules. The Digital Personal Data Protection Act, 2023 ΓÇö coming into force in stages from 2025 ΓÇö is India's first dedicated law that treats your personal data as something you have rights over, not just an asset a company collects. It binds almost any organisation that handles the digital personal data of people in India, even one based abroad.","grade":13.2}
+{"normal":"A hospital (Fiduciary) hires a billing-software vendor (Processor) to email you (Principal) your invoice.","current":"A hospital (responsible organisation) hires a billing-software outside partner (data handler) to email you (Principal) your invoice.","grade":15.7}
+{"normal":"ΓÇ£Personal dataΓÇ¥ = any data about an identifiable person ΓÇö name, phone, photo, location.","grade":14.7}
+{"normal":"The Act covers digital data (or paper later digitised), not purely paper records.","grade":12.2}
+{"normal":"A food app asks for your address to deliver your order, and lets you decline marketing separately.","grade":10.5}
+{"normal":"You can ask a company for a summary of the personal data it holds about you, what it's doing with it, and the identities of everyone it has shared it with. It's the starting point for every other right ΓÇö you can't correct or erase what you don't know they have.","current":"You can ask a company for a summary of the personal data it holds about you, what it's doing with it, and the identities of everyone it has shared it with. It's the starting point for every other right ΓÇö you can't correct or delete what you don't know they have.","grade":10.9}
+{"normal":"Grievance & nomination","grade":0}
+{"normal":"Every company must give you a readily available way to complain, and respond within the time the Rules set. You can also nominate another person to exercise your rights on your behalf if you die or become unable to.","grade":11.4}
+{"normal":"A company leaks your data through weak security and ignores you ΓÇö exactly what the Board's penalty regime is built to punish.","current":"A company leaks your data through weak security and ignores you ΓÇö exactly what the Board's fine regime is built to punish.","grade":10.7}
+{"normal":"Fiduciary or processor?","grade":0}
+{"normal":"You run a D2C store and decide what customer data to collect and why ΓÇö you're the Fiduciary.","current":"You run a D2C store and decide what customer data to collect and why ΓÇö you're the responsible organisation.","grade":11.1}
+{"normal":"Extra-territorial reach","grade":0}
+{"normal":"Being incorporated abroad is no escape. If you offer goods or services to people in India and process their personal data, the Act applies to you under Section 3.","grade":8.4}
+{"normal":"What counts as personal data","grade":0}
+{"normal":"Fiduciary decides purpose & means; Processor only acts on instructions.","current":"Responsible organisation decides purpose & means; data handler only acts on instructions.","grade":15.5}
+{"normal":"Section 7 covers the voluntarily-given purpose, employment, medical emergencies.","grade":19.4}
+{"normal":"Bundling unrelated consents into one mandatory box.","grade":0}
+{"normal":"Keep a simple record of what personal data you hold, why, where it lives and who you share it with. It's the backbone of every other obligation and the first thing an auditor or enterprise buyer asks for.","current":"Keep a simple record of what personal data you hold, why, where it lives and who you share it with. It's the backbone of every other duty and the first thing an auditor or enterprise buyer asks for.","grade":8.4}
+{"normal":"Any processor you use ΓÇö analytics, email, cloud ΓÇö should be bound by a contract that limits them to your instructions and your stated purposes.","current":"Any data handler you use ΓÇö analytics, email, cloud ΓÇö should be bound by a contract that limits them to your instructions and your stated purposes.","grade":11.5}
+{"normal":"Every processor needs a contract limiting them to your instructions.","current":"Every data handler needs a contract limiting them to your instructions.","grade":10.2}
+{"normal":"Once you hold personal data, users can exercise rights ΓÇö and you have to be ready to answer.","grade":8.4}
+{"normal":"Name one person accountable for privacy even in a team of five. The Act expects a contactable grievance point; ambiguity over ownership is how requests quietly get dropped.","current":"Name one person accountable for privacy even in a team of five. The Act expects a contactable complaint point; ambiguity over ownership is how requests quietly get dropped.","grade":10.5}
+{"normal":"The notification duty","grade":0}
+{"normal":"Storing customer data with no access control, then going silent after a leak ΓÇö the exact failure the Schedule punishes.","grade":11.7}
+{"normal":"Valid consent","grade":0}
+{"normal":"They include the purpose a user voluntarily provided data for, employment, certain State functions and benefits, medical emergencies, and safety during disasters or epidemics.","grade":19.3}
+{"normal":"Operationalising rights within statutory timelines is the day-to-day of the role.","current":"Operationalising rights within legal time limits is the day-to-day of the role.","grade":10.1}
+{"normal":"Build intake, identity verification and response workflows that hit the Rules' timelines, capturing evidence of each step as you go.","grade":14}
+{"normal":"Principals must not file false or frivolous complaints or impersonate others ΓÇö a defensive point worth keeping in your back pocket.","grade":12.3}
+{"normal":"Keeping everything forever, unencrypted, in case it's useful later.","grade":13.1}
+{"normal":"Keep logs, decisions and notifications. Accountability means being able to show compliance, not merely assert it.","current":"Keep logs, decisions and notifications. Accountability means being able to show following the law, not merely assert it.","grade":10.9}
+{"normal":"Use proportionate age assurance; watch for notified exemptions.","current":"Use suitable age assurance; watch for notified exemptions.","grade":11.1}
+{"normal":"Know the enforcement machinery you're accountable to.","grade":12.6}
+{"normal":"Track the enforcement timeline: provisions and rules switch on by notification rather than all at once, so ΓÇ£in forceΓÇ¥ is a moving target.","current":"Track the enforcement timeline: rules and rules switch on by notice rather than all at once, so ΓÇ£in forceΓÇ¥ is a moving target.","grade":10.8}
+{"normal":"Pin a specific, documented basis to each purpose; treat Section 7 narrowly.","grade":10.2}
+{"normal":"Transfers abroad are permitted except to countries the Central Government restricts by notification (Section 16) ΓÇö a negative-list rather than an allow-list approach.","current":"Transfers abroad are allowed except to countries the Central Government restricts by notice (Section 16) ΓÇö a negative-list rather than an allow-list approach.","grade":13.4}
+{"normal":"Assuming every transfer is banned unless a country is whitelisted.","grade":10.7}
+{"normal":"State processing","grade":0}
+{"normal":"Section 16 is a negative list; Section 17 exemptions are conditional ΓÇö always cite the specific notification.","current":"Section 16 is a negative list; Section 17 exemptions are conditional ΓÇö always cite the specific notice.","grade":12.6}
+{"normal":"Section 16: transfers allowed except to restricted countries (negative list).","current":"Section 16: transfers allowed except to limited countries (negative list).","grade":10.2}
+{"normal":"Puttaswamy (2017) held that privacy is intrinsic to Article 21 ΓÇö the constitutional anchor the Act rests on.","grade":13.1}
+{"normal":"Frame advice against Puttaswamy and proportionality ΓÇö the lens courts will use.","grade":11.2}
+{"normal":"Puttaswamy (2017): privacy is a fundamental right under Art. 21.","grade":11}
+{"normal":"Aadhaar case built the proportionality and minimisation tests.","grade":14.1}
+{"normal":"Anticipating enforcement risk is what clients actually pay for.","grade":11.5}
+{"normal":"The Board inquires, can act on complaints, and follows the Sections 27ΓÇô28 procedure with the powers of a civil court for certain matters.","grade":10.2}
+{"normal":"Tie data fields and pipelines to declared purposes, and block use outside those purposes by construction rather than by convention.","grade":11.1}
+{"normal":"Turn Section 8 duties into constraints, scope data to purpose, and default everything to private.","grade":10.9}
+{"normal":"Discover personal data across services, logs, warehouses and vendors ΓÇö automated scanning beats a stale spreadsheet every time.","current":"Discover personal data across services, logs, warehouses and outside partners ΓÇö automated scanning beats a stale spreadsheet every time.","grade":15}
+{"normal":"Encryption in transit and at rest; mask or tokenise sensitive fields.","grade":8}
+{"normal":"Personal data in prompts, embeddings or retrieved context can leak across users; isolate, filter and minimise it before it reaches the model.","grade":13.4}
+{"normal":"Four roles: Principal, Fiduciary, Processor, Board.","current":"Four roles: Principal, responsible organisation, data handler, Board.","grade":17}
+{"normal":"Both sides of the relationship ΓÇö what fiduciaries owe and what principals can demand.","current":"Both sides of the relationship ΓÇö what responsible organisations owe and what principals can demand.","grade":12.6}
+{"normal":"Fiduciary obligations","grade":0}
+{"normal":"DPO, independent audit and DPIA duties for fiduciaries the government designates (Section 10).","current":"DPO, independent audit and DPIA duties for responsible organisations the government designates (Section 10).","grade":16.7}
+{"normal":"The composition, powers and procedure of the Data Protection Board (Sections 18ΓÇô28).","grade":11.2}
+{"normal":"The certification exam is 50 questions in 60 minutes, drawn at random from the 224-question bank, with a pass mark you must clear in a single sitting.","grade":11.2}
+{"normal":"Budget roughly a minute per question, use the palette to flag and revisit, and never leave an answer blank ΓÇö there's no negative marking to fear.","grade":11.8}
+{"normal":"Drill by difficulty against the bank until your weak chapters are as strong as your best; the adaptive quiz shows you where you're losing marks.","grade":10.4}
+
+### courses 11
+{"normal":"Extra-territorial reach: serving Indian users from abroad","grade":11.1}
+{"normal":"What counts as digital personal data (and what's exempt)","grade":7.2}
+{"normal":"Territorial and extra-territorial reach","grade":0}
+{"normal":"What is digital personal data, and what's exempt","grade":7.6}
+{"normal":"Risk & compliance teams","grade":0}
+{"normal":"Draft DPDP-ready notices, consents and clauses","grade":0}
+{"normal":"Govern AI/GenAI use of personal data","current":"Govern AI/AI use of personal data","grade":0}
+{"normal":"Inventorying personal data across systems and vendors","current":"Inventorying personal data across systems and outside partners","grade":14.1}
+{"normal":"AI, GenAI & personal data","current":"AI, AI & personal data","grade":0}
+{"normal":"The roles: Principal, Fiduciary, Processor, Board","current":"The roles: Principal, responsible organisation, data handler, Board","grade":17}
+{"normal":"Special regimes","grade":0}
+
+### curriculum 27
+{"normal":"Any data about an individual who is identifiable by or in relation to such data.","current":"Any data about an person who is identifiable by or about such data.","grade":10.4}
+{"normal":"Identify which data is digital or will be digitised (in scope) versus purely paper (out of scope).","grade":11.2}
+{"normal":"The 22 official Indian languages in which a notice must be made available, alongside English.","grade":10.9}
+{"normal":"Provision of medical treatment or health services during an epidemic or threat to public health","grade":10.7}
+{"normal":"Safety and assistance during a disaster or breakdown of public order","grade":11.2}
+{"normal":"Employment purposes ΓÇö safeguarding the employer, providing services or benefits to employees","grade":16.6}
+{"normal":"Voluntary provision","grade":0}
+{"normal":"Using the employment ground to justify marketing or unrelated profiling of staff.","grade":11.7}
+{"normal":"It allows any purpose a business considers reasonable","grade":14.1}
+{"normal":"Only a court order can authorise it","grade":0}
+{"normal":"Deleting data that another law actually requires you to retain.","grade":10.7}
+{"normal":"Keep decision-grade data correct, and lock the data down with real controls ΓÇö encryption, access limits, logging, backups ΓÇö not just a policy document.","grade":13.4}
+{"normal":"Retention limitation","grade":0}
+{"normal":"Treating security as an IT checkbox rather than encryption, access control, logging and backups.","grade":11.8}
+{"normal":"Put a valid, security-bearing contract in place with every processor.","current":"Put a valid, security-bearing contract in place with every data handler.","grade":10.7}
+{"normal":"Forgetting persons with disability who have a lawful guardian.","grade":11.5}
+{"normal":"Build an age-assurance step that does real due diligence, not a self-declared checkbox.","grade":6.8}
+{"normal":"Remove all behavioural tracking and targeted advertising from flows reachable by children.","grade":13.7}
+{"normal":"Appoint a Data Protection Officer based in India, answerable to the board","grade":10.7}
+{"normal":"Big-platform duties: a real DPO in India who reports to the top, outside audits, and impact assessments before you ship risky features.","grade":11.3}
+{"normal":"Expect yearly DPIAs and audits, a duty to check your algorithms aren't harming users, and possible localisation of certain sensitive data.","grade":15}
+{"normal":"Algorithmic risk verification","grade":0}
+{"normal":"Engage an independent data auditor and schedule periodic audits.","grade":15.5}
+{"normal":"The Government notifies SDFs based on data volume, sensitivity and systemic risk ΓÇö it is not self-selected.","grade":11.9}
+{"normal":"Two caveats: sector-specific laws with stricter localisation (for example in banking) continue to apply, and an SDF may face additional localisation duties for specified categories of data under the Rules.","current":"Two caveats: made for this industry laws with stricter localisation (for example in banking) continue to apply, and an SDF may face extra localisation duties for specified categories of data under the Rules.","grade":19.1}
+{"normal":"A fintech's security team detects unauthorised access to a customer database at 9pm on a Friday. Leadership wants to wait until Monday to 'understand the full picture' before telling anyone.","current":"A fintech's security team detects not allowed access to a customer database at 9pm on a Friday. Leadership wants to wait until Monday to 'understand the full picture' before telling anyone.","grade":10.6}
+{"normal":"Thinking penalties are criminal ΓÇö they are civil and financial, credited to the Consolidated Fund.","current":"Thinking fines are criminal ΓÇö they are civil and financial, credited to the Consolidated Fund.","grade":10.1}
+
+### learn 19
+{"normal":"Who is a Data Fiduciary and a Data Principal?","current":"Who is an organisation responsible for data and a person the data is about?","grade":10.9}
+{"normal":"The individual the personal data is about","current":"The person the personal data is about","grade":0}
+{"normal":"The data processor vendor","current":"The company that handles data for another outside partner","grade":10.2}
+{"normal":"The Data Principal is the individual to whom the personal data relates.","current":"The person the data is about is the person to whom the personal data relates.","grade":8.4}
+{"normal":"The Schedule sets a maximum of Γé╣250 crore for failing to take reasonable security safeguards.","current":"The Schedule sets a maximum of Γé╣250 crore for failing to take reasonable security protections.","grade":12.6}
+{"normal":"Within how long must a personal data breach be intimated?","current":"Within how long must a personal data leak be intimated?","grade":7.2}
+{"normal":"Consent must be free, specific, informed and unambiguous ΓÇö never bundled with unrelated terms.","current":"Permission must be free, specific, informed and unambiguous ΓÇö never bundled with unrelated terms.","grade":12.2}
+{"normal":"Section 9 requires verifiable parental consent before processing the data of anyone under 18.","current":"Section 9 requires verifiable parental permission before handling the data of anyone under 18.","grade":14.7}
+{"normal":"A registered intermediary that helps people give and withdraw consent","current":"A registered middleman service that helps people give and withdraw permission","grade":10.2}
+{"normal":"A data processor","grade":0}
+{"normal":"A Consent Manager is a registered, interoperable intermediary for giving and withdrawing consent.","current":"A service that manages your permissions is a registered, interoperable middleman service for giving and withdrawing permission.","grade":16}
+{"normal":"The Data Protection Board of India adjudicates and enforces the Act.","grade":9.1}
+{"normal":"Erasure can extend to machine unlearning for models trained on personal data.","current":"Deletion can extend to machine unlearning for models trained on personal data.","grade":10.7}
+{"normal":"Yes, if it processes Indian users' digital personal data","grade":10.2}
+{"normal":"The Act has extra-territorial reach where Indian users' digital personal data is processed.","current":"The Act has extra-territorial reach where Indian users' digital personal data is handled.","grade":10.9}
+{"normal":"A \"Significant Data Fiduciary\" has extra obligations including:","current":"A \"large, high-risk organisation\" has extra duties including:","grade":10.2}
+{"normal":"Appointing a Data Protection Officer, plus DPIAs and audits","grade":10.2}
+{"normal":"No extra obligations","grade":0}
+{"normal":"The 2017 Puttaswamy judgment held privacy to be a fundamental right under Article 21.","grade":12.7}

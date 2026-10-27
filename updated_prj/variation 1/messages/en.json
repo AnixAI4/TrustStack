@@ -1,0 +1,279 @@
+{
+  "metadata": {
+    "title": "TrustStack - DPDP Act 2023 & DPDP Rules 2025, made operational",
+    "description": "A clear, modern home for India's Digital Personal Data Protection Act, 2023 and DPDP Rules 2025 - sections, rules, templates, case laws, learning and compliance tools."
+  },
+  "brand": {
+    "name": "TrustStack",
+    "tagline": "Read the DPDP Act like a story, not a statute.",
+    "description": "A clear, modern home for India's Digital Personal Data Protection Act, 2023 and the DPDP Rules 2025. Built for awareness in the public interest."
+  },
+  "nav": {
+    "home": "Home",
+    "scanner": "DPDP Scanner",
+    "scanner_report": "Assessment report",
+    "about": "About",
+    "contact": "Contact",
+    "services": "Services",
+    "framework": "Framework",
+    "industries": "Industries",
+    "why_us": "Why us",
+    "tools": "Tools",
+    "platform": "TrustDeck",
+    "resources": "Resources",
+    "act": "The Act",
+    "rules": "DPDP Rules",
+    "rights": "Your Rights",
+    "templates": "Templates",
+    "cases": "Case Laws",
+    "courses": "Courses",
+    "learn": "Learn & Certify",
+    "certification": "Certification",
+    "blog": "Insights"
+  },
+  "desc": {
+    "act": "All 44 sections",
+    "rules": "Rules 2025, mapped",
+    "cases": "Privacy jurisprudence",
+    "rights": "For citizens · request letters",
+    "templates": "Templates",
+    "blog": "Analysis & guides",
+    "courses": "By role · 6 tracks",
+    "learn": "Course · quiz · FAQ",
+    "certification": "Certified DPDP Practitioner"
+  },
+  "header": {
+    "get_assessment": "Get assessment",
+    "sign_in": "Sign in",
+    "create_account": "Create account",
+    "guest_hint": "Save scans and templates with a free account.",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu",
+    "home_aria": "TrustStack home"
+  },
+  "mega": {
+    "the_law": "The Law",
+    "resources": "Resources",
+    "learn": "Learn"
+  },
+  "language_switcher": {
+    "label": "Language",
+    "choose": "Choose your language"
+  },
+  "common": {
+    "loading": "Loading…",
+    "back": "Back",
+    "back_to_top": "Back to top",
+    "close": "Close",
+    "skip_to_content": "Skip to content"
+  },
+  "home": {
+    "hero_title": "Read the DPDP Act like a story, not a statute.",
+    "hero_subtitle": "India's data-protection law - all 44 sections and the 2025 Rules - woven into one clear, searchable thread.",
+    "cta": "Get free risk check",
+    "features_heading": "Explore TrustStack"
+  },
+  "hero": {
+    "kicker": "Digital Personal Data Protection Act · 2023",
+    "title_lead": "Read the ",
+    "title_em1": "DPDP Act",
+    "title_mid": " like a ",
+    "title_em2": "story",
+    "title_tail": ", not a statute.",
+    "subhead": "India's data-protection law - all 44 sections and the 2025 Rules - woven into one clear, searchable thread. Plain meaning beside the official text, cross-linked to penalties, templates and case law.",
+    "search_placeholder": "Search sections, rules, templates, penalties?",
+    "search_chips": [
+      "Consent",
+      "Data breach",
+      "Children's data",
+      "Penalties"
+    ],
+    "cta_risk": "Get free risk check",
+    "cta_act": "Read the Act"
+  },
+  "marquee": {
+    "lines": [
+      "Digital Personal Data Protection Act, 2023",
+      "डिजिटल व्यक्तिगत डेटा संरक्षण अधिनियम",
+      "निजता आपका अधिकार",
+      "Privacy is your right",
+      "Consent · सहमति"
+    ]
+  },
+  "explore": {
+    "eyebrow": "Explore TrustStack",
+    "title": "Everything for DPDP, in focused workspaces",
+    "lede": "We split the platform into focused areas so each one stays fast and easy to use.",
+    "cards": {
+      "solutions": {
+        "label": "Solutions",
+        "desc": "The complete DPDP service stack, industry playbooks, AI Privacy Shield and how we compare."
+      },
+      "framework": {
+        "label": "Framework",
+        "desc": "Our end-to-end 7D methodology and a dashboard to track your readiness."
+      },
+      "tools": {
+        "label": "Tools",
+        "desc": "Model penalty, ROI and breach cost, then generate DPDP documents."
+      },
+      "act": {
+        "label": "The Act",
+        "desc": "All 44 sections, nine chapters - official text beside plain meaning."
+      },
+      "rules": {
+        "label": "DPDP Rules 2025",
+        "desc": "Every rule shown beside the section it gives effect to."
+      },
+      "templates": {
+        "label": "Templates",
+        "desc": "Editable, DPDP-aligned policies, agreements and notices."
+      },
+      "cases": {
+        "label": "Case Laws",
+        "desc": "The privacy judgments that shaped the law, distilled."
+      },
+      "learn": {
+        "label": "Learn & Certify",
+        "desc": "A structured course, an adaptive quiz and free tools."
+      },
+      "blog": {
+        "label": "Insights",
+        "desc": "Plain-spoken analysis of the Act, the Rules and what they mean."
+      }
+    }
+  },
+  "bento": {
+    "eyebrow": "One workspace",
+    "title": "The DPDP Act, made operational",
+    "lede": "From the official text to penalties, coverage and live tooling - the whole Act, working for you.",
+    "reader_kicker": "Read the Act like a story",
+    "section_label": "Section {n}",
+    "show_section": "Show section {n}",
+    "in_plain_words": "In plain words",
+    "open_act": "Open the Act",
+    "reader": [
+      {
+        "title": "Consent",
+        "says": "Consent must be free, specific, informed, unconditional and unambiguous - given by a clear affirmative action.",
+        "plain": "People must actually say yes. Pre-ticked boxes and buried clauses don't count."
+      },
+      {
+        "title": "Children's data",
+        "says": "Verifiable parental consent is required, and tracking or targeted advertising directed at children is barred.",
+        "plain": "Under-18s get extra protection: get a parent's okay, and never profile kids."
+      },
+      {
+        "title": "Security safeguards",
+        "says": "A Data Fiduciary must keep personal data accurate, protect it with reasonable safeguards, and report breaches.",
+        "plain": "Guard the data you hold - and own up fast if something goes wrong."
+      },
+      {
+        "title": "Right to access",
+        "says": "A Data Principal may obtain a summary of their personal data and the identities it has been shared with.",
+        "plain": "People can ask what you hold on them, and exactly who you shared it with."
+      },
+      {
+        "title": "Notice",
+        "says": "A notice must describe the personal data sought and the purpose for which it will be processed.",
+        "plain": "Tell people what you're collecting and why - before you collect it."
+      }
+    ],
+    "risk_title": "Risk check",
+    "risk_desc": "Seven questions. Your readiness score updates live.",
+    "risk_cta": "Check yours",
+    "lex_msg": "Is consent needed for product analytics?",
+    "lex_title": "Ask LexBot, anytime",
+    "lex_desc": "Plain answers on the Act, the Rules and your obligations.",
+    "lex_badge": "AI",
+    "penalty_unit": "cr",
+    "penalty_desc": "Maximum penalty per breach. Model your exposure with the calculators.",
+    "coverage_title": "Every State & UT",
+    "coverage_desc": "28 States · 8 Union Territories, mapped to local readiness.",
+    "templates_suffix": "+ ready templates",
+    "templates_desc": "Editable, DPDP-aligned notices, policies and agreements."
+  },
+  "risk": {
+    "eyebrow": "Anix TrustStack™ · DPDP Risk Self-Assessment",
+    "heading": "Can your organization answer these 7 questions?",
+    "subheading": "One question for each stage of our 7D DPDP framework - Discover to Drive. Mark each and your readiness score updates live.",
+    "questions": [
+      "Discover - Do you have a complete, current inventory of every personal-data flow across cloud, on-premise, vendors, and AI tools?",
+      "Define - Can you show a documented purpose, lawful basis, and retention period for each category of personal data you process?",
+      "Design - Are your privacy notices, consent capture, and consent-withdrawal flows DPDP-ready and in clear, plain language?",
+      "Defend - If a breach happened today, could you contain it and notify the Board and affected people within 72 hours?",
+      "Deploy - Have DPDP processes, role-based training, and signed vendor DPAs actually rolled out across every department?",
+      "Demonstrate - Could you hand an auditor or the Data Protection Board evidence of your compliance on demand?",
+      "Drive - Does someone own DPDP day-to-day, with regular Data Principal rights, grievance, and AI-privacy reviews?"
+    ],
+    "opt_covered": "Covered",
+    "opt_progress": "In progress",
+    "opt_gap": "Gap",
+    "tip_covered": "This control is fully in place across your organization",
+    "tip_progress": "Work has started but is not yet complete",
+    "tip_gap": "Not yet addressed or needs attention",
+    "tip_clear": "Click again to clear this answer",
+    "stat_gaps": "Gaps",
+    "stat_unanswered": "Unanswered",
+    "band_high": "High risk",
+    "band_start": "Start the check",
+    "band_developing": "Developing",
+    "band_strong": "Strong",
+    "band_ready": "Audit-ready",
+    "readiness_label": "Readiness",
+    "cta_text": "Don't guess your compliance status. DPDP Compass™ gives you a professional, evidence-based assessment with a 90-day action roadmap.",
+    "cta_primary": "Book DPDP Compass™",
+    "cta_secondary": "See the 7D Framework"
+  },
+  "final_cta": {
+    "heading": "Turn the DPDP Act into a compliance program you can prove.",
+    "subheading": "From a free DPDP risk check to a board-ready roadmap, Anix TrustStack helps you manage AI and DPDP together - securely and sustainably.",
+    "primary": "Free DPDP risk check",
+    "secondary": "Explore the service stack"
+  },
+  "map": {
+    "lead": "Protecting ",
+    "em": "every state of India",
+    "tail": " · under the DPDP Act, 2023"
+  },
+  "footer": {
+    "col_law": "The Law",
+    "col_resources": "Resources",
+    "col_learn": "Learn",
+    "law_all_sections": "All sections",
+    "law_rules": "DPDP Rules 2025",
+    "law_mapping": "Act ↔ Rules mapping",
+    "law_timeline": "Enforcement timeline",
+    "law_schedule": "The Schedule & penalties",
+    "res_rights": "Your rights as a citizen",
+    "res_templates": "Templates & policies",
+    "res_blog": "Blogs & insights",
+    "res_cases": "Case laws",
+    "res_tools": "Tools & generators",
+    "learn_courses": "Courses by role",
+    "learn_certificate": "Certificate course",
+    "learn_quiz": "DPDP quiz",
+    "learn_faqs": "FAQs",
+    "learn_interview": "Interview questions",
+    "learn_verify": "Verify a certificate",
+    "social_linkedin": "LinkedIn",
+    "social_twitter": "Twitter",
+    "social_whatsapp": "WhatsApp",
+    "social_email": "Email",
+    "copyright": "© {year} DPDP.in · For privacy awareness in the public interest. Not legal advice.",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie preferences",
+    "disclaimer": "Disclaimer"
+  },
+  "about": {
+    "title": "About TrustStack",
+    "body": "TrustStack is a clear, modern home for India's Digital Personal Data Protection Act, 2023 and the DPDP Rules 2025. We translate dense legal text into plain meaning, cross-linked to penalties, templates and case law, so that citizens, students and organisations across India can understand and act on their data-protection rights and duties. Built for awareness in the public interest - not legal advice."
+  },
+  "contact": {
+    "title": "Contact us",
+    "name_label": "Your name",
+    "email_label": "Email address",
+    "message_label": "Your message",
+    "submit": "Send message"
+  }
+}

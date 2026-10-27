@@ -1,0 +1,49 @@
+/* ==========================================================================
+   DPDP India - State-wise DPDP snapshot data (illustrative, for awareness)
+   Keyed by the SVG map's state id (@svg-maps/india). Each entry:
+     r       = illustrative DPDP-readiness index (0-100), NOT an official figure
+     hubs    = notable data / IT / industrial centres (factual place names)
+     sectors = leading sectors that drive personal-data processing
+     focus   = one-line DPDP focus for organisations in that state
+     fact    = a short context note
+   Used by js/indiamap.js to populate the click-to-open state panel.
+   ========================================================================== */
+export const STATE_DPDP = {
+  an: { r: 52, hubs: ["Port Blair"], sectors: ["Tourism", "Fisheries", "Public services"], focus: "Tourism operators and the administration should issue clear consent notices for visitor and resident data.", fact: "Civic and tourism systems are the main personal-data drivers." },
+  ap: { r: 64, hubs: ["Visakhapatnam", "Amaravati", "Tirupati"], sectors: ["IT & electronics", "Pharma", "Ports & logistics"], focus: "Fintech and pharma operations must map health and financial data flows and their processors.", fact: "A growing IT and electronics corridor along the eastern coast." },
+  ar: { r: 46, hubs: ["Itanagar"], sectors: ["Public services", "Tourism", "Hydropower"], focus: "Government departments should publish Section 5 notices for citizen-service data.", fact: "E-governance is the principal personal-data context." },
+  as: { r: 54, hubs: ["Guwahati", "Dibrugarh"], sectors: ["Tea & agriculture", "Oil & gas", "Public services"], focus: "Enterprises should inventory employee and customer data and build breach-response plans.", fact: "Guwahati is the north-east's commercial and data hub." },
+  br: { r: 50, hubs: ["Patna"], sectors: ["Agriculture", "Public services", "Education"], focus: "Welfare and education programmes must secure consent for large citizen datasets.", fact: "Welfare-delivery systems handle high-volume personal data." },
+  ch: { r: 66, hubs: ["Chandigarh IT Park"], sectors: ["IT / ITeS", "Government", "Education"], focus: "IT/ITeS firms should tighten processor contracts and cross-border transfer safeguards.", fact: "A compact UT with a dense IT-services footprint." },
+  ct: { r: 51, hubs: ["Raipur", "Bhilai"], sectors: ["Steel & mining", "Power", "Agriculture"], focus: "Industrial employers must govern workforce and contractor personal data.", fact: "Heavy-industry workforce data dominates processing." },
+  dn: { r: 49, hubs: ["Silvassa"], sectors: ["Manufacturing", "Textiles"], focus: "Manufacturing units should formalise employee-data notices and retention limits.", fact: "An industrial UT with large factory workforces." },
+  dd: { r: 48, hubs: ["Daman"], sectors: ["Tourism", "Manufacturing"], focus: "Hospitality and factory operators should capture consent and limit retention.", fact: "Tourism and manufacturing drive data collection." },
+  dl: { r: 82, hubs: ["Connaught Place", "Nehru Place", "Gurugram belt"], sectors: ["IT & startups", "BFSI", "Government"], focus: "An HQ-heavy market - appoint DPOs, run DPIAs and tighten vendor DPAs.", fact: "The national capital has the densest concentration of Data Fiduciaries." },
+  ga: { r: 58, hubs: ["Panaji", "Verna IT Park"], sectors: ["Tourism", "IT", "Pharma"], focus: "Hospitality must protect guest data; IT units need cross-border safeguards.", fact: "Tourism guest-data plus a growing IT park." },
+  gj: { r: 70, hubs: ["Ahmedabad", "Surat", "GIFT City"], sectors: ["BFSI (GIFT City)", "Pharma", "Diamonds & textiles"], focus: "GIFT City fintechs must combine DPDP with sectoral data-localisation rules.", fact: "GIFT City is a fast-growing financial-data centre." },
+  hr: { r: 76, hubs: ["Gurugram", "Faridabad"], sectors: ["IT & BPO", "Automotive", "BFSI"], focus: "BPO/ITeS processors in Gurugram should harden processor contracts and access controls.", fact: "Gurugram hosts major BPO and captive-processing centres." },
+  hp: { r: 52, hubs: ["Shimla", "Baddi"], sectors: ["Pharma manufacturing", "Tourism", "Power"], focus: "Pharma units handle health-adjacent data - document purpose and retention.", fact: "Baddi is a large pharmaceutical manufacturing cluster." },
+  jk: { r: 50, hubs: ["Srinagar", "Jammu", "Leh"], sectors: ["Tourism", "Handicrafts", "Public services"], focus: "Tourism and e-governance services should issue clear consent notices.", fact: "J&K and Ladakh are separate Union Territories - e-governance and tourism drive data use in both." },
+  jh: { r: 50, hubs: ["Ranchi", "Jamshedpur"], sectors: ["Steel & mining", "Manufacturing"], focus: "Industrial employers must inventory workforce and vendor personal data.", fact: "Jamshedpur's industrial base centres workforce data." },
+  ka: { r: 85, hubs: ["Bengaluru", "Mysuru", "Mangaluru"], sectors: ["IT & SaaS", "Biotech", "BFSI"], focus: "India's tech capital - lead on DPIAs, cross-border transfers and SDF readiness.", fact: "Bengaluru is India's largest software-export and data-processing hub." },
+  kl: { r: 64, hubs: ["Kochi - Infopark", "Thiruvananthapuram - Technopark"], sectors: ["IT", "Tourism", "Healthcare"], focus: "Health-tech and tourism operators should map sensitive personal data carefully.", fact: "Technopark and Infopark anchor a strong IT-services base." },
+  ld: { r: 44, hubs: ["Kavaratti"], sectors: ["Tourism", "Fisheries", "Public services"], focus: "The administration should secure resident and visitor data with clear notices.", fact: "A small UT where civic data systems dominate." },
+  mp: { r: 55, hubs: ["Indore", "Bhopal"], sectors: ["IT (Indore)", "Agriculture", "Manufacturing"], focus: "Indore's growing IT sector should formalise processor and consent practices.", fact: "Indore is central India's fastest-growing IT centre." },
+  mh: { r: 84, hubs: ["Mumbai", "Pune", "Nagpur"], sectors: ["BFSI", "IT & media", "Manufacturing"], focus: "The finance capital - integrate DPDP with RBI/SEBI data rules and breach reporting.", fact: "Mumbai concentrates BFSI; Pune is a major IT and captive hub." },
+  mn: { r: 46, hubs: ["Imphal"], sectors: ["Handloom", "Agriculture", "Public services"], focus: "Government services should publish consent notices for citizen data.", fact: "E-governance is the principal personal-data context." },
+  ml: { r: 46, hubs: ["Shillong"], sectors: ["Tourism", "Mining", "Public services"], focus: "Tourism and civic bodies should minimise and secure collected personal data.", fact: "Tourism and administrative data lead processing." },
+  mz: { r: 45, hubs: ["Aizawl"], sectors: ["Agriculture", "Handloom", "Public services"], focus: "Departments should formalise Section 5 notices for service delivery.", fact: "Citizen-service digitisation drives data use." },
+  nl: { r: 45, hubs: ["Kohima", "Dimapur"], sectors: ["Agriculture", "Tourism", "Public services"], focus: "Civic and tourism operators should adopt consent and retention basics.", fact: "Dimapur is the commercial gateway and data node." },
+  or: { r: 56, hubs: ["Bhubaneswar", "Cuttack"], sectors: ["IT (Bhubaneswar)", "Steel & mining", "Ports"], focus: "Bhubaneswar IT and industry should govern customer and workforce data.", fact: "Bhubaneswar hosts a growing IT-services cluster." },
+  py: { r: 55, hubs: ["Puducherry"], sectors: ["Manufacturing", "Tourism", "Education"], focus: "Manufacturers and colleges should document employee and student data flows.", fact: "A mixed industrial and education data environment." },
+  pb: { r: 58, hubs: ["Mohali", "Ludhiana"], sectors: ["IT (Mohali)", "Agro-processing", "Textiles"], focus: "Mohali IT firms and agri-processors should formalise consent and DPAs.", fact: "Mohali extends the Chandigarh IT corridor." },
+  rj: { r: 57, hubs: ["Jaipur", "Jodhpur", "Udaipur"], sectors: ["Tourism", "IT (Jaipur)", "Handicrafts"], focus: "Tourism and IT in Jaipur should protect guest and customer data.", fact: "Jaipur is an emerging IT and tourism-data centre." },
+  sk: { r: 47, hubs: ["Gangtok"], sectors: ["Tourism", "Pharma", "Hydropower"], focus: "Pharma units and hospitality should manage sensitive and guest data.", fact: "Pharma manufacturing and tourism drive data collection." },
+  tn: { r: 80, hubs: ["Chennai", "Coimbatore", "Tiruchirappalli"], sectors: ["IT & SaaS", "Auto manufacturing", "BFSI back-office"], focus: "A large IT & captive base - prioritise processor contracts and cross-border transfers.", fact: "Chennai is a top-three IT-services and captive-operations hub." },
+  tg: { r: 83, hubs: ["Hyderabad - HITEC City", "Warangal"], sectors: ["IT & SaaS", "Pharma & life sciences", "BFSI"], focus: "A pharma + IT mix means health and customer data need tight DPIAs.", fact: "HITEC City anchors major global capability centres." },
+  tr: { r: 46, hubs: ["Agartala"], sectors: ["Agriculture", "Bamboo & handicraft", "Public services"], focus: "Government services should issue clear notices for citizen datasets.", fact: "E-governance is the main personal-data driver." },
+  up: { r: 60, hubs: ["Noida", "Lucknow", "Kanpur"], sectors: ["IT / BPO (Noida)", "Manufacturing", "Government"], focus: "Noida's BPO/IT belt should strengthen processor contracts and access governance.", fact: "Noida is a major IT/BPO and data-processing corridor." },
+  ut: { r: 52, hubs: ["Dehradun", "Haridwar - SIDCUL"], sectors: ["Pharma & FMCG", "Tourism", "Education"], focus: "Pharma/FMCG plants should document workforce and supplier personal data.", fact: "The SIDCUL area concentrates manufacturing data." },
+  wb: { r: 66, hubs: ["Kolkata - Salt Lake Sector V", "Durgapur"], sectors: ["IT / ITeS", "Manufacturing", "BFSI"], focus: "Sector V IT firms should align consent, retention and cross-border transfers.", fact: "Salt Lake Sector V is eastern India's IT hub." }
+};
+

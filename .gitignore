@@ -1,0 +1,25 @@
+# Root safety net — never commit secrets or local runtime junk
+.env
+.env.*
+!.env.example
+!**/.env.example
+!**/.env.local.example
+
+# Python / Node caches
+**/__pycache__/
+**/.pytest_cache/
+**/node_modules/
+**/.next/
+**/venv/
+**/.venv/
+
+# Logs & OS
+*.log
+*.log.*
+.DS_Store
+Thumbs.db
+
+# IDE / deploy
+.vscode/
+.idea/
+.vercel/

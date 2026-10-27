@@ -1,0 +1,39 @@
+/* ============================================================================
+   widgets.css - styling for reused vanilla-JS widgets (LexBot, a11y toolbar,
+   cookie consent, India map, kolam canvas) recolored to the Variation 1 theme.
+
+   Strategy: the legacy widget scripts emit prefixed classes (.lex-*, .a11y-*,
+   .cc-*, .map-*, .state, .hub, .flow-*) and reference legacy design tokens.
+   We alias those legacy tokens to the new tokens so the widgets adopt the new
+   palette automatically. Populated in the widget-wiring step.
+   ========================================================================== */
+
+:root {
+  /* legacy token aliases -> new high-tech tokens */
+  --paper: var(--bg);
+  --paper-2: var(--bg-2);
+  --ink: var(--text);
+  --ink-soft: var(--text-muted);
+  --ink-faint: var(--text-faint);
+  --brand-700: var(--brand-soft);
+  --brand-300: var(--brand);
+  --brand-tint: color-mix(in srgb, var(--brand) 16%, transparent);
+  --accent-tint: color-mix(in srgb, var(--accent) 14%, transparent);
+  --green-tint: color-mix(in srgb, var(--green) 14%, transparent);
+  --blue-tint: color-mix(in srgb, var(--blue) 14%, transparent);
+  --red-tint: color-mix(in srgb, var(--red) 14%, transparent);
+  --on-brand: #08122b;
+}
+
+/* Scroll progress bar (driven by main.js .scroll-progress) */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  z-index: 100;
+  background: linear-gradient(to right, var(--accent), var(--amber), var(--brand-soft));
+  box-shadow: 0 0 12px var(--glow);
+  transition: width 0.1s linear;
+}

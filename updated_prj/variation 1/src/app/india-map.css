@@ -1,0 +1,176 @@
+/* ==========================================================================
+   Interactive India coverage map (hero feature) - ported from the original
+   loved hero and re-themed for variation 1. Classes are prefixed `imap-` to
+   stay self-contained. Tokens map to variation 1's palette.
+   ========================================================================== */
+
+.india-flag-float {
+  transform-origin: center;
+}
+
+.imap-floating {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* No decorative blob behind the map; the SVG floats directly on the page. */
+.imap-bg {
+  display: none;
+}
+/* The SVG map + decorations */
+.imap-svg {
+  overflow: visible;
+}
+.imap-svg .imap-flow-line {
+  fill: none;
+  stroke: color-mix(in srgb, var(--brand) 55%, transparent);
+  stroke-width: 0.8;
+  stroke-dasharray: 2.4 3.2;
+  opacity: 0.8;
+}
+.imap-svg .imap-flow-dot {
+  fill: var(--accent);
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--accent) 80%, transparent));
+}
+.imap-svg .imap-hub {
+  cursor: pointer;
+}
+.imap-svg .imap-hub:focus {
+  outline: none;
+}
+.imap-svg .imap-hub-core {
+  fill: var(--accent);
+  stroke: var(--bg);
+  stroke-width: 1.2;
+}
+.imap-svg .imap-hub-pulse {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.4;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: imap-hubpulse 2.6s var(--ease) infinite;
+}
+.imap-svg .imap-hub-label {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--text);
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease);
+}
+.imap-svg .imap-hub:hover .imap-hub-label,
+.imap-svg .imap-hub:focus-visible .imap-hub-label {
+  opacity: 1;
+}
+@keyframes imap-hubpulse {
+  0% {
+    r: 3;
+    opacity: 0.9;
+  }
+  70% {
+    r: 13;
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .imap-svg .imap-hub-pulse {
+    animation: none;
+  }
+}
+
+/* Tooltip */
+.imap-tip {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-2) 88%, transparent);
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+/* Readout caption */
+.imap-readout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+  padding: 0.7rem 0.3rem 0.2rem;
+  border-top: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+}
+.imap-dotk {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.imap-rd-text {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+}
+.imap-rd-text b {
+  color: var(--text);
+  font-family: var(--font-display), sans-serif;
+  font-weight: 600;
+}
+.imap-rd-hint {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Legend */
+.imap-legend {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  margin-top: 0.3rem;
+  padding: 0 0.3rem 0.2rem;
+}
+.imap-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.imap-legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.imap-lg-state {
+  background: color-mix(in srgb, var(--accent) 22%, var(--surface));
+  border: 1px solid var(--line);
+}
+.imap-lg-hub {
+  background: var(--accent);
+  border-radius: 50%;
+}
+.imap-lg-flow {
+  background: color-mix(in srgb, var(--brand) 70%, transparent);
+  border-radius: 50%;
+}
