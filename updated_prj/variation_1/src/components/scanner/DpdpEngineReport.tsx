@@ -269,7 +269,7 @@ export function DpdpEngineReport({ data }: { data: DpdpReportContext }) {
               </div>
             </div>
             <a
-              href="mailto:consult@anixai.io?subject=DPDP%20Compliance%20Help"
+              href="mailto:info@truststack.co.in?subject=DPDP%20Compliance%20Help"
               className="btn btn-accent shrink-0 gap-2"
             >
               Talk to TrustStack <ArrowRight className="h-4 w-4" />
@@ -288,7 +288,7 @@ export function DpdpEngineReport({ data }: { data: DpdpReportContext }) {
           {pdfBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
           Download PDF
         </button>
-        <Link href="/scanner" className="btn btn-ghost">
+        <Link href="/trustdeck/scanner" className="btn btn-ghost">
           New assessment
         </Link>
       </div>

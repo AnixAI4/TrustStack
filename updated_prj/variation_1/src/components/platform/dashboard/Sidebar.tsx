@@ -72,7 +72,7 @@ export default function Sidebar({ orgName }: SidebarProps) {
         )}
       </div>
 
-      <nav className="flex-1 overflow-y-auto py-3" aria-label="TrustDeck modules">
+      <nav className="trustdeck-sidebar-scroll flex-1 overflow-y-auto py-3" aria-label="TrustDeck modules">
         {SIDEBAR_MODULES.map((mod) => {
           const Icon = ICON_MAP[mod.icon]
           const isActive =

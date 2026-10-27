@@ -191,11 +191,7 @@ export function RiskGuideModal({
                   id="risk-guide-title"
                   className="flex items-center gap-1.5 font-display text-base font-semibold text-text"
                 >
-                  Dee
-                  <span className="inline-flex items-center gap-1 rounded-pill border border-line bg-bg-2/70 px-1.5 py-0.5 font-mono text-[9px] font-medium uppercase tracking-wider text-text-faint">
-                    <Zap className="h-2.5 w-2.5 text-accent" />
-                    Instant
-                  </span>
+                  TrustStack AI
                 </div>
                 <div className="truncate text-xs text-text-muted">
                   Your DPDP guide · plain-English help

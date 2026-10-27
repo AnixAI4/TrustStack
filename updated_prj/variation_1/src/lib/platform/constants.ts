@@ -465,6 +465,7 @@ export const SIDEBAR_MODULES = [
   { key: 'overview',        label: 'Overview',                href: '/trustdeck/overview',        icon: 'LayoutDashboard', available: true },
   { key: 'reports',         label: 'Board Reports',           href: '/trustdeck/reports',          icon: 'FileBarChart',    available: true },
   { key: 'assessment',      label: 'DPDP Compass™',          href: '/trustdeck/assessment',       icon: 'Compass',         available: true },
+  { key: 'scanner',         label: 'DPDP Scanner',           href: '/trustdeck/scanner',          icon: 'ScanLine',        available: true },
   { key: 'consent',         label: 'Consent Management',     href: '/trustdeck/consent',          icon: 'CheckSquare',     available: true },
   { key: 'privacy-notice',  label: 'Privacy Notice Builder', href: '/trustdeck/privacy-notice',   icon: 'FileText',        available: true },
   { key: 'grievance',       label: 'Grievance Officer',      href: '/trustdeck/grievance',        icon: 'MessageCircle',   available: true },
@@ -476,7 +477,7 @@ export const SIDEBAR_MODULES = [
 ] as const
 
 export const SIDEBAR_MODULE_GROUPS = [
-  { label: 'Command centre', keys: ['overview', 'reports', 'assessment'] },
+  { label: 'Command centre', keys: ['overview', 'reports', 'assessment', 'scanner'] },
   { label: 'Governance', keys: ['consent', 'privacy-notice', 'grievance', 'dsr'] },
   { label: 'Operations', keys: ['ropa', 'vendors', 'breach'] },
 ] as const

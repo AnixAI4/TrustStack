@@ -16,6 +16,7 @@ import {
   LayoutDashboard,
   Menu,
   MessageCircle,
+  ScanLine,
   Settings,
   ShieldCheck,
   Users,
@@ -38,6 +39,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Building2,
   AlertTriangle,
   Settings,
+  ScanLine,
 }
 
 export function PlatformMobileNav({ orgName }: { orgName: string }) {
@@ -148,7 +150,7 @@ export function PlatformMobileNav({ orgName }: { orgName: string }) {
                 </p>
               </div>
 
-              <nav className="min-h-0 flex-1 overflow-y-auto px-3 pb-3 pt-2" aria-label="TrustDeck modules">
+              <nav className="trustdeck-sidebar-scroll min-h-0 flex-1 overflow-y-auto px-3 pb-3 pt-2" aria-label="TrustDeck modules">
                 {SIDEBAR_MODULE_GROUPS.map((group) => (
                   <div key={group.label} className="pt-3">
                     <p className="px-3 pb-1.5 font-mono text-label font-semibold uppercase tracking-[var(--tracking-label)] text-white/30">

@@ -82,19 +82,21 @@ export function RiskCheck() {
     return t;
   }, [answers]);
 
-  const readiness = Math.round(
-    ((tally.covered + tally.progress * 0.5) / total) * 100
+  // Risk scoring: Gaps represent full risk (1.0), in-progress represents partial risk (0.5), covered represents 0 risk.
+  const riskScore = Math.round(
+    ((tally.gap + tally.progress * 0.5) / total) * 100
   );
   const started = tally.unanswered < total;
 
-  const band =
-    !started || readiness < 40
-      ? { color: "var(--red)", label: started ? t("band_high") : t("band_start") }
-      : readiness < 70
-        ? { color: "var(--amber)", label: t("band_developing") }
-        : readiness < 90
-          ? { color: "var(--blue)", label: t("band_strong") }
-          : { color: "var(--green)", label: t("band_ready") };
+  const band = !started
+    ? { color: "var(--text-faint)", label: t("band_start") }
+    : riskScore >= 70
+      ? { color: "var(--red)", label: "High Risk" }
+      : riskScore >= 40
+        ? { color: "var(--amber)", label: "Moderate Risk" }
+        : riskScore > 15
+          ? { color: "var(--blue)", label: "Low Risk" }
+          : { color: "var(--green)", label: "Minimal Risk" };
 
   const R = 54;
   const C = 2 * Math.PI * R;
@@ -208,13 +210,13 @@ export function RiskCheck() {
                     strokeWidth="10"
                     strokeLinecap="round"
                     strokeDasharray={C}
-                    strokeDashoffset={C - (C * readiness) / 100}
+                    strokeDashoffset={C - (C * riskScore) / 100}
                     style={{ transition: "stroke-dashoffset .6s var(--ease), stroke .3s" }}
                   />
                 </svg>
                 <div className="absolute inset-[22%] flex flex-col items-center justify-center text-center">
                   <div className="font-display text-3xl font-semibold leading-none text-text">
-                    {readiness}
+                    {riskScore}
                     <span className="text-lg text-text-faint">%</span>
                   </div>
                   <div

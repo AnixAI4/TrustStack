@@ -98,11 +98,10 @@ export default function AccountPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span
-                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium ${
-                    isPilot
+                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium ${isPilot
                       ? "bg-emerald-500/10 text-emerald-500"
                       : "bg-zinc-500/10 text-zinc-500"
-                  }`}
+                    }`}
                 >
                   {isPilot ? (
                     <>
@@ -156,7 +155,7 @@ export default function AccountPage() {
                     "8 certification modules",
                     "1 compliance scan per day",
                     "All tools & utilities",
-                    "TrustChat AI (coming soon)",
+                    "TrustChat AI",
                   ].map((benefit) => (
                     <li
                       key={benefit}

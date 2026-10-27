@@ -104,7 +104,7 @@ function normalizeUrl(raw: string): string | null {
   }
 }
 
-export function ScannerWorkspace() {
+export function ScannerWorkspace({ basePath = '/scanner' }: { basePath?: string } = {}) {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("url");
   const [url, setUrl] = useState("");
@@ -259,7 +259,7 @@ export function ScannerWorkspace() {
   function openHistoryItem(item: ScanHistoryItem) {
     setActiveReportId(item.report_id);
     setState({ phase: "opening", message: "Opening assessment report…" });
-    router.push(`/scanner/report/${encodeURIComponent(item.report_id)}`);
+    router.push(`${basePath}/report/${encodeURIComponent(item.report_id)}`);
   }
 
   function onScanSuccess(
@@ -303,7 +303,7 @@ export function ScannerWorkspace() {
         report: report.context ?? report,
       }),
     }).catch(() => undefined);
-    router.push(`/scanner/report/${encodeURIComponent(report.report_id)}`);
+    router.push(`${basePath}/report/${encodeURIComponent(report.report_id)}`);
   }
 
   async function runScan(e: FormEvent) {

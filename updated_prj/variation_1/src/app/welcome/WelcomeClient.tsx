@@ -57,7 +57,7 @@ const features: FeatureItem[] = [
     pilot: "1/day",
   },
   {
-    name: "TrustChat AI (Coming Soon)",
+    name: "TrustChat AI",
     icon: <Bot className="h-4 w-4" />,
     free: false,
     pilot: true,
@@ -83,11 +83,10 @@ function FeatureRow({ feature, plan }: { feature: FeatureItem; plan: PlanType })
   return (
     <li className="flex items-center gap-3 py-2">
       <span
-        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
-          isIncluded
+        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${isIncluded
             ? "bg-accent/15 text-accent"
             : "bg-surface-2 text-text-faint"
-        }`}
+          }`}
       >
         {isIncluded ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
       </span>
@@ -150,11 +149,10 @@ export function WelcomeClient() {
         <div className="mt-14 grid gap-6 lg:grid-cols-2 lg:gap-8">
           {/* Free */}
           <div
-            className={`welcome-card relative rounded-2xl border bg-surface-2/40 p-7 transition-all sm:p-8 ${
-              selectedPlan === "free"
+            className={`welcome-card relative rounded-2xl border bg-surface-2/40 p-7 transition-all sm:p-8 ${selectedPlan === "free"
                 ? "border-accent/50 shadow-[0_0_0_1px_color-mix(in_srgb,var(--accent)_30%,transparent)]"
                 : "border-line hover:border-accent/35"
-            }`}
+              }`}
           >
             <div className="mb-6">
               <h2 className="font-display text-2xl font-semibold text-text">Free</h2>
@@ -196,11 +194,10 @@ export function WelcomeClient() {
 
           {/* Pilot */}
           <div
-            className={`welcome-card welcome-card--pilot relative rounded-2xl border p-7 transition-all sm:p-8 ${
-              selectedPlan === "pilot"
+            className={`welcome-card welcome-card--pilot relative rounded-2xl border p-7 transition-all sm:p-8 ${selectedPlan === "pilot"
                 ? "border-accent shadow-[0_0_0_1px_color-mix(in_srgb,var(--accent)_40%,transparent)]"
                 : "border-accent/40 hover:border-accent/70"
-            }`}
+              }`}
             style={{
               background:
                 "linear-gradient(165deg, color-mix(in srgb, var(--accent) 10%, var(--surface-2)) 0%, color-mix(in srgb, var(--brand) 6%, var(--bg-2)) 100%)",

@@ -17,6 +17,7 @@ import {
   Settings,
   ShieldCheck,
   CircleHelp,
+  ScanLine,
 } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import { SIDEBAR_MODULE_GROUPS, SIDEBAR_MODULES } from '@/lib/platform/constants'
@@ -46,6 +47,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Building2,
   AlertTriangle,
   Settings,
+  ScanLine,
 }
 
 const PRIMARY_MODULES = SIDEBAR_MODULES.filter((m) => m.key !== 'settings')
@@ -286,7 +288,7 @@ export function PlatformChrome({
           )}
         </Link>
 
-        <nav className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-3 pt-2" aria-label="TrustDeck modules">
+        <nav className="trustdeck-sidebar-scroll min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-3 pt-2" aria-label="TrustDeck modules">
           {SIDEBAR_MODULE_GROUPS.map((group) => (
             <div key={group.label} className="pb-1 pt-1">
               {railOpen && (
