@@ -15,10 +15,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-dejavu-core \
     # healthcheck
     curl \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    # Normalize chromedriver path: some Debian builds put it at /usr/lib/chromium/
+    && (test -f /usr/bin/chromedriver || \
+        (test -f /usr/lib/chromium/chromedriver && ln -s /usr/lib/chromium/chromedriver /usr/bin/chromedriver) || \
+        (test -f /usr/lib/chromium-browser/chromedriver && ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver))
 
 # Prefer system Chromium over webdriver-manager downloads
 ENV CHROME_BIN=/usr/bin/chromium
+# chromium-driver on Debian bookworm installs to /usr/bin/chromedriver
+# Fallback paths tried by create_selenium_driver() in scraper.py
 ENV CHROMEDRIVER_PATH=/usr/bin/chromedriver
 ENV PYTHONUNBUFFERED=1
 ENV DATA_DIR=/data

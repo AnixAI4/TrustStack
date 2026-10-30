@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DPDP Visual Journey</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script>window.echarts || document.write('<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"><\/script>');</script>
+<style>
+  /* Data-viz method (dataviz skill): validated palette — proven = categorical slot 1 (blue), declared = slot 2 (orange);
+     bands = ordinal blue ramp; severity = the reserved status palette, always with a label; system sans throughout. */
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781; --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,.10);
+    --proven: #2a78d6; --declared: #eb6834;
+    --r250: #86b6ef; --r300: #6da7ec; --r350: #5598e7; --r450: #2a78d6; --r550: #1c5cab; --r650: #104281;
+    --s100: #cde2fb; --s200: #9ec5f4; --s300: #6da7ec; --s400: #3987e5; --s500: #256abf; --s600: #184f95; --s700: #0d366b;
+    --good: #0ca30c; --warning: #fab219; --serious: #ec835a; --critical: #d03b3b; --neutral: #c3c2b7;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) {
+    color-scheme: dark; --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781; --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,.10);
+    --proven: #3987e5; --declared: #d95926; --r250: #184f95; --r300: #1c5cab; --r350: #256abf; --r450: #3987e5; --r550: #6da7ec; --r650: #9ec5f4;
+    --s100: #1f2a38; --s200: #184f95; --s300: #1c5cab; --s400: #256abf; --s500: #3987e5; --s600: #6da7ec; --s700: #9ec5f4; --neutral: #5c5b57; } }
+  :root[data-theme="dark"] {
+    color-scheme: dark; --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781; --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,.10);
+    --proven: #3987e5; --declared: #d95926; --r250: #184f95; --r300: #1c5cab; --r350: #256abf; --r450: #3987e5; --r550: #6da7ec; --r650: #9ec5f4;
+    --s100: #1f2a38; --s200: #184f95; --s300: #1c5cab; --s400: #256abf; --s500: #3987e5; --s600: #6da7ec; --s700: #9ec5f4; --neutral: #5c5b57; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink); font: 14px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 24px; }
+  header { display: grid; gap: 6px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-size: 26px; line-height: 1.25; font-weight: 650; margin: 0; letter-spacing: -.01em; text-wrap: balance; max-width: 34ch; }
+  .sub { color: var(--ink-2); max-width: 82ch; margin: 0; }
+  .prov { font-size: 12px; color: var(--muted); margin: 0; max-width: 110ch; }
+  h2 { font-size: 13px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); margin: 12px 0 -8px; }
+  .hero { display: grid; gap: 16px; grid-template-columns: minmax(0, 1.3fr) minmax(0, 2.7fr); align-items: stretch; }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
+  .panel { background: var(--surface); border-radius: 14px; box-shadow: 0 0 0 1px var(--ring); }
+  .herofig { padding: 20px 22px; display: grid; gap: 6px; align-content: center; }
+  .herofig .v { font-size: 56px; line-height: 1; font-weight: 650; letter-spacing: -.02em; }
+  .herofig .v small { font-size: 20px; font-weight: 500; color: var(--muted); margin-left: 4px; }
+  .herofig .l { color: var(--ink-2); display: flex; align-items: center; gap: 8px; }
+  .key { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .tile { padding: 16px 18px; display: grid; gap: 4px; border-left: 1px solid var(--grid); }
+  .tile:nth-child(4n+1) { border-left: 0; }
+  @media (max-width: 860px) { .tile { border-left: 0; border-top: 1px solid var(--grid); } }
+  .tile .l { font-size: 12px; color: var(--ink-2); display: flex; align-items: center; gap: 6px; }
+  .tile .v { font-size: 26px; font-weight: 650; letter-spacing: -.01em; }
+  .tile .d { font-size: 12px; color: var(--muted); }
+  .grid2 { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 540px), 1fr)); }
+  .card { padding: 18px 20px 12px; display: grid; gap: 4px; min-width: 0; }
+  .card.wide { grid-column: 1 / -1; }
+  .card h3 { font-size: 15px; font-weight: 650; margin: 0; }
+  .finding { margin: 0 0 6px; color: var(--ink-2); font-size: 13px; max-width: 95ch; }
+  .chart { width: 100%; }
+  .foot { display: flex; justify-content: space-between; gap: 12px; align-items: center; border-top: 1px solid var(--grid); padding-top: 8px; margin-top: 6px; }
+  .src { font-size: 11px; color: var(--muted); }
+  .tbtn { font: inherit; font-size: 12px; color: var(--ink-2); background: none; border: 1px solid var(--grid); border-radius: 8px; padding: 3px 10px; cursor: pointer; white-space: nowrap; }
+  .tbtn:hover { background: var(--page); } .tbtn:focus-visible { outline: 2px solid var(--proven); outline-offset: 2px; }
+  .tview { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); }
+  th { color: var(--ink-2); font-weight: 600; } td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-2); border: 1px solid var(--grid); border-radius: 999px; padding: 2px 10px; }
+  .chip b { color: var(--ink); }
+  .steps { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 0; position: relative; padding: 10px 0 4px; }
+  @media (max-width: 900px) { .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 18px; } }
+  .step { display: grid; gap: 6px; justify-items: center; text-align: center; padding: 0 6px; position: relative; }
+  .step::before { content: ""; position: absolute; top: 15px; left: -50%; width: 100%; height: 2px; background: var(--grid); z-index: 0; }
+  .step:first-child::before { display: none; }
+  @media (max-width: 900px) { .step::before { display: none; } }
+  .dot { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; font-weight: 700; z-index: 1; box-shadow: 0 0 0 3px var(--surface); }
+  .done .dot { background: var(--proven); color: #fff; }
+  .prog .dot { background: var(--surface); color: var(--proven); border: 2px solid var(--proven); }
+  .next .dot { background: var(--page); color: var(--muted); border: 2px solid var(--grid); }
+  .step b { font-size: 12.5px; }
+  .step .st { font-size: 11px; color: var(--ink-2); }
+  .step .m { font-size: 11px; color: var(--muted); }
+  .note { font-size: 12px; color: var(--muted); margin: 0; }
+  .offline { padding: 24px; color: var(--ink-2); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">DPDP Compass™ · Visual journey</span>
+    <h1 id="headline">—</h1>
+    <p class="sub" id="lead">—</p>
+    <p class="prov" id="prov">—</p>
+  </header>
+
+  <section class="hero" aria-label="Headline figures">
+    <div class="panel herofig"><span class="l"><i class="key" style="background:var(--proven)"></i>Proven readiness score</span><span class="v" id="hero">—<small>/ 100</small></span><span class="l" id="heroband">—</span></div>
+    <div class="panel tiles" id="tiles"></div>
+  </section>
+
+  <h2>1 · The assessment</h2>
+  <div class="grid2">
+    <article class="panel card wide" data-c="bullet"><h3>Where the score sits</h3><p class="finding"></p><div class="chart" style="height:120px"></div></article>
+    <article class="panel card" data-c="dumb"><h3>Declared and proven, by domain</h3><p class="finding"></p><div class="chart" style="height:520px"></div></article>
+    <article class="panel card" data-c="need"><h3>Points to reach the target, by domain</h3><p class="finding"></p><div class="chart" style="height:520px"></div></article>
+    <article class="panel card" data-c="sev"><h3>Gaps by domain and severity</h3><p class="finding"></p><div class="chart" style="height:520px"></div><div class="chips" id="prio"></div></article>
+    <article class="panel card" data-c="heat"><h3>What was claimed against the evidence held</h3><p class="finding"></p><div class="chart" style="height:400px"></div></article>
+    <article class="panel card" data-c="owner"><h3>Who owns the gaps</h3><p class="finding"></p><div class="chart" style="height:300px"></div></article>
+    <article class="panel card" data-c="pace"><h3>The pace needed by 13 May 2027</h3><p class="finding"></p><div class="chart" style="height:300px"></div></article>
+  </div>
+
+  <h2>2 · The journey through the platform</h2>
+  <article class="panel card wide"><h3>Where this organisation is on the journey</h3><p class="finding">Each stage's status is read from the organisation's own records.</p><div class="steps" id="steps"></div><div class="foot"><span class="src" id="src-j"></span></div></article>
+  <div class="grid2" id="regs">
+    <article class="panel card" data-c="ropa"><h3>Processing records: completeness and risk</h3><p class="finding"></p><div class="chart" style="height:400px"></div></article>
+    <article class="panel card" data-c="clock"><h3>Legal clocks: time used against the limit</h3><p class="finding"></p><div class="chart" style="height:200px"></div></article>
+    <article class="panel card" data-c="vend"><h3>Processors under contract</h3><p class="finding"></p><div class="tview" id="vend"></div></article>
+    <article class="panel card" data-c="ret"><h3>Retention: when data falls due for erasure</h3><p class="finding"></p><div class="chart" style="height:320px"></div></article>
+  </div>
+  <p class="note">Charts: Apache ECharts 5.5.0. Generated by <code>tools/visual_report.mjs</code> from computed data. Scores describe readiness, never a compliance certificate.</p>
+</div>
+
+<script id="data" type="application/json">{"generatedAt":"2026-10-29T05:47:05.739Z","engineVersion":"1.0.0","source":"Mumbai University DPDP Compass Baseline","overall":{"proven":25.301428571428573,"provenRaw":25.301428571428573,"declared":26.10142857142857,"declaredRaw":26.10142857142857,"cap":50,"declaredCap":50,"confidence":23.90327380952381,"provenBand":"Level 1 - Aware","declaredBand":"Level 1 - Aware","critical":10,"high":52,"redFlags":["no_evidenced_dpdp_owner","weak_data_inventory","weak_ropa","weak_security_safeguards","weak_breach_readiness","weak_processor_governance","unreviewed_childrens_data"],"declaredRedFlags":["no_evidenced_dpdp_owner","weak_data_inventory","weak_ropa","weak_security_safeguards","weak_breach_readiness","weak_processor_governance","unreviewed_childrens_data"],"answers":98,"overClaimed":5},"bands":[{"label":"Level 0 - Not Started","max":0.2},{"label":"Level 1 - Aware","max":0.4},{"label":"Level 2 - Defined","max":0.6},{"label":"Level 3 - Implementing","max":0.75},{"label":"Level 4 - Operational","max":0.9},{"label":"Level 5 - Continuous Assurance","max":1}],"domains":[{"code":"GOV","name":"Governance","weight":7,"proven":2.6,"declared":2.6,"provenPct":37.1,"declaredPct":37.1,"evidenceConfidence":37.142857142857146,"critical":0,"high":1,"status":"high_risk"},{"code":"INV","name":"Data inventory","weight":8,"proven":1.3714285714285714,"declared":1.3714285714285714,"provenPct":17.1,"declaredPct":17.1,"evidenceConfidence":17.142857142857142,"critical":1,"high":6,"status":"critical"},{"code":"ROPA","name":"Processing register","weight":6,"proven":1.0499999999999998,"declared":1.0499999999999998,"provenPct":17.5,"declaredPct":17.5,"evidenceConfidence":17.5,"critical":1,"high":7,"status":"critical"},{"code":"PURPOSE","name":"Purpose & basis","weight":7,"proven":2.8000000000000003,"declared":2.8000000000000003,"provenPct":40,"declaredPct":40,"evidenceConfidence":40,"critical":0,"high":0,"status":"needs_work"},{"code":"NOTICE","name":"Notice","weight":7,"proven":2.8000000000000003,"declared":2.8000000000000003,"provenPct":40,"declaredPct":40,"evidenceConfidence":40,"critical":0,"high":0,"status":"needs_work"},{"code":"CONSENT","name":"Consent","weight":7,"proven":1.1666666666666667,"declared":1.1666666666666667,"provenPct":16.7,"declaredPct":16.7,"evidenceConfidence":16.666666666666668,"critical":1,"high":5,"status":"critical"},{"code":"RIGHTS","name":"Rights","weight":7,"proven":1.4000000000000001,"declared":1.4000000000000001,"provenPct":20,"declaredPct":20,"evidenceConfidence":20,"critical":0,"high":6,"status":"high_risk"},{"code":"GRIEVANCE","name":"Grievance","weight":5,"proven":0.6,"declared":0.6,"provenPct":12,"declaredPct":12,"evidenceConfidence":12,"critical":2,"high":3,"status":"critical"},{"code":"RETENTION","name":"Retention","weight":6,"proven":1.2000000000000002,"declared":1.2000000000000002,"provenPct":20,"declaredPct":20,"evidenceConfidence":20,"critical":0,"high":6,"status":"high_risk"},{"code":"ACCURACY","name":"Accuracy","weight":4,"proven":1.6,"declared":2.4,"provenPct":40,"declaredPct":60,"evidenceConfidence":40,"critical":0,"high":0,"status":"needs_work"},{"code":"SECURITY","name":"Security","weight":10,"proven":4,"declared":4,"provenPct":40,"declaredPct":40,"evidenceConfidence":40,"critical":0,"high":0,"status":"needs_work"},{"code":"BREACH","name":"Breach","weight":8,"proven":1.0666666666666667,"declared":1.0666666666666667,"provenPct":13.3,"declaredPct":13.3,"evidenceConfidence":13.333333333333334,"critical":2,"high":4,"status":"critical"},{"code":"VENDOR","name":"Processors","weight":7,"proven":1.1666666666666667,"declared":1.1666666666666667,"provenPct":16.7,"declaredPct":16.7,"evidenceConfidence":16.666666666666668,"critical":1,"high":5,"status":"critical"},{"code":"CHILD","name":"Children","weight":4,"proven":0.48,"declared":0.48,"provenPct":12,"declaredPct":12,"evidenceConfidence":12,"critical":2,"high":3,"status":"critical"},{"code":"CROSSBORDER","name":"Cross-border","weight":3,"proven":1.2000000000000002,"declared":1.2000000000000002,"provenPct":40,"declaredPct":40,"evidenceConfidence":20,"critical":0,"high":0,"status":"needs_work"},{"code":"SDF_AI","name":"SDF & AI","weight":4,"proven":0.8,"declared":0.8,"provenPct":20,"declaredPct":20,"evidenceConfidence":20,"critical":0,"high":6,"status":"high_risk"}],"matrix":[[10,0,0,0,0,0],[0,52,0,0,0,0],[0,5,26,0,0,0],[0,0,5,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],"sankeyLinks":[{"source":"Governance & data","target":"Medium","value":17},{"source":"Medium","target":"P2","value":36},{"source":"Governance & data","target":"High","value":20},{"source":"High","target":"P1","value":52},{"source":"Governance & data","target":"Critical","value":2},{"source":"Critical","target":"P0","value":10},{"source":"People-facing","target":"Medium","value":6},{"source":"People-facing","target":"High","value":14},{"source":"People-facing","target":"Critical","value":3},{"source":"Security & vendors","target":"Medium","value":8},{"source":"Security & vendors","target":"Critical","value":3},{"source":"Security & vendors","target":"High","value":9},{"source":"Special risk","target":"High","value":9},{"source":"Special risk","target":"Critical","value":2},{"source":"Special risk","target":"Medium","value":5}],"owners":[["Legal",41],["IT",26],["DPDP Owner",8],["Executive Sponsor",7],["Procurement",6],["Data Owners",5],["Admissions",5]],"priorities":{"P0":10,"P1":52,"P2":36,"P3":0},"gapsByDomain":[{"code":"GOV","name":"Governance","critical":0,"high":1,"medium":6,"low":0},{"code":"INV","name":"Data inventory","critical":1,"high":6,"medium":0,"low":0},{"code":"ROPA","name":"Processing register","critical":1,"high":7,"medium":0,"low":0},{"code":"PURPOSE","name":"Purpose & basis","critical":0,"high":0,"medium":6,"low":0},{"code":"NOTICE","name":"Notice","critical":0,"high":0,"medium":6,"low":0},{"code":"CONSENT","name":"Consent","critical":1,"high":5,"medium":0,"low":0},{"code":"RIGHTS","name":"Rights","critical":0,"high":6,"medium":0,"low":0},{"code":"GRIEVANCE","name":"Grievance","critical":2,"high":3,"medium":0,"low":0},{"code":"RETENTION","name":"Retention","critical":0,"high":6,"medium":0,"low":0},{"code":"ACCURACY","name":"Accuracy","critical":0,"high":0,"medium":5,"low":0},{"code":"SECURITY","name":"Security","critical":0,"high":0,"medium":8,"low":0},{"code":"BREACH","name":"Breach","critical":2,"high":4,"medium":0,"low":0},{"code":"VENDOR","name":"Processors","critical":1,"high":5,"medium":0,"low":0},{"code":"CHILD","name":"Children","critical":2,"high":3,"medium":0,"low":0},{"code":"CROSSBORDER","name":"Cross-border","critical":0,"high":0,"medium":5,"low":0},{"code":"SDF_AI","name":"SDF & AI","critical":0,"high":6,"medium":0,"low":0}],"registers":{"ropa":[{"code":"ROPA-001","name":"Online admission application","completeness":70,"risk":8,"rating":"high","principals":0,"children":"yes","xb":"unknown","basis":null},{"code":"ROPA-002","name":"Examination registration and result processing","completeness":62,"risk":6,"rating":"critical","principals":0,"children":"unknown","xb":"unknown","basis":null},{"code":"ROPA-003","name":"Student ERP / SIS lifecycle management","completeness":70,"risk":8,"rating":"high","principals":0,"children":"yes","xb":"unknown","basis":null},{"code":"ROPA-004","name":"LMS learning activity","completeness":70,"risk":7,"rating":"high","principals":0,"children":"unknown","xb":"unknown","basis":null},{"code":"ROPA-005","name":"HR payroll and employee records","completeness":80,"risk":5,"rating":"medium","principals":0,"children":"no","xb":"unknown","basis":"employment"},{"code":"ROPA-006","name":"Scholarship and concession processing","completeness":70,"risk":6,"rating":"high","principals":0,"children":"unknown","xb":"unknown","basis":null},{"code":"ROPA-007","name":"Affiliated college data exchange","completeness":70,"risk":6,"rating":"critical","principals":0,"children":"unknown","xb":"unknown","basis":null},{"code":"ROPA-008","name":"AI student chatbot","completeness":70,"risk":9,"rating":"critical","principals":0,"children":"unknown","xb":"unknown","basis":null},{"code":"ROPA-009","name":"Event and webinar registration","completeness":78,"risk":6,"rating":"high","principals":0,"children":"unknown","xb":"unknown","basis":null},{"code":"ROPA-010","name":"Alumni communications","completeness":78,"risk":5,"rating":"medium","principals":0,"children":"no","xb":"unknown","basis":null}],"rights":[{"code":"DPR-2026-001","kind":"access","status":"responded","received":"2026-08-03","respondBy":"2026-11-01","responded":"2026-08-21"},{"code":"GRV-2026-001","kind":"grievance","status":"responded","received":"2026-09-02","respondBy":"2026-12-01","responded":"2026-09-24"}],"breaches":[{"code":"BRH-2026-001","status":"closed","aware":"2026-03-14T04:50:00+00:00","due":"2026-03-17T04:50:00+00:00","reported":"2026-03-16T11:00:00+00:00","told":"2026-03-15T06:00:00+00:00","severity":"high"}],"vendors":[{"name":"AI proctoring vendor","role":"data_processor","contract":"yes","clauses":"unknown","xb":"unknown","reviewBy":null},{"name":"LMS provider","role":"data_processor","contract":"yes","clauses":"no","xb":"unknown","reviewBy":null},{"name":"Payment gateway provider","role":"data_processor","contract":"yes","clauses":"yes","xb":"no","reviewBy":null}],"retention":[{"basis":"fixed_period","months":36,"starts":"2025-08-31","ends":"2028-08-31","informBy":null,"record":"ROPA-001"},{"basis":"legal_requirement","months":120,"starts":"2026-06-30","ends":"2036-06-30","informBy":null,"record":"ROPA-002"},{"basis":"purpose_served","months":84,"starts":null,"ends":null,"informBy":null,"record":"ROPA-003"},{"basis":"fixed_period","months":24,"starts":"2025-05-31","ends":"2027-05-31","informBy":null,"record":"ROPA-004"},{"basis":"legal_requirement","months":96,"starts":"2026-03-31","ends":"2034-03-31","informBy":null,"record":"ROPA-005"},{"basis":"fixed_period","months":60,"starts":"2026-03-31","ends":"2031-03-31","informBy":null,"record":"ROPA-006"},{"basis":"fixed_period","months":36,"starts":"2026-06-30","ends":"2029-06-30","informBy":null,"record":"ROPA-007"},{"basis":"fixed_period","months":12,"starts":"2025-06-30","ends":"2026-06-30","informBy":null,"record":"ROPA-008"},{"basis":"purpose_served","months":12,"starts":"2025-02-15","ends":"2026-02-15","informBy":null,"record":"ROPA-009"},{"basis":"consent_withdrawn","months":12,"starts":"2026-09-01","ends":"2027-09-01","informBy":null,"record":"ROPA-010"}],"ai":[{"name":"AI proctoring","status":"in_use","reviewed":null,"human":"An examiner reviews every flag before any action is taken against a student."}],"actions":[{"title":"Review link-sharing settings on every examinations folder","status":"open","due":"2026-11-30"},{"title":"Make corrections in the student record flow to the examination system","status":"open","due":"2026-12-15"},{"title":"Erase the February 2025 webinar registrations from the events mailing tool and the shared drive","status":"open","due":"2026-11-15"},{"title":"Nominate DPDP owner and publish internal responsibility note.","status":"open","due":null}],"notices":[{"lang":"en","status":"published","version":1}],"scope":[{"derived":"2026-10-28T13:49:42.964+00:00","packs":["CORE_DPDP_V1","UNIVERSITY_HIGHER_ED_V1","UNIVERSITY_CONDITIONAL_V1","UNIVERSITY_AI_PROCTORING_V1"],"status":"in_progress","answered":1,"questions":124}],"counts":{"reports":0,"evidence":4,"consent":3,"users":7}}}</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById('data').textContent);
+  const O = D.overall, DOM = D.domains, R = D.registers;
+  const $ = (s, r = document) => r.querySelector(s);
+  const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x !== undefined) e.textContent = x; return e; };
+  const f1 = (n) => (Math.round(n * 10) / 10).toFixed(1);
+  const TARGET = 75; // end of "Level 3 - Implementing" (MATURITY_BANDS): a TrustStack planning target, not a legal threshold
+  const DEADLINE = new Date('2027-05-13T00:00:00+05:30');
+  const today = new Date(D.generatedAt);
+  const days = Math.ceil((DEADLINE - today) / 864e5), weeks = days / 7;
+  const short = (b) => b.replace(/^Level \d - /, '');
+  const SRC_A = `The validated Excel MVP baseline (${D.source}; ${O.answers} answers), scored by TrustStack engine ${D.engineVersion}. Proven = with the evidence cap (D-045); declared = claims without it.`;
+  const SRC_B = 'The demo organisation\'s registers (Mumbai University seed), read-only from the local database.';
+
+  // ---------- header + figures
+  $('#headline').textContent = `Proven readiness is ${f1(O.proven)} of 100. Seven red flags must clear before the score can pass ${O.cap}.`;
+  $('#lead').textContent = `Claims and evidence nearly match (declared ${f1(O.declared)}), so the work ahead is raising maturity rather than proving claims: ${O.critical} critical and ${O.high} high gaps, and ${f1(TARGET - O.proven)} points to the planning target of ${TARGET} by 13 May 2027.`;
+  $('#prov').textContent = `Source: ${SRC_A} Generated ${today.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}.`;
+  $('#hero').firstChild.textContent = f1(O.proven);
+  $('#heroband').textContent = `${short(O.provenBand)} · evidence confidence ${Math.round(O.confidence)}%`;
+  const tiles = [
+    ['Declared score', f1(O.declared), 'self-declared, no evidence cap', 'var(--declared)'],
+    ['Red flags', String(O.redFlags.length), `score ceiling ${O.cap}`],
+    ['Critical gaps', String(O.critical), 'priority P0'],
+    ['High gaps', String(O.high), 'priority P1'],
+    ['Days to 13 May 2027', String(days), 'main duties commence'],
+    ['Points to target', f1(TARGET - O.proven), `to reach ${TARGET}`],
+    ['Weekly pace needed', f1((TARGET - O.proven) / weeks), 'proven points a week'],
+    ['Over-claimed answers', `${O.overClaimed} of ${O.answers}`, 'capped by their evidence'],
+  ];
+  for (const [l, v, d, key] of tiles) { const t = el('div', 'tile'); const lab = el('span', 'l'); if (key) { const k = el('i', 'key'); k.style.background = key; lab.append(k); } lab.append(l); t.append(lab, el('span', 'v', v), el('span', 'd', d)); $('#tiles').append(t); }
+
+  if (!window.echarts) { document.querySelectorAll('.chart').forEach((c) => { c.textContent = 'Charts need an internet connection to load Apache ECharts. Open this file while online.'; c.className = 'offline'; c.style.height = 'auto'; }); }
+
+  // ---------- chart plumbing: every card = title · finding · chart · source + table toggle
+  const tok = () => { const s = getComputedStyle(document.documentElement); const g = (n) => s.getPropertyValue(n).trim(); return Object.fromEntries(['surface', 'ink', 'ink-2', 'muted', 'grid', 'axis', 'proven', 'declared', 'r250', 'r300', 'r350', 'r450', 'r550', 'r650', 's100', 's200', 's300', 's400', 's500', 's600', 's700', 'good', 'warning', 'serious', 'critical', 'neutral'].map((k) => [k.replace('-', ''), g('--' + k)])); };
+  const font = { fontFamily: getComputedStyle(document.body).fontFamily };
+  const base = (T) => ({ animationDuration: 500, aria: { enabled: true }, textStyle: { ...font, color: T.ink2 },
+    tooltip: { backgroundColor: T.surface, borderColor: T.grid, borderWidth: 1, padding: [8, 10], textStyle: { color: T.ink, fontSize: 12, ...font }, extraCssText: 'box-shadow:0 4px 16px rgba(0,0,0,.12);border-radius:8px;' } });
+  const xv = (T, o = {}) => ({ type: 'value', axisLine: { show: false }, axisTick: { show: false }, splitLine: { lineStyle: { color: T.grid, width: 1 } }, axisLabel: { color: T.muted, fontSize: 11 }, ...o });
+  const yc = (T, data, o = {}) => ({ type: 'category', data, axisLine: { lineStyle: { color: T.axis } }, axisTick: { show: false }, axisLabel: { color: T.ink2, fontSize: 12 }, ...o });
+  const cards = [];
+  function card(name, finding, src, build, table) {
+    const c = $(`[data-c="${name}"]`); if (!c) return;
+    $('.finding', c).textContent = finding;
+    const foot = el('div', 'foot'); foot.append(el('span', 'src', src));
+    const chartEl = $('.chart', c), tv = el('div', 'tview'); tv.hidden = true;
+    if (table) {
+      const t = el('table'); const tr = el('tr'); table.head.forEach((h, i) => tr.append(el('th', table.num?.includes(i) ? 'n' : '', h))); t.append(tr);
+      table.rows.forEach((r) => { const row = el('tr'); r.forEach((v, i) => row.append(el('td', table.num?.includes(i) ? 'n' : '', String(v)))); t.append(row); }); tv.append(t);
+      const b = el('button', 'tbtn', 'Table'); b.type = 'button'; b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', () => { const on = tv.hidden; tv.hidden = !on; if (chartEl) chartEl.hidden = on; b.textContent = on ? 'Chart' : 'Table'; b.setAttribute('aria-pressed', String(on)); if (!on) cards.forEach(([ch]) => ch.resize()); });
+      foot.append(b);
+    }
+    c.append(tv, foot);
+    if (chartEl && build && window.echarts) cards.push([echarts.init(chartEl, null, { renderer: 'svg' }), build]);
+  }
+
+  // A1 the score on the readiness scale
+  const bands = D.bands.map((b, i, a) => ({ label: short(b.label), from: i ? Math.round(a[i - 1].max * 100) : 0, to: Math.round(b.max * 100) }));
+  const inBand = bands.find((b) => O.proven < b.to) || bands[bands.length - 1];
+  card('bullet', `Both scores sit in "${short(O.provenBand)}" (${inBand.from}–${inBand.to}). The red-flag ceiling of ${O.cap} is above them, so it does not bite yet — but the score cannot pass ${O.cap} until the red flags clear.`, SRC_A,
+    (T) => { const ramp = [T.s100, T.s200, T.r250, T.r300, T.r350, T.r450];
+      return { ...base(T), grid: { left: 24, right: 48, top: 40, bottom: 34 }, xAxis: { type: 'value', min: 0, max: 100, axisLine: { show: false }, axisTick: { show: false }, splitLine: { show: false }, axisLabel: { show: false } }, yAxis: { type: 'category', data: [''], show: false },
+        tooltip: { ...base(T).tooltip, trigger: 'item' },
+        series: [
+          ...bands.map((b, i) => ({ type: 'bar', stack: 'b', barWidth: 18, name: b.label, data: [b.to - b.from], itemStyle: { color: ramp[i], borderColor: T.surface, borderWidth: 2, borderRadius: i === 0 ? [4, 0, 0, 4] : i === bands.length - 1 ? [0, 4, 4, 0] : 0 }, label: { show: true, position: 'bottom', distance: 8, color: T.muted, fontSize: 11, lineHeight: 14, formatter: `${b.label}\n{r|${b.from}–${b.to}}`, rich: { r: { color: T.muted, fontSize: 10 } } }, tooltip: { formatter: `${b.label}: ${b.from}–${b.to}` } })),
+          { type: 'scatter', name: 'Proven', data: [[O.proven, 0]], symbolSize: 14, itemStyle: { color: T.proven, borderColor: T.surface, borderWidth: 2 }, z: 5, tooltip: { formatter: `Proven ${f1(O.proven)}` }, label: { show: true, position: 'top', distance: 10, color: T.ink, fontWeight: 600, formatter: `Proven ${f1(O.proven)} · Declared ${f1(O.declared)}` } },
+          { type: 'scatter', name: 'Declared', data: [[O.declared, 0]], symbolSize: 14, itemStyle: { color: T.declared, borderColor: T.surface, borderWidth: 2 }, z: 4, tooltip: { formatter: `Declared ${f1(O.declared)}` } },
+          { type: 'scatter', name: 'Ceiling', data: [[O.cap, 0]], symbol: 'triangle', symbolRotate: 180, symbolSize: 12, symbolOffset: [0, -14], itemStyle: { color: T.critical }, z: 6, tooltip: { formatter: `Red-flag ceiling: ${O.cap}` }, label: { show: true, position: 'top', color: T.ink2, fontSize: 11, formatter: `Red-flag ceiling ${O.cap}` } }] }; },
+    { head: ['Measure', 'Value'], num: [1], rows: [['Proven score', f1(O.proven)], ['Declared score', f1(O.declared)], ['Red-flag ceiling', O.cap], ['Band', short(O.provenBand)]] });
+
+  // A2 dumbbell: declared vs proven % of each domain's weight
+  const byP = DOM.slice().sort((a, b) => a.provenPct - b.provenPct);
+  const widest = DOM.slice().sort((a, b) => (b.declaredPct - b.provenPct) - (a.declaredPct - a.provenPct))[0];
+  card('dumb', `Each domain as a share of its weight. Claims and proof coincide in ${DOM.filter((d) => d.declaredPct === d.provenPct).length} of 16 domains; the widest gap is ${widest.name} (${f1(widest.declaredPct)}% declared, ${f1(widest.provenPct)}% proven). None yet reaches the ${TARGET}% target.`, SRC_A,
+    (T) => ({ ...base(T), legend: { top: 0, left: 0, icon: 'circle', itemWidth: 10, itemHeight: 10, textStyle: { color: T.ink2, fontSize: 12 }, data: ['Proven', 'Declared'] },
+      tooltip: { ...base(T).tooltip, trigger: 'axis', axisPointer: { type: 'line', lineStyle: { color: T.grid } }, formatter: (ps) => { const d = byP[ps[0].dataIndex]; return `<b>${d.name}</b><br>Proven ${f1(d.provenPct)}% · Declared ${f1(d.declaredPct)}%<br><span style="color:${T.muted}">weight ${d.weight} of 100</span>`; } },
+      grid: { left: 128, right: 24, top: 36, bottom: 24 }, xAxis: xv(T, { min: 0, max: 100, axisLabel: { color: T.muted, fontSize: 11, formatter: '{value}%' } }), yAxis: yc(T, byP.map((d) => d.name)),
+      series: [
+        { type: 'custom', name: 'link', silent: true, z: 1, renderItem: (p, api) => { const a = api.coord([api.value(0), p.dataIndex]); const b = api.coord([api.value(1), p.dataIndex]); return { type: 'line', shape: { x1: a[0], y1: a[1], x2: b[0], y2: b[1] }, style: { stroke: T.axis, lineWidth: 2 } }; }, data: byP.map((d) => [d.provenPct, d.declaredPct]) },
+        { type: 'scatter', name: 'Declared', z: 3, symbolSize: 11, itemStyle: { color: T.declared, borderColor: T.surface, borderWidth: 2 }, data: byP.map((d) => d.declaredPct) },
+        { type: 'scatter', name: 'Proven', z: 4, symbolSize: 11, itemStyle: { color: T.proven, borderColor: T.surface, borderWidth: 2 }, data: byP.map((d) => d.provenPct),
+          markLine: { silent: true, symbol: 'none', lineStyle: { color: T.ink2, width: 1.5, type: [4, 3] }, label: { color: T.ink2, fontSize: 11, fontWeight: 600, formatter: `Target ${TARGET}%` }, data: [{ xAxis: TARGET }] } }] }),
+    { head: ['Domain', 'Weight', 'Proven %', 'Declared %'], num: [1, 2, 3], rows: DOM.map((d) => [d.name, d.weight, f1(d.provenPct), f1(d.declaredPct)]) });
+
+  // A3 points needed per domain (single series, sorted)
+  const need = DOM.map((d) => ({ name: d.name, v: Math.max(0, (TARGET / 100) * d.weight - d.proven) })).sort((a, b) => a.v - b.v);
+  const top = need.slice(-3).reverse();
+  card('need', `Points each domain must add to reach ${TARGET}% of its weight — ${f1(need.reduce((s, d) => s + d.v, 0))} in all. ${top.map((d) => `${d.name} (+${f1(d.v)})`).join(', ')} hold the most.`, SRC_A,
+    (T) => ({ ...base(T), tooltip: { ...base(T).tooltip, trigger: 'axis', axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(127,127,127,.06)' } }, valueFormatter: (v) => `+${f1(v)} points` },
+      grid: { left: 128, right: 44, top: 8, bottom: 24 }, xAxis: xv(T), yAxis: yc(T, need.map((d) => d.name)),
+      series: [{ type: 'bar', barWidth: 14, data: need.map((d) => d.v), itemStyle: { color: T.proven, borderRadius: [0, 4, 4, 0] }, label: { show: true, position: 'right', color: T.ink2, fontSize: 11, formatter: (p) => `+${f1(p.value)}` } }] }),
+    { head: ['Domain', 'Points to target'], num: [1], rows: need.slice().reverse().map((d) => [d.name, f1(d.v)]) });
+
+  // A4 gaps by domain and severity (stacked, status palette with labels in the legend)
+  const sevKeys = [['critical', 'Critical', 'critical'], ['high', 'High', 'serious'], ['medium', 'Medium', 'warning'], ['low', 'Low', 'neutral']];
+  const gd = D.gapsByDomain.slice().sort((a, b) => (a.critical * 1000 + a.high * 10 + a.medium) - (b.critical * 1000 + b.high * 10 + b.medium));
+  const totalGaps = gd.reduce((s, g) => s + g.critical + g.high + g.medium + g.low, 0);
+  card('sev', `${totalGaps} gaps (adjusted score ≤ 3, D-054), stacked by severity. ${gd[gd.length - 1].name} carries the most severe mix; the critical gaps sit where evidence is missing altogether.`, SRC_A,
+    (T) => ({ ...base(T), legend: { top: 0, left: 0, icon: 'roundRect', itemWidth: 12, itemHeight: 10, textStyle: { color: T.ink2, fontSize: 12 } },
+      tooltip: { ...base(T).tooltip, trigger: 'axis', axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(127,127,127,.06)' } } },
+      grid: { left: 128, right: 36, top: 36, bottom: 24 }, xAxis: xv(T, { minInterval: 1 }), yAxis: yc(T, gd.map((g) => g.name)),
+      series: sevKeys.map(([k, label, tokn], i) => ({ type: 'bar', stack: 's', name: label, barWidth: 14, data: gd.map((g) => g[k] || null), itemStyle: { color: T[tokn], borderColor: T.surface, borderWidth: 1, borderRadius: i === sevKeys.length - 1 ? [0, 4, 4, 0] : 0 },
+        label: i === sevKeys.length - 1 ? { show: true, position: 'right', color: T.ink2, fontSize: 11, formatter: (p) => { const g = gd[p.dataIndex]; return g.critical + g.high + g.medium + g.low; } } : { show: false } })) }),
+    { head: ['Domain', 'Critical', 'High', 'Medium', 'Low'], num: [1, 2, 3, 4], rows: gd.slice().reverse().map((g) => [g.name, g.critical, g.high, g.medium, g.low]) });
+  const P = D.priorities || {}; const pc = $('#prio');
+  for (const [k, label] of [['P0', 'immediate'], ['P1', '30 days'], ['P2', '60 days'], ['P3', '90 days']]) { const c = el('span', 'chip'); c.append(el('b', '', `${k} ${P[k] ?? 0}`), label); pc.append(c); }
+
+  // A5 claims x evidence (sequential one-hue heatmap)
+  const cells = []; D.matrix.forEach((row, c) => row.forEach((n, e) => { if (n) cells.push([e, c, n]); }));
+  const maxN = Math.max(...cells.map((c) => c[2]));
+  card('heat', `Every answer placed by the maturity claimed (up) and the evidence reviewed (across). ${O.answers - O.overClaimed} of ${O.answers} sit within what their evidence supports; ${O.overClaimed} claim more and are capped by the evidence rule.`, SRC_A,
+    (T) => ({ ...base(T), tooltip: { ...base(T).tooltip, formatter: (p) => `Claimed ${p.value[1]} with evidence E${p.value[0]}<br><b>${p.value[2]} answers</b>` },
+      grid: { left: 56, right: 16, top: 10, bottom: 74 },
+      xAxis: { type: 'category', name: 'Evidence level reviewed', nameLocation: 'middle', nameGap: 30, nameTextStyle: { color: T.muted, fontSize: 11 }, data: ['E0', 'E1', 'E2', 'E3', 'E4', 'E5'], axisLine: { lineStyle: { color: T.axis } }, axisTick: { show: false }, axisLabel: { color: T.ink2 }, splitArea: { show: false } },
+      yAxis: { type: 'category', name: 'Maturity claimed', nameLocation: 'middle', nameGap: 36, nameTextStyle: { color: T.muted, fontSize: 11 }, data: ['0', '1', '2', '3', '4', '5'], axisLine: { lineStyle: { color: T.axis } }, axisTick: { show: false }, axisLabel: { color: T.ink2 } },
+      visualMap: { min: 0, max: maxN, orient: 'horizontal', left: 'center', bottom: 0, itemWidth: 12, itemHeight: 160, text: [`${maxN}`, '1'], textStyle: { color: T.muted, fontSize: 11 }, inRange: { color: [T.s100, T.s300, T.s500, T.s700] }, calculable: false },
+      series: [{ type: 'heatmap', data: cells, itemStyle: { borderColor: T.surface, borderWidth: 2, borderRadius: 4 }, label: { show: true, fontSize: 12, fontWeight: 600, formatter: (p) => p.value[2], color: T.ink, textBorderColor: T.surface, textBorderWidth: 3 }, emphasis: { itemStyle: { borderColor: T.ink, borderWidth: 1 } } }] }),
+    { head: ['Claimed', 'Evidence', 'Answers'], num: [2], rows: cells.slice().sort((a, b) => b[2] - a[2]).map((c) => [c[1], `E${c[0]}`, c[2]]) });
+
+  // A6 who owns the gaps
+  const ow = D.owners.slice().reverse();
+  card('owner', `Gaps grouped by the question bank's suggested owner — where the first actions go. ${D.owners[0][0]} holds ${D.owners[0][1]}, ${D.owners[1][0]} ${D.owners[1][1]}.`, SRC_A,
+    (T) => ({ ...base(T), tooltip: { ...base(T).tooltip, trigger: 'axis', axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(127,127,127,.06)' } }, valueFormatter: (v) => `${v} gaps` },
+      grid: { left: 128, right: 36, top: 8, bottom: 24 }, xAxis: xv(T, { minInterval: 1 }), yAxis: yc(T, ow.map((o) => o[0])),
+      series: [{ type: 'bar', barWidth: 14, data: ow.map((o) => o[1]), itemStyle: { color: T.proven, borderRadius: [0, 4, 4, 0] }, label: { show: true, position: 'right', color: T.ink2, fontSize: 11 } }] }),
+    { head: ['Suggested owner', 'Gaps'], num: [1], rows: D.owners });
+
+  // A7 pace to the deadline (projection, labelled)
+  const perWeek = (TARGET - O.proven) / weeks;
+  const pts = []; for (let w = 0; w <= Math.ceil(weeks); w += 1) pts.push([new Date(today.getTime() + w * 7 * 864e5).toISOString().slice(0, 10), +(Math.min(TARGET, O.proven + perWeek * w)).toFixed(2)]);
+  card('pace', `A straight-line projection, not a forecast: about ${f1(perWeek)} proven points a week from today reaches ${TARGET} on 13 May 2027. Above ${O.cap}, the score only moves once the red flags clear.`, SRC_A,
+    (T) => ({ ...base(T), tooltip: { ...base(T).tooltip, trigger: 'axis', axisPointer: { type: 'line', lineStyle: { color: T.axis } }, valueFormatter: (v) => f1(v) },
+      grid: { left: 36, right: 24, top: 36, bottom: 28 }, xAxis: { type: 'time', max: '2027-06-20', axisLine: { lineStyle: { color: T.axis } }, axisTick: { show: false }, splitLine: { show: false }, axisLabel: { color: T.muted, fontSize: 11 } }, yAxis: xv(T, { min: 0, max: 100 }),
+      series: [{ type: 'line', name: 'Required pace (projection)', data: pts, showSymbol: false, smooth: false, lineStyle: { color: T.proven, width: 2, type: [6, 4] }, areaStyle: { color: T.proven, opacity: .08 },
+          markLine: { silent: true, symbol: 'none', data: [
+            { yAxis: O.cap, lineStyle: { color: T.critical, width: 1, type: 'solid' }, label: { color: T.ink2, fontSize: 11, position: 'insideEndTop', formatter: `Red-flag ceiling ${O.cap}` } },
+            { yAxis: TARGET, lineStyle: { color: T.muted, width: 1, type: 'solid' }, label: { color: T.ink2, fontSize: 11, position: 'insideStartTop', formatter: `Target ${TARGET}` } },
+            { xAxis: '2027-05-13', lineStyle: { color: T.muted, width: 1, type: 'solid' }, label: { color: T.ink2, fontSize: 11, fontWeight: 600, position: 'end', formatter: 'Deadline 13 May 2027' } }] } },
+        { type: 'scatter', name: 'Proven today', data: [[today.toISOString().slice(0, 10), O.proven]], symbolSize: 12, itemStyle: { color: T.proven, borderColor: T.surface, borderWidth: 2 }, label: { show: true, position: [14, 6], color: T.ink, fontWeight: 600, formatter: `Today ${f1(O.proven)}` } }] }),
+    { head: ['Week of', 'Required score'], num: [1], rows: pts.filter((_, i) => i % 4 === 0).map((p) => [p[0], f1(p[1])]) });
+
+  // ---------- B: journey + registers
+  if (!R) { $('#regs').remove(); $('#steps').textContent = 'Registers not included (generated with --no-db).'; }
+  else {
+    $('#src-j').textContent = `Source: ${SRC_B}`;
+    const sc = R.scope[0] || {}, C = R.counts || {};
+    const open = R.actions.filter((a) => a.status !== 'closed').length;
+    const S = [['Organisation & scope', sc.derived ? 'done' : 'next', `${(sc.packs || []).length} question packs`], ['Pulse', 'next', 'Coming: ~20 minutes'],
+      ['Proof', sc.status === 'finalised' ? 'done' : 'prog', `${sc.answered || 0} of ${sc.questions || 0} answered`], ['Act', R.actions.length ? 'prog' : 'next', `${R.actions.length} actions, ${open} open`],
+      ['Registers', R.ropa.length ? 'prog' : 'next', `${R.ropa.length} records · ${R.rights.length} requests`], ['Notice & consent', R.notices.some((n) => n.status === 'published') ? 'done' : 'next', `${C.consent || 0} consents recorded`],
+      ['Report', C.reports ? 'done' : 'next', `${C.reports || 0} reports stored`], ['Sentinel', 'next', 'Coming: daily legal clocks'], ['Reassess', 'next', 'Coming: Slice 12']];
+    const L = { done: ['✓', 'Done'], prog: ['◐', 'In progress'], next: ['', 'Not started'] };
+    S.forEach(([n, s, m], i) => { const d = el('div', `step ${s}`); const dot = el('span', 'dot', L[s][0] || String(i + 1)); d.append(dot, el('b', '', n), el('span', 'st', L[s][1]), el('span', 'm', m)); $('#steps').append(d); });
+
+    // B1 processing records: completeness bars, risk as an icon+label
+    const RISK = { critical: ['critical', 'Critical'], high: ['serious', 'High'], medium: ['warning', 'Medium'], low: ['neutral', 'Low'] };
+    const rp = R.ropa.slice().sort((a, b) => b.completeness - a.completeness);
+    const rows = rp.slice().reverse();
+    card('ropa', `${R.ropa.length} processing records. Completeness runs ${Math.min(...R.ropa.map((r) => r.completeness))}–${Math.max(...R.ropa.map((r) => r.completeness))} of 100; ${R.ropa.filter((r) => ['high', 'critical'].includes(r.rating)).length} are rated high risk or above, and ${R.ropa.filter((r) => !r.basis).length} have no lawful basis decided yet.`, `Source: ${SRC_B}`,
+      (T) => ({ ...base(T), tooltip: { ...base(T).tooltip, trigger: 'axis', axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(127,127,127,.06)' } }, formatter: (ps) => { const r = rows[ps[0].dataIndex]; return `<b>${r.code} ${r.name}</b><br>Completeness ${r.completeness}/100<br>Risk: ${RISK[r.rating]?.[1] ?? r.rating} (${r.risk} points)<br>Lawful basis: ${r.basis ?? 'not decided'}`; } },
+        grid: { left: 268, right: 104, top: 8, bottom: 24 }, xAxis: xv(T, { min: 0, max: 100 }),
+        yAxis: yc(T, rows.map((r) => `${r.code.replace('ROPA-', '')}  ${r.name.length > 36 ? r.name.slice(0, 35) + '…' : r.name}`)),
+        series: [{ type: 'bar', barWidth: 14, data: rows.map((r) => r.completeness), itemStyle: { color: T.proven, borderRadius: [0, 4, 4, 0] },
+          label: { show: true, position: 'right', fontSize: 11, color: T.ink2, formatter: (p) => { const r = rows[p.dataIndex]; return `${r.completeness}  {d${r.rating}|●} ${RISK[r.rating]?.[1] ?? r.rating}`; },
+            rich: Object.fromEntries(Object.entries(RISK).map(([k, [t]]) => [`d${k}`, { color: T[t], fontSize: 12 }])) } }] }),
+      { head: ['Record', 'Name', 'Completeness', 'Risk', 'Lawful basis'], num: [2], rows: rp.map((r) => [r.code, r.name, r.completeness, RISK[r.rating]?.[1] ?? r.rating, r.basis ?? 'not decided']) });
+
+    // B2 legal clocks: share of the legal limit used
+    const hrs = (a, b) => (new Date(b) - new Date(a)) / 36e5;
+    const clocks = [...R.rights.filter((r) => r.responded).map((r) => ({ n: `${r.code} · ${r.kind}`, used: hrs(r.received, r.responded) / 24, limit: 90, unit: 'days' })),
+      ...R.breaches.filter((b) => b.reported).map((b) => ({ n: `${b.code} · Board report`, used: hrs(b.aware, b.reported), limit: 72, unit: 'hours' }))];
+    card('clock', `Every closed request and breach against its legal limit (100%): rights 90 days (Rule 14(3)), Board report 72 hours (Rule 7). All ${clocks.length} were met, the closest at ${Math.round(Math.max(...clocks.map((c) => c.used / c.limit)) * 100)}% of its limit.`, `Source: ${SRC_B}`,
+      (T) => ({ ...base(T), tooltip: { ...base(T).tooltip, trigger: 'axis', axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(127,127,127,.06)' } }, formatter: (ps) => { const c = clocks[ps[0].dataIndex]; return `<b>${c.n}</b><br>${Math.round(c.used)} of ${c.limit} ${c.unit} used`; } },
+        grid: { left: 210, right: 110, top: 28, bottom: 24 }, xAxis: xv(T, { min: 0, max: 100, axisLabel: { color: T.muted, fontSize: 11, formatter: '{value}%' } }), yAxis: yc(T, clocks.map((c) => c.n)),
+        series: [{ type: 'bar', barWidth: 14, data: clocks.map((c) => Math.round((c.used / c.limit) * 100)), itemStyle: { color: T.proven, borderRadius: [0, 4, 4, 0] },
+          label: { show: true, position: 'right', color: T.ink2, fontSize: 11, formatter: (p) => { const c = clocks[p.dataIndex]; return `${Math.round(c.used)} of ${c.limit} ${c.unit}`; } },
+          markLine: { silent: true, symbol: 'none', lineStyle: { color: T.critical, width: 1, type: 'solid' }, label: { color: T.ink2, fontSize: 11, formatter: 'Legal limit' }, data: [{ xAxis: 100 }] } }] }),
+      { head: ['Item', 'Used', 'Limit'], num: [1, 2], rows: clocks.map((c) => [c.n, `${Math.round(c.used)} ${c.unit}`, `${c.limit} ${c.unit}`]) });
+
+    // B3 processors: a status table (3 rows read better as a table than a chart)
+    const st = (v) => v.contract !== 'yes' ? ['critical', '✕', 'No contract'] : v.clauses === 'yes' ? ['good', '✓', 'Contract with DPDP clauses'] : v.clauses === 'no' ? ['serious', '!', 'Contract, no DPDP clauses'] : ['warning', '?', 'Clauses not checked'];
+    const okN = R.vendors.filter((v) => v.contract === 'yes' && v.clauses === 'yes').length;
+    card('vend', `${okN} of ${R.vendors.length} processors hold a contract with DPDP clauses (s.8(2), Rule 6(1)(f)). The others are a Sentinel finding (VENDOR-01).`, `Source: ${SRC_B}`, null, null);
+    { const T = tok(); const t = el('table'); const h = el('tr'); ['Processor', 'Role', 'Status', 'Review by'].forEach((x) => h.append(el('th', '', x))); t.append(h);
+      R.vendors.forEach((v) => { const [tk, icon, label] = st(v); const r = el('tr'); r.append(el('td', '', v.name), el('td', '', v.role.replace('_', ' '))); const sc2 = el('td'); const i2 = el('span', '', icon + ' '); i2.style.color = T[tk]; i2.style.fontWeight = '700'; sc2.append(i2, label); r.append(sc2, el('td', '', v.reviewBy ?? '—')); t.append(r); });
+      $('#vend').append(t); }
+
+    // B4 retention: dot plot of erasure dates against today
+    const re = R.retention.filter((r) => r.ends).sort((a, b) => a.ends.localeCompare(b.ends));
+    const overdue = re.filter((r) => new Date(r.ends) < today);
+    const soon = re.filter((r) => new Date(r.ends) >= today && new Date(r.ends) - today < 180 * 864e5).length;
+    card('ret', `${re.length} of ${R.retention.length} retention schedules carry an end date (s.8(7), Rule 8). ${overdue.length ? `${overdue.length} are past their erasure date (${overdue.map((r) => r.record).join(', ')}) and need action now. ` : ''}${soon ? `${soon} more fall due within six months.` : 'No others fall due within six months.'} The Rule 8(2) notice must go out 48 hours before each erasure.`, `Source: ${SRC_B}`,
+      (T) => ({ ...base(T), tooltip: { ...base(T).tooltip, trigger: 'item', formatter: (p) => { const r = re[p.dataIndex]; return `<b>${r.record ?? '—'}</b> · ${r.basis.replace('_', ' ')}<br>Erasure due ${r.ends}${r.months ? ` (${r.months} months)` : ''}`; } },
+        grid: { left: 80, right: 72, top: 24, bottom: 28 }, xAxis: { type: 'time', min: (v) => v.min - 90 * 864e5, max: (v) => v.max + 90 * 864e5, axisLine: { lineStyle: { color: T.axis } }, axisTick: { show: false }, splitLine: { lineStyle: { color: T.grid } }, axisLabel: { color: T.muted, fontSize: 11 } }, yAxis: yc(T, re.map((r) => r.record ?? '—')),
+        series: [{ type: 'scatter', symbolSize: 12, itemStyle: { color: T.proven, borderColor: T.surface, borderWidth: 2 }, data: re.map((r) => { const late = new Date(r.ends) < today; return { value: [r.ends, r.record ?? '—'], itemStyle: late ? { color: T.critical } : undefined, label: late ? { show: true, position: 'right', color: T.ink, fontSize: 11, formatter: 'Overdue' } : undefined }; }),
+          markLine: { silent: true, symbol: 'none', lineStyle: { color: T.muted, width: 1, type: 'solid' }, label: { color: T.ink2, fontSize: 11, formatter: 'Today' }, data: [{ xAxis: today.toISOString().slice(0, 10) }] } }] }),
+      { head: ['Record', 'Basis', 'Erasure due'], rows: re.map((r) => [r.record ?? '—', r.basis.replace('_', ' '), r.ends + (new Date(r.ends) < today ? ' (overdue)' : '')]) });
+  }
+
+  // ---------- render, resize, re-theme
+  const draw = () => { const T = tok(); cards.forEach(([c, b]) => c.setOption(b(T), true)); };
+  draw();
+  const ro = new ResizeObserver(() => cards.forEach(([c]) => c.resize())); document.querySelectorAll('.chart').forEach((e) => ro.observe(e));
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+  new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+})();
+</script>
+</body>
+</html>

@@ -245,19 +245,50 @@ def create_selenium_driver() -> webdriver.Chrome:
         chrome_options.binary_location = chrome_bin
 
     driver_path = os.getenv("CHROMEDRIVER_PATH", "").strip()
-    if not driver_path:
-        driver_path = ChromeDriverManager().install()
-        driver_path = _resolve_chromedriver_binary(driver_path)
+    last_exc: Exception | None = None
 
-    logger.info("Using chromedriver at: %s (chrome_bin=%s)", driver_path, chrome_bin or "default")
-    service = ChromeService(driver_path)
-    driver = webdriver.Chrome(service=service, options=chrome_options)
-    
-    # Execute script to remove webdriver property
-    driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-    
-    logger.info("Selenium Chrome driver created.")
-    return driver
+    # Strategy 1: explicit CHROMEDRIVER_PATH env var (set in Render/Docker via env config)
+    if driver_path:
+        try:
+            logger.info("Using chromedriver at: %s (chrome_bin=%s)", driver_path, chrome_bin or "default")
+            service = ChromeService(driver_path)
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+            driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+            logger.info("Selenium Chrome driver created via CHROMEDRIVER_PATH.")
+            return driver
+        except Exception as exc:
+            logger.warning("CHROMEDRIVER_PATH='%s' failed (%s); falling back.", driver_path, exc)
+            last_exc = exc
+
+    # Strategy 2: webdriver-manager auto-download (dev machines / fresh Render builds)
+    try:
+        wdm_path = ChromeDriverManager().install()
+        if wdm_path:
+            resolved = _resolve_chromedriver_binary(wdm_path)
+            logger.info("Using chromedriver at: %s (chrome_bin=%s)", resolved, chrome_bin or "default")
+            service = ChromeService(resolved)
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+            driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+            logger.info("Selenium Chrome driver created via webdriver-manager.")
+            return driver
+        else:
+            logger.warning("ChromeDriverManager().install() returned None; falling back to Selenium built-in manager.")
+    except Exception as exc:
+        logger.warning("webdriver-manager strategy failed (%s); falling back to Selenium built-in manager.", exc)
+        last_exc = exc
+
+    # Strategy 3: Selenium 4.6+ built-in Selenium Manager (no extra library needed)
+    try:
+        logger.info("Attempting Selenium built-in manager (no explicit driver path).")
+        service = ChromeService()
+        driver = webdriver.Chrome(service=service, options=chrome_options)
+        driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+        logger.info("Selenium Chrome driver created via Selenium built-in manager.")
+        return driver
+    except Exception as exc:
+        last_exc = exc
+        logger.error("All chromedriver strategies failed. Last error: %s", exc)
+        raise ScraperError(f"Could not start Chrome WebDriver: {exc}") from exc
 
 
 def fetch_with_selenium(url: str, driver: Optional[webdriver.Chrome] = None) -> Tuple[str, BeautifulSoup, webdriver.Chrome]:

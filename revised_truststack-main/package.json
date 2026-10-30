@@ -1,0 +1,29 @@
+{
+  "name": "truststack",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "pnpm --filter web build",
+    "dev": "pnpm --filter web dev",
+    "typecheck": "pnpm --filter @truststack/core build && pnpm -r typecheck",
+    "test:unit": "pnpm -r test:unit",
+    "test:rls": "pnpm --filter @truststack/core build && pnpm --filter web test:rls",
+    "test:e2e": "pnpm --filter web test:e2e",
+    "db:migrate": "pnpm --filter @truststack/db migrate",
+    "db:seed": "pnpm --filter @truststack/core build && pnpm --filter @truststack/db seed",
+    "check:secrets": "node tools/check_service_role.mjs",
+    "db:types": "node tools/gen_db_types.mjs"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vitest": "^5.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "exceljs>uuid": "^11.1.1"
+    }
+  }
+}

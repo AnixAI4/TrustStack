@@ -1,0 +1,1336 @@
+{
+  "version": "2026-10-22.2b",
+  "base": "http://localhost:3001",
+  "ranAt": "2026-10-22T08:26:50.433Z",
+  "results": [
+    {
+      "id": "D11",
+      "task": "notice_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 31.8,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "notice_draft",
+        "kind": "draft",
+        "answer": "A draft consent notice for Mumbai University with ten purposes, for a person and counsel to check before anything is published.",
+        "draft": {
+          "language": "en",
+          "title": "How Mumbai University uses your personal data: privacy notice",
+          "summary": "Mumbai University is a university that admits students, runs examinations and teaching, and keeps in touch with its students, alumni and event guests. This notice explains each purpose we ask your consent for, what it gives you, and the personal data it needs. You can agree to each purpose separately. Where a student is under eighteen, we ask a parent or lawful guardian to give consent for them.",
+          "purposes": [
+            {
+              "key": "admissions",
+              "title": "Admissions",
+              "uses": "We use this to check whether you are eligible for a course, verify your documents and keep you informed about your application. If the applicant is under eighteen, we ask a parent's or lawful guardian's verifiable consent first.",
+              "dataItems": [
+                "Full name",
+                "Date of birth",
+                "Email address",
+                "Mobile number",
+                "Academic records and mark sheets",
+                "Category certificate, where you apply under a category",
+                "Identity documents"
+              ]
+            },
+            {
+              "key": "examinations",
+              "title": "Examinations and results",
+              "uses": "We use this to register you for examinations, conduct them, publish your results and handle any revaluation you ask for.",
+              "dataItems": [
+                "Enrolment number",
+                "Examination form details",
+                "Marks",
+                "Results",
+                "Revaluation request details"
+              ]
+            },
+            {
+              "key": "student_records",
+              "title": "Your student record",
+              "uses": "We use this to run your time at the University, from enrolment to completion, including attendance, fees and the documents you submit. If the student is under eighteen, we ask a parent's or lawful guardian's verifiable consent first.",
+              "dataItems": [
+                "Profile details",
+                "Contact details",
+                "Academic records",
+                "Attendance records",
+                "Fee payment records",
+                "Documents you submit"
+              ]
+            },
+            {
+              "key": "online_learning",
+              "title": "Online learning",
+              "uses": "We use this to give you access to online courses, receive your assignments, record your grades and track your academic progress.",
+              "dataItems": [
+                "Login details",
+                "Assignments you submit",
+                "Activity logs on the learning platform",
+                "Grades",
+                "Discussion posts"
+              ]
+            },
+            {
+              "key": "scholarships",
+              "title": "Scholarships and fee concessions",
+              "uses": "We use this to check whether you are eligible for a scholarship or concession and to pay it to you.",
+              "dataItems": [
+                "Household income",
+                "Category",
+                "Bank account details",
+                "Identity documents",
+                "Academic details"
+              ]
+            },
+            {
+              "key": "affiliated_colleges",
+              "title": "Sharing with your affiliated college",
+              "uses": "We use this to exchange your academic and examination records with your affiliated college so that your studies and examinations can be administered.",
+              "dataItems": [
+                "Student record details",
+                "Examination details",
+                "Submissions made by your college about you"
+              ]
+            },
+            {
+              "key": "student_chatbot",
+              "title": "Student help chatbot",
+              "uses": "We use this to answer your questions through an automated chat assistant and to improve the help we give.",
+              "dataItems": [
+                "Questions you type",
+                "Contact details, only if you choose to give them",
+                "Chat history"
+              ]
+            },
+            {
+              "key": "event_registration",
+              "title": "Events and webinars",
+              "uses": "We use this to register you for University events and webinars and to send you information about them.",
+              "dataItems": [
+                "Full name",
+                "Email address",
+                "Mobile number",
+                "Institution or organisation"
+              ]
+            },
+            {
+              "key": "event_photos",
+              "title": "Photographs at University events",
+              "uses": "We use this to take photographs and video recordings at University events and share them to report on the event.",
+              "dataItems": [
+                "Photographs of you",
+                "Video recordings of you"
+              ]
+            },
+            {
+              "key": "alumni_updates",
+              "title": "Alumni updates",
+              "uses": "We use this to keep in touch after you graduate: news, alumni events, and invitations to support the University by donating.",
+              "dataItems": [
+                "Full name",
+                "Email address",
+                "Mobile number",
+                "Year of graduation",
+                "Employment details"
+              ]
+            }
+          ]
+        },
+        "law": [
+          {
+            "citation": "s.5(1)",
+            "point": "A request for consent must come with, or after, a notice describing the personal data and the purpose it is used for.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3",
+            "point": "The notice must stand on its own, use clear and plain language, itemise the personal data and describe each specified purpose and what it provides. This Rule applies from 13 May 2027.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(1)",
+            "point": "Consent must be free, specific, informed and unambiguous, and limited to the data needed for each purpose. That is why each purpose is listed separately.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.9(1)",
+            "point": "Before processing a child's personal data (a child is anyone under eighteen), the University must obtain verifiable consent from a parent or lawful guardian.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 10",
+            "point": "The University must take reasonable steps to check that the person consenting as parent is an identifiable adult.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.7",
+            "point": "Some processing can rely on 'certain legitimate uses' instead of consent, for example legal duties or employment. Such purposes should not appear in a consent notice.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.5(3)",
+            "point": "People must be offered the notice in English or any language in the Eighth Schedule to the Constitution.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(3)",
+            "point": "The consent request must be in clear and plain language and give contact details for a person who can respond about rights.",
+            "source": "statute"
+          }
+        ],
+        "sourceReferences": [
+          "s.5(1)",
+          "Rule 3",
+          "s.6(1)",
+          "s.9(1)",
+          "Rule 10",
+          "s.7",
+          "s.5(3)",
+          "s.6(3)"
+        ],
+        "missingInformation": [
+          "The lawful basis for all nine records is not yet decided. Counsel should confirm which purposes truly need consent; any that rest on a legal duty or a State function under s.7 should be removed from this notice.",
+          "Examinations, student records, affiliated-college sharing and scholarships may fall under s.7 (for example legal or regulatory duties). Counsel to confirm before they are presented as optional consents.",
+          "Faculty data appears in the online learning and affiliated-college records. Staff data may rest on the employment use under s.7(i), so counsel should confirm whether faculty belong in this notice at all.",
+          "The admissions and scholarship records involve parents' or guardians' own data, but the records do not list which parent details are collected. Please add them as itemised data.",
+          "Please confirm whether the student-record purpose genuinely involves students under eighteen, and how the University will verify the parent's consent under Rule 10.",
+          "Please confirm whether the chatbot uses an external AI vendor and whether chat logs are used to improve it, so the uses wording is accurate.",
+          "Please confirm whether alumni donation appeals should be a separate purpose from alumni news, so people can consent to each separately.",
+          "Translations into Eighth Schedule languages are not yet prepared and are needed before publication."
+        ],
+        "counselToConfirm": true,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D12",
+      "task": "notice_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 32.9,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "notice_draft",
+        "kind": "draft",
+        "answer": "Draft consent notice for Mumbai University covering ten purposes; withdrawal and Board-complaint wording is printed by TrustStack in fixed words, so not drafted here.",
+        "draft": {
+          "language": "en",
+          "title": "Mumbai University: how we use your personal data, and the consent we ask for",
+          "summary": "Mumbai University is a university. It offers admissions, teaching, examinations, scholarships, events and alumni services. To provide these, we need some personal data about you. This notice explains each purpose for which we ask your consent. It lists the personal data each purpose needs and what it does for you. You can choose each purpose separately. Where the person is under eighteen, we ask a parent or lawful guardian for consent on their behalf.",
+          "purposes": [
+            {
+              "key": "admissions",
+              "title": "Admissions",
+              "uses": "Lets you apply online for a place. We check your eligibility, verify your documents and keep in touch with you about your application. If the applicant is under eighteen, we ask a parent's or lawful guardian's verifiable consent before processing the applicant's data.",
+              "dataItems": [
+                "Applicant's full name",
+                "Applicant's date of birth",
+                "Email address",
+                "Mobile number",
+                "Academic records and mark sheets",
+                "Category certificate, where you apply under a reserved category",
+                "Identity documents",
+                "Parent's or guardian's name and contact details"
+              ]
+            },
+            {
+              "key": "exam_results",
+              "title": "Examinations and results",
+              "uses": "Lets you register for examinations, receive your results and apply for revaluation of your answer papers.",
+              "dataItems": [
+                "Enrolment number",
+                "Name",
+                "Examination form details",
+                "Marks",
+                "Results",
+                "Revaluation application details"
+              ]
+            },
+            {
+              "key": "student_records",
+              "title": "Student records and administration",
+              "uses": "Lets us run your studies from enrolment to graduation. This covers your profile, attendance, fees and documents. If the student is under eighteen, we ask a parent's or lawful guardian's verifiable consent before processing the student's data.",
+              "dataItems": [
+                "Student profile details",
+                "Contact details",
+                "Academic records",
+                "Attendance records",
+                "Fee payment records",
+                "Documents you submit"
+              ]
+            },
+            {
+              "key": "online_learning",
+              "title": "Online learning",
+              "uses": "Gives you access to the University's online learning platform. You can submit assignments, take part in discussions and see your grades. It also lets teachers follow your academic progress.",
+              "dataItems": [
+                "Login details",
+                "Assignments you submit",
+                "Activity logs on the platform",
+                "Grades",
+                "Discussion posts"
+              ]
+            },
+            {
+              "key": "scholarships",
+              "title": "Scholarships and fee concessions",
+              "uses": "Lets you apply for scholarships and fee concessions. We check whether you are eligible and pay any award into your bank account.",
+              "dataItems": [
+                "Family income details",
+                "Category certificate, where relevant",
+                "Bank account details",
+                "Identity documents",
+                "Academic details",
+                "Parent's or guardian's details, where the scheme asks for them"
+              ]
+            },
+            {
+              "key": "affiliated_colleges",
+              "title": "Sharing with your affiliated college",
+              "uses": "Lets the University and your affiliated college share your academic and examination records. This is needed to administer your studies and make the reports that colleges must submit.",
+              "dataItems": [
+                "Student record details",
+                "Examination details",
+                "Submissions made by your college about you"
+              ]
+            },
+            {
+              "key": "student_chatbot",
+              "title": "Student help chatbot",
+              "uses": "Lets you ask the University's automated chatbot questions about admissions, courses and student services, and get answers. Your conversation is kept so we can follow up and improve answers.",
+              "dataItems": [
+                "Questions you type",
+                "Chat history",
+                "Name, email address or mobile number, only if you choose to give them"
+              ]
+            },
+            {
+              "key": "event_registration",
+              "title": "Event and webinar registration",
+              "uses": "Lets you sign up for University events and webinars and receive joining details, reminders and updates about the event.",
+              "dataItems": [
+                "Name",
+                "Email address",
+                "Mobile number",
+                "Institution or organisation"
+              ]
+            },
+            {
+              "key": "event_photos",
+              "title": "Photographs at University events",
+              "uses": "Lets the University take photographs and videos at events where you appear. It may use them to record and share news of its events.",
+              "dataItems": [
+                "Photographs in which you appear",
+                "Video recordings in which you appear"
+              ]
+            },
+            {
+              "key": "alumni_updates",
+              "title": "Alumni updates",
+              "uses": "Keeps you in touch with the University after you graduate. It covers news, alumni events and invitations to support the University through donations.",
+              "dataItems": [
+                "Name",
+                "Email address",
+                "Mobile number",
+                "Year of graduation",
+                "Employment details"
+              ]
+            }
+          ]
+        },
+        "law": [
+          {
+            "citation": "s.5(1)",
+            "point": "Every request for consent must come with, or after, a notice. The notice says what personal data is used and for what purpose.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3(b)",
+            "point": "The notice must itemise the personal data. It must also describe each specified purpose and what it provides or enables, in clear and plain language. Rule 3 applies from 13 May 2027.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3(c)",
+            "point": "The notice must explain how to withdraw consent, exercise rights and complain to the Board. TrustStack prints this in fixed words, so the draft leaves it out.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(1)",
+            "point": "Consent must be free, specific, informed and unambiguous. It must be limited to the data needed for each purpose, so each purpose is listed and chosen separately.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.9(1)",
+            "point": "Before processing a child's data, the University must obtain the verifiable consent of a parent or lawful guardian. A child is anyone under eighteen (s.2(f)).",
+            "source": "statute"
+          },
+          {
+            "citation": "s.7",
+            "point": "Legitimate uses, such as State functions under law or employment, do not need consent. Any record counsel places under s.7 should come out of this consent notice.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.5(3)",
+            "point": "People must be able to read the notice in English or any language in the Eighth Schedule to the Constitution.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(10)",
+            "point": "Where consent is the basis, the University must be able to prove that it gave the notice and received the consent.",
+            "source": "statute"
+          }
+        ],
+        "sourceReferences": [
+          "s.5(1)",
+          "Rule 3(b)",
+          "Rule 3(c)",
+          "s.6(1)",
+          "s.9(1)",
+          "s.7",
+          "s.5(3)",
+          "s.6(10)"
+        ],
+        "missingInformation": [
+          "You asked for withdrawal and Board-complaint wording. TrustStack prints this, and the contact details, on every notice in fixed words, so it is not drafted here.",
+          "The lawful basis for all nine records is undecided. Counsel to confirm which rely on consent and which may fall under a legitimate use in s.7, for example examinations or statutory reporting. Any s.7 purposes should be removed from this notice.",
+          "Counsel to confirm whether the University acts as the State or a State instrumentality for any function. If so, s.7(b) or s.7(c) may apply instead of consent.",
+          "Faculty data appears in the online learning and affiliated college records. Counsel to confirm whether staff processing is an employment use under s.7(i) and should sit outside this student notice.",
+          "A person should confirm how the University obtains verifiable parental consent for applicants and students under eighteen, as Rule 10 requires.",
+          "A person should confirm whether scholarship processing also involves children's data. The record does not mark it, though it includes parent or guardian details.",
+          "The event registration record mentions external participants. A person should check whether a separate, shorter notice is needed for visitors who are not students.",
+          "A person should arrange translations of the notice into Eighth Schedule languages before publication, as s.5(3) requires."
+        ],
+        "counselToConfirm": true,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D13",
+      "task": "notice_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 30.3,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "notice_draft",
+        "kind": "draft",
+        "answer": "This draft notice covers nine consent purposes, from admissions to alumni updates; the officer's contact details were not added, because TrustStack prints the contact line itself.",
+        "draft": {
+          "language": "en",
+          "title": "Mumbai University: how we use your personal data, and the consent we ask for",
+          "summary": "Mumbai University is a university that teaches students, runs examinations and stays in touch with its alumni. To do this, we use some personal data about you. This notice explains each purpose we ask your consent for, what it does for you and the personal data it needs. You can agree to each purpose on its own. Where a student is under eighteen, we ask a parent or lawful guardian to give consent for them.",
+          "purposes": [
+            {
+              "key": "admissions",
+              "title": "Admissions",
+              "uses": "Lets you apply online for a place, lets us check that you are eligible and that your documents are genuine, and lets us contact you about your application. If the applicant is under eighteen, we ask a parent or lawful guardian for verifiable consent before we use the applicant's data.",
+              "dataItems": [
+                "Applicant's full name",
+                "Applicant's date of birth",
+                "Email address",
+                "Mobile number",
+                "Academic records, such as mark sheets and certificates",
+                "Admission or reservation category, and the documents that support it",
+                "Identity documents",
+                "Parent's or guardian's name and contact details"
+              ]
+            },
+            {
+              "key": "examinations",
+              "title": "Examinations and results",
+              "uses": "Lets you register for examinations, lets us prepare and publish your results, and lets you ask for your answers to be re-marked (revaluation).",
+              "dataItems": [
+                "Enrolment number",
+                "Examination form details",
+                "Marks",
+                "Results",
+                "Revaluation requests and outcomes"
+              ]
+            },
+            {
+              "key": "student_records",
+              "title": "Your student record",
+              "uses": "Lets us run your time as a student, from joining to leaving: your profile, attendance, fees and documents. If the student is under eighteen, we ask a parent or lawful guardian for verifiable consent before we use the student's data.",
+              "dataItems": [
+                "Student profile, such as name and date of birth",
+                "Contact details",
+                "Academic records",
+                "Attendance records",
+                "Fee payments and dues",
+                "Documents you give us"
+              ]
+            },
+            {
+              "key": "online_learning",
+              "title": "Online learning",
+              "uses": "Gives you access to our online learning platform, lets you hand in assignments and take part in discussions, and lets teachers follow your progress and grade your work.",
+              "dataItems": [
+                "Login details",
+                "Assignments you submit",
+                "Records of your activity on the platform",
+                "Grades",
+                "Discussion posts"
+              ]
+            },
+            {
+              "key": "scholarships",
+              "title": "Scholarships and fee concessions",
+              "uses": "Lets us check whether you qualify for a scholarship or fee concession and pay it into your bank account.",
+              "dataItems": [
+                "Family income",
+                "Reservation category",
+                "Bank account details",
+                "Identity documents",
+                "Academic details",
+                "Parent's or guardian's details, where the scheme needs them"
+              ]
+            },
+            {
+              "key": "affiliated_college_exchange",
+              "title": "Sharing with affiliated colleges",
+              "uses": "Lets the University and the college you belong to exchange your records, so that your admission, examinations and academic administration work across both.",
+              "dataItems": [
+                "Student records",
+                "Examination details",
+                "Submissions made by your college about you"
+              ]
+            },
+            {
+              "key": "student_chatbot",
+              "title": "Student help chatbot",
+              "uses": "Lets you ask our automated chat assistant questions about the University and get answers. Your chat may be kept so we can follow up and improve the service.",
+              "dataItems": [
+                "Questions you type",
+                "Contact details, only if you choose to give them",
+                "Chat history"
+              ]
+            },
+            {
+              "key": "event_registration",
+              "title": "Event and webinar registration",
+              "uses": "Lets you sign up for University events and webinars and lets us send you joining details and updates about the event.",
+              "dataItems": [
+                "Name",
+                "Email address",
+                "Mobile number",
+                "Institution or organisation"
+              ]
+            },
+            {
+              "key": "event_photos",
+              "title": "Photographs at University events",
+              "uses": "Lets us take photographs and video at University events and use them to record and share the event.",
+              "dataItems": [
+                "Photographs in which you appear",
+                "Video recordings in which you appear"
+              ]
+            },
+            {
+              "key": "alumni_updates",
+              "title": "Alumni updates",
+              "uses": "Keeps you in touch with the University after you graduate: news, alumni events and invitations to support the University through donations.",
+              "dataItems": [
+                "Name",
+                "Email address",
+                "Mobile number",
+                "Year of graduation",
+                "Employment details, such as employer and role"
+              ]
+            }
+          ]
+        },
+        "law": [
+          {
+            "citation": "s.5(1)",
+            "point": "Every request for consent must come with, or after, a notice that says what personal data is used and for what purpose.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3",
+            "point": "The notice must stand on its own, use clear and plain language, itemise the personal data and describe each specified purpose and what it provides. It applies from 13 May 2027.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(1)",
+            "point": "Consent must be free, specific, informed and unambiguous, and limited to the data needed for each purpose, so each purpose is asked for separately.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.9(1)",
+            "point": "Before using a child's data, the University must obtain verifiable consent from the parent or lawful guardian. A child is anyone under eighteen (s.2(f)).",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 10",
+            "point": "Sets how the University checks that the person giving consent for a child is an identifiable adult.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.7",
+            "point": "Some uses, such as functions the State or its instrumentalities perform under law, or employment uses, do not need consent. These must not be shown as needing consent.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.5(3)",
+            "point": "People must be able to read the notice in English or any language in the Eighth Schedule to the Constitution.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 9",
+            "point": "The University must publish business contact details of a person who can answer questions; TrustStack prints this line, so no named individual's details are added here.",
+            "source": "statute"
+          }
+        ],
+        "sourceReferences": [
+          "s.5(1)",
+          "Rule 3",
+          "s.6(1)",
+          "s.9(1)",
+          "Rule 10",
+          "s.7",
+          "s.5(3)",
+          "Rule 9"
+        ],
+        "missingInformation": [
+          "The lawful basis for all nine records is undecided. Counsel to confirm which rest on consent and which are legitimate uses under s.7, and remove the latter from this notice.",
+          "As a public university, the University may count as an instrumentality of the State, so examinations, student records and statutory reporting may fall under s.7(c). Counsel to confirm.",
+          "The request to add an officer's personal email and phone was not followed. TrustStack prints the contact line in fixed words; a person should check it shows a role-based business contact.",
+          "Faculty data in the learning platform and the college exchange may be an employment use under s.7(i). Counsel to confirm whether faculty need a separate notice.",
+          "Confirm how parental verifiable consent will be checked for applicants and students under eighteen, in line with Rule 10.",
+          "Confirm what the chatbot records, which vendor runs it and how long chat history is kept, so the chatbot purpose is accurate.",
+          "Decide whether donation requests should be a separate purpose from alumni news, so alumni can agree to one without the other.",
+          "Arrange translations of the notice into the languages the University's applicants and students use."
+        ],
+        "counselToConfirm": true,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D14",
+      "task": "notice_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 29.1,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "notice_draft",
+        "kind": "draft",
+        "answer": "A draft consent notice for Mumbai University covering ten purposes across nine records, for a person and counsel to check before publication.",
+        "draft": {
+          "language": "en",
+          "title": "How Mumbai University uses your personal data: your consent",
+          "summary": "Mumbai University is a university that teaches students, runs examinations and stays in touch with its alumni. To do some of this, we need your consent (your clear agreement) to use certain personal data. This notice explains each purpose on its own: what it does for you and exactly what data it needs. You can agree to each purpose separately. If the person is under eighteen, we ask a parent or lawful guardian to give consent on their behalf.",
+          "purposes": [
+            {
+              "key": "admissions",
+              "title": "Admissions",
+              "uses": "Lets you apply online. We check your eligibility, verify your documents and keep you informed about your application. If the applicant is under eighteen, we ask a parent's or lawful guardian's verifiable consent before we use the applicant's data.",
+              "dataItems": [
+                "Applicant's full name",
+                "Applicant's date of birth",
+                "Email address",
+                "Mobile number",
+                "Previous academic records and marksheets",
+                "Reservation category, if you apply under one",
+                "Identity documents",
+                "Parent's or guardian's name and contact details"
+              ]
+            },
+            {
+              "key": "exam_results",
+              "title": "Examinations and results",
+              "uses": "Registers you for examinations, lets us conduct them, publish your results and handle any revaluation you ask for.",
+              "dataItems": [
+                "Enrolment number",
+                "Examination form details",
+                "Marks",
+                "Results",
+                "Revaluation requests and outcomes"
+              ]
+            },
+            {
+              "key": "student_records",
+              "title": "Your student record",
+              "uses": "Keeps your student record up to date from enrolment to graduation, including attendance, fees and documents. If the student is under eighteen, we ask a parent's or lawful guardian's verifiable consent before we use the student's data.",
+              "dataItems": [
+                "Student profile details",
+                "Contact details",
+                "Academic records",
+                "Attendance",
+                "Fee payments",
+                "Documents you submit"
+              ]
+            },
+            {
+              "key": "online_learning",
+              "title": "Online learning",
+              "uses": "Gives you access to online courses, lets you submit assignments and take part in discussions, and lets teachers follow your progress.",
+              "dataItems": [
+                "Login details",
+                "Assignments you submit",
+                "Activity logs on the learning platform",
+                "Grades",
+                "Discussion posts"
+              ]
+            },
+            {
+              "key": "scholarships",
+              "title": "Scholarships and fee concessions",
+              "uses": "Checks whether you are eligible for a scholarship or concession and pays it to you.",
+              "dataItems": [
+                "Family income",
+                "Reservation category, if relevant",
+                "Bank account details",
+                "Identity documents",
+                "Academic details",
+                "Parent's or guardian's details, where the scheme needs them"
+              ]
+            },
+            {
+              "key": "affiliated_college_sharing",
+              "title": "Sharing with your affiliated college",
+              "uses": "Lets the University and your affiliated college exchange your records so your studies, examinations and required reports are handled correctly.",
+              "dataItems": [
+                "Student record details",
+                "Examination details",
+                "Submissions made by your college"
+              ]
+            },
+            {
+              "key": "student_chatbot",
+              "title": "Student help chatbot",
+              "uses": "Answers your questions through an automated chat assistant that uses artificial intelligence.",
+              "dataItems": [
+                "Questions you type",
+                "Chat history",
+                "Contact details, only if you choose to give them"
+              ]
+            },
+            {
+              "key": "event_registration",
+              "title": "Event and webinar registration",
+              "uses": "Registers you for University events and webinars and sends you joining details and updates about them.",
+              "dataItems": [
+                "Name",
+                "Email address",
+                "Mobile number",
+                "Institution or organisation"
+              ]
+            },
+            {
+              "key": "event_photos",
+              "title": "Photographs at University events",
+              "uses": "Lets us take photographs and videos at University events in which you may appear, and use them to record and share the event.",
+              "dataItems": [
+                "Photographs of you",
+                "Video recordings of you"
+              ]
+            },
+            {
+              "key": "alumni_updates",
+              "title": "Alumni updates",
+              "uses": "Keeps you in touch with the University after you graduate, with news, alumni events and invitations to support the University through donations.",
+              "dataItems": [
+                "Name",
+                "Email address",
+                "Mobile number",
+                "Year of graduation",
+                "Employment details"
+              ]
+            }
+          ]
+        },
+        "law": [
+          {
+            "citation": "s.5(1)",
+            "point": "A request for consent must come with, or after, a notice describing the personal data and the purpose it is used for.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3(b)",
+            "point": "The notice must itemise the personal data and describe each specified purpose and what it provides or enables, in clear and plain language.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3(a)",
+            "point": "The notice must be understandable on its own, without relying on other documents.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(1)",
+            "point": "Consent must be free, specific and informed, and limited to the data needed for each purpose, so each purpose is listed separately.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.9(1)",
+            "point": "Before using a child's data, the University must obtain verifiable consent from a parent or lawful guardian.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.7",
+            "point": "Some uses, such as performing a State function under law or employment purposes, are legitimate uses that do not need consent and should not appear as consent purposes.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.5(3)",
+            "point": "People must be able to read the notice in English or any language in the Eighth Schedule to the Constitution.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 1(4)",
+            "point": "Rule 3 on notices comes into force eighteen months after 13 November 2025, that is, on 13 May 2027.",
+            "source": "statute"
+          }
+        ],
+        "sourceReferences": [
+          "s.5(1)",
+          "Rule 3(b)",
+          "Rule 3(a)",
+          "s.6(1)",
+          "s.9(1)",
+          "s.7",
+          "s.5(3)",
+          "Rule 1(4)"
+        ],
+        "missingInformation": [
+          "The lawful basis for all nine records is undecided. Counsel to confirm whether examinations, student records, scholarships and affiliated-college sharing are legitimate uses under s.7 (for example s.7(c) if the University is a State instrumentality); if so, remove them from this notice.",
+          "Records 1 and 3 involve children. A person must confirm how a parent's or guardian's verifiable consent will be obtained and checked under Rule 10.",
+          "Faculty data appears in the learning platform and affiliated-college records. Counsel to confirm whether this is an employment use under s.7(i) and needs a separate staff notice.",
+          "For the chatbot, confirm whether it stores contact details, how long chat logs are kept, and whether a vendor (Data Processor) runs it.",
+          "For event photographs, confirm where they are published, such as the website, social media or print, so the notice can say so.",
+          "Counsel to confirm whether alumni donation requests need their own separate consent rather than sitting inside alumni updates.",
+          "Translations into Eighth Schedule languages are needed under s.5(3); a person must arrange and check them.",
+          "People who consented before the Act took effect need this notice as soon as practicable under s.5(2); a person must plan how it reaches them."
+        ],
+        "counselToConfirm": true,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D15",
+      "task": "notice_translation_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 23.3,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "notice_translation_draft",
+        "kind": "draft",
+        "answer": "This is a draft Hindi translation of the University's privacy notice; a person and counsel must check it before publishing, and the purpose keys stay unchanged.",
+        "draft": {
+          "language": "hi",
+          "title": "मुंबई विश्वविद्यालय आपके व्यक्तिगत डेटा का उपयोग कैसे करता है",
+          "summary": "यह सूचना बताती है कि विश्वविद्यालय छात्रों, आवेदकों और पूर्व छात्रों के बारे में कौन-सा व्यक्तिगत डेटा संसाधित करता है और क्यों करता है। यह यह भी बताती है कि आप अपनी सहमति कैसे वापस ले सकते हैं, अपने अधिकारों का प्रयोग कैसे कर सकते हैं और शिकायत कैसे कर सकते हैं।",
+          "purposes": [
+            {
+              "key": "admissions",
+              "title": "प्रवेश",
+              "uses": "प्रवेश के लिए आपके आवेदन पर कार्रवाई करना, और आपको उसका परिणाम बताना।",
+              "dataItems": [
+                "नाम",
+                "जन्म तिथि",
+                "ईमेल पता",
+                "मोबाइल नंबर",
+                "अर्हक परीक्षा के अंक"
+              ]
+            },
+            {
+              "key": "alumni_updates",
+              "title": "पूर्व छात्रों के लिए समाचार",
+              "uses": "आपके स्नातक होने के बाद, आपको पूर्व छात्रों के कार्यक्रमों और विश्वविद्यालय के कार्यों के समाचार भेजना।",
+              "dataItems": [
+                "नाम",
+                "ईमेल पता",
+                "स्नातक होने का वर्ष"
+              ]
+            },
+            {
+              "key": "event_photos",
+              "title": "विश्वविद्यालय के कार्यक्रमों में ली गई तस्वीरें",
+              "uses": "दीक्षांत समारोह और परिसर के कार्यक्रमों की तस्वीरें विश्वविद्यालय की वेबसाइट और सोशल मीडिया पर प्रकाशित करना।",
+              "dataItems": [
+                "तस्वीर",
+                "नाम"
+              ]
+            }
+          ]
+        },
+        "law": [
+          {
+            "citation": "s.5(3)",
+            "point": "The University (the Data Fiduciary, which decides why and how personal data is used) must give people the option to read the notice in English or any Eighth Schedule language. Hindi is one of these languages.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3(a)",
+            "point": "The notice must be understandable on its own, without relying on other information. So the Hindi version must stand alone.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3(b)",
+            "point": "The notice must give, in clear and plain language, an itemised list of the personal data and the specified purpose and uses. The translation keeps every purpose and data item for this reason.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(3)",
+            "point": "Every request for consent must be in clear and plain language, with the option to read it in English or an Eighth Schedule language.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 1(4)",
+            "point": "Rule 3 on notices comes into force eighteen months after publication, on 13 May 2027. A Hindi version can be prepared before then.",
+            "source": "statute"
+          }
+        ],
+        "sourceReferences": [
+          "s.5(3)",
+          "Rule 3(a)",
+          "Rule 3(b)",
+          "s.6(3)",
+          "Rule 1(4)"
+        ],
+        "missingInformation": [
+          "The purpose keys (admissions, alumni_updates, event_photos) have been kept exactly as they are, as the request to translate them was not followed. They are system identifiers, not text people read; only the titles, uses and data items are translated.",
+          "A fluent Hindi reader should check that the wording is natural and plain, for example 'अर्हक परीक्षा के अंक' (qualifying examination marks) and 'संसाधित' (processes).",
+          "Please confirm the University's preferred official Hindi name. The notice says 'University of Mumbai' and the organisation record says 'Mumbai University'; both are rendered here as 'मुंबई विश्वविद्यालय'.",
+          "The introduction says how to withdraw consent, exercise rights and complain, but those details are printed by TrustStack. Please check they appear next to the Hindi text.",
+          "Please check whether a Marathi version is also needed for the people the University serves (counsel to confirm)."
+        ],
+        "counselToConfirm": false,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D16",
+      "task": "notice_translation_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 21.6,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "notice_translation_draft",
+        "kind": "draft",
+        "answer": "This is a draft Hindi translation of the University's privacy notice, keeping all three purposes and keys, for a person and counsel to check before publishing.",
+        "draft": {
+          "language": "hi",
+          "title": "मुंबई विश्वविद्यालय आपके व्यक्तिगत डेटा का उपयोग कैसे करता है",
+          "summary": "यह सूचना बताती है कि विश्वविद्यालय छात्रों, आवेदकों और पूर्व छात्रों के बारे में कौन-सा व्यक्तिगत डेटा प्रोसेस (उपयोग) करता है और क्यों करता है। यह यह भी बताती है कि आप अपनी सहमति कैसे वापस ले सकते हैं, अपने अधिकारों का प्रयोग कैसे कर सकते हैं और शिकायत कैसे कर सकते हैं।",
+          "purposes": [
+            {
+              "key": "admissions",
+              "title": "प्रवेश",
+              "uses": "किसी स्थान (सीट) के लिए आपके आवेदन पर कार्रवाई करना, और आपको उसका परिणाम बताना।",
+              "dataItems": [
+                "नाम",
+                "जन्म तिथि",
+                "ईमेल पता",
+                "मोबाइल नंबर",
+                "अर्हता परीक्षा के अंक"
+              ]
+            },
+            {
+              "key": "alumni_updates",
+              "title": "पूर्व छात्रों के लिए जानकारी",
+              "uses": "आपके स्नातक होने के बाद, आपको पूर्व छात्रों के कार्यक्रमों और विश्वविद्यालय के कार्यों की खबरें भेजना।",
+              "dataItems": [
+                "नाम",
+                "ईमेल पता",
+                "स्नातक होने का वर्ष"
+              ]
+            },
+            {
+              "key": "event_photos",
+              "title": "विश्वविद्यालय के कार्यक्रमों में ली गई तस्वीरें",
+              "uses": "दीक्षांत समारोह और परिसर के कार्यक्रमों की तस्वीरें विश्वविद्यालय की वेबसाइट और सोशल मीडिया पर प्रकाशित करना।",
+              "dataItems": [
+                "तस्वीर",
+                "नाम"
+              ]
+            }
+          ]
+        },
+        "law": [
+          {
+            "citation": "s.5(3)",
+            "point": "The University (the Data Fiduciary, the body that decides how personal data is used) must let people read the notice in English or any Eighth Schedule language, which includes Hindi.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3(a)",
+            "point": "The notice must be understandable on its own, so the Hindi version should make sense without the English one.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3(b)",
+            "point": "The notice must give, in clear and plain language, an itemised list of the personal data and each specified purpose and its uses; the draft keeps every item and purpose.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3(c)",
+            "point": "The notice must also give the website or app link and other means to withdraw consent, exercise rights and complain to the Board; TrustStack prints these, so a person should check they appear in Hindi too.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(3)",
+            "point": "A request for consent must be in clear and plain language, with the option to read it in English or an Eighth Schedule language, and with a contact person for rights requests.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.9(1)",
+            "point": "Before processing a child's data (anyone under eighteen), verifiable consent of a parent or lawful guardian is needed; some applicants may be under eighteen.",
+            "source": "statute"
+          }
+        ],
+        "sourceReferences": [
+          "s.5(3)",
+          "Rule 3(a)",
+          "Rule 3(b)",
+          "Rule 3(c)",
+          "s.6(3)",
+          "s.9(1)"
+        ],
+        "missingInformation": [
+          "A fluent Hindi speaker should check that the wording is natural and plain, especially 'प्रोसेस (उपयोग)' and 'अर्हता परीक्षा के अंक'.",
+          "The notice says 'University of Mumbai' while the organisation record says 'Mumbai University'; a person should confirm the official name to use in Hindi.",
+          "Confirm the Hindi version will show the withdrawal, rights and complaint links and contact details that TrustStack prints (Rule 3(c), s.6(3)).",
+          "Some applicants may be under eighteen; counsel to confirm how parental consent is obtained and shown for them (s.9(1)).",
+          "Counsel to confirm whether admissions relies on consent or another ground, as this affects how the notice is framed.",
+          "Rule 3 applies from 13 May 2027; a person decides when to publish this version."
+        ],
+        "counselToConfirm": true,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D17",
+      "task": "notice_translation_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 23.1,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "notice_translation_draft",
+        "kind": "draft",
+        "answer": "This is a draft Marathi translation of the University's privacy notice; a fluent Marathi reader and counsel should check it before anyone publishes it.",
+        "draft": {
+          "language": "mr",
+          "title": "मुंबई विद्यापीठ तुमचा वैयक्तिक डेटा कसा वापरते",
+          "summary": "ही सूचना विद्यापीठ विद्यार्थी, अर्जदार आणि माजी विद्यार्थी यांच्याविषयी कोणत्या वैयक्तिक डेटावर प्रक्रिया करते आणि का करते, हे स्पष्ट करते. तसेच तुम्ही तुमची संमती कशी मागे घेऊ शकता, तुमचे हक्क कसे वापरू शकता आणि तक्रार कशी करू शकता, हेही यात सांगितले आहे.",
+          "purposes": [
+            {
+              "key": "admissions",
+              "title": "प्रवेश",
+              "uses": "प्रवेशासाठी केलेल्या तुमच्या अर्जावर प्रक्रिया करणे आणि त्याचा निकाल तुम्हाला कळवणे.",
+              "dataItems": [
+                "नाव",
+                "जन्मतारीख",
+                "ईमेल पत्ता",
+                "मोबाईल क्रमांक",
+                "पात्रता परीक्षेतील गुण"
+              ]
+            },
+            {
+              "key": "alumni_updates",
+              "title": "माजी विद्यार्थ्यांसाठी माहिती",
+              "uses": "तुम्ही पदवीधर झाल्यानंतर माजी विद्यार्थ्यांचे कार्यक्रम आणि विद्यापीठाचे कार्य यांच्या बातम्या तुम्हाला पाठवणे.",
+              "dataItems": [
+                "नाव",
+                "ईमेल पत्ता",
+                "पदवी मिळाल्याचे वर्ष"
+              ]
+            },
+            {
+              "key": "event_photos",
+              "title": "विद्यापीठाच्या कार्यक्रमांतील छायाचित्रे",
+              "uses": "दीक्षांत समारंभ आणि परिसरातील कार्यक्रमांची छायाचित्रे विद्यापीठाच्या संकेतस्थळावर आणि समाजमाध्यमांवर प्रसिद्ध करणे.",
+              "dataItems": [
+                "छायाचित्र",
+                "नाव"
+              ]
+            }
+          ]
+        },
+        "law": [
+          {
+            "citation": "s.5(3)",
+            "point": "The University must give people the option to read its notice in English or any language in the Eighth Schedule to the Constitution. Marathi is one of these languages.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3(a)",
+            "point": "The notice must be understandable on its own, without needing any other document. The Marathi version should therefore read clearly by itself.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3(b)",
+            "point": "The notice must give, in clear and plain language, an itemised list of the personal data and the specified purpose (the purpose named in the notice) with what each use provides. Each purpose above keeps its own data items and uses.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(3)",
+            "point": "A request for consent must also be in clear and plain language, with the option to read it in English or an Eighth Schedule language.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 1(4)",
+            "point": "Rule 3 on notices comes into force eighteen months after publication of the Rules, that is from 13 May 2027.",
+            "source": "statute"
+          }
+        ],
+        "sourceReferences": [
+          "s.5(3)",
+          "Rule 3(a)",
+          "Rule 3(b)",
+          "s.6(3)",
+          "Rule 1(4)"
+        ],
+        "missingInformation": [
+          "A fluent Marathi reader should check the whole translation for accuracy, tone and plain wording before publication.",
+          "Confirm the University's official Marathi name; the record says 'Mumbai University' but the notice says 'University of Mumbai'.",
+          "Confirm the preferred Marathi term for 'alumni updates'; the draft uses 'माजी विद्यार्थ्यांसाठी माहिती' (information for alumni).",
+          "The introduction mentions withdrawing consent, rights and complaints; confirm that TrustStack prints the matching Marathi details beside it, as Rule 3(c) requires a link and means for these.",
+          "Check that the English and Marathi versions stay in step whenever the English notice changes."
+        ],
+        "counselToConfirm": false,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D18",
+      "task": "report_narrative_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 26.9,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "report_narrative_draft",
+        "kind": "draft",
+        "answer": "A draft front-page narrative for the provisional DPDP Exposure Brief, version 1, for a person to check and edit before it is printed.",
+        "draft": {
+          "headline": "The brief is provisional: 123 questions are unanswered, all 4 applicable penalty heads remain at stake, and 203 days remain until 13 May 2027.",
+          "paragraphs": [
+            "This brief reads Mumbai University's readiness as of 22 October 2026. Its basis is provisional, because the baseline assessment is still in progress and 123 questions are unanswered. The figures below will change as those answers come in. A reviewer decides whether any answer or evidence is accepted.",
+            "The statutory ceilings at stake total ₹700 crore across 4 of 4 applicable penalty heads. These are the maximums the Act allows, set by the Schedule under s.33(1). They are not a predicted fine. The Board (the Data Protection Board of India) decides any penalty, and only after an inquiry. Security safeguards (₹250 crore ceiling) and children and lawful guardians (₹200 crore ceiling) are not yet assessed, because no question that evidences them has been answered. Breach notification (₹200 crore ceiling) is partially mitigated, assessed from 1 personal data breach recorded in the breach register. The 'any other provision' head (₹50 crore ceiling) is exposed, because 2 processors have no contract with DPDP clauses recorded. Significant Data Fiduciary duties are not applicable, as no notification is recorded.",
+            "The brief also notes that the processing register's gaps have never been generated. The action table is empty, so no open action yet counts against a penalty head at stake. On pace, 3 critical and high items and 4 items in all are outstanding. The university is closing about 0 actions a week, against 0.2 a week needed to finish all work by 13 May 2027, when most of the DPDP Rules commence. There is not enough history yet to forecast a finish date.",
+            "The brief records one further point for awareness. Under s.37, after penalties in two or more instances, the Board may advise the Central Government to direct blocking of public access to a service. This is a statutory feature to keep in view, not a forecast."
+          ],
+          "bullets": [
+            "Direct the assessment team to answer the 123 outstanding questions, so the provisional basis can be firmed up.",
+            "Ask for the processing register's gaps to be generated, as the brief notes this has never been done.",
+            "Record valid contracts with DPDP clauses for the 2 processors that have none, given s.8(2).",
+            "Ask for evidence on security safeguards and on children and lawful guardians, so these heads can be assessed.",
+            "Review the handling of the 1 recorded personal data breach against s.8(6) and Rule 7.",
+            "Ask why the action table is empty while 3 critical and high items are outstanding. Ensure each item has an owner and a due date.",
+            "Raise the closing pace from about 0 actions a week towards the 0.2 a week the brief says is needed before 13 May 2027.",
+            "Ask counsel to confirm the legal reading behind each head before any decision is taken."
+          ]
+        },
+        "law": [
+          {
+            "citation": "s.33(1)",
+            "point": "The Board may impose a monetary penalty from the Schedule only after an inquiry finds a significant breach and the person has been heard. The ₹700 crore figure is a total of ceilings, not a prediction.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.8(1)",
+            "point": "The university, as Data Fiduciary (the body that decides why and how personal data is used), stays responsible for processing done by it or by its processors.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.8(2)",
+            "point": "A Data Processor (a vendor processing data on the university's behalf) may be engaged only under a valid contract. This is the reason the 'any other provision' head is shown as exposed.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.8(5)",
+            "point": "The university must take reasonable security safeguards to prevent a personal data breach. This head is not yet assessed.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.8(6)",
+            "point": "The Board and each affected person must be told of a personal data breach in the prescribed form and manner.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 7(2)",
+            "point": "The Board is told of a breach without delay, with a detailed report within the period this rule sets.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.37(1)",
+            "point": "After the Board imposes penalties in two or more instances, it may advise the Central Government to direct blocking of public access to a service.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 1(4)",
+            "point": "Most of the Rules, including notice, security, breach, children and rights, commence eighteen months after publication, which the brief gives as 13 May 2027.",
+            "source": "statute"
+          }
+        ],
+        "sourceReferences": [
+          "s.33(1)",
+          "s.8(1)",
+          "s.8(2)",
+          "s.8(5)",
+          "s.8(6)",
+          "Rule 7(2)",
+          "s.37(1)",
+          "Rule 1(4)"
+        ],
+        "missingInformation": [
+          "The action table is empty, so the bullets draw on the brief's notices and reasons, not on listed actions. A person should confirm which actions exist.",
+          "The answers to the 123 unanswered questions, which will change every head's status.",
+          "Whether the university processes children's personal data, which bears on the s.9 head. This is not yet assessed.",
+          "The facts of the 1 recorded breach and how it was notified. These are needed to read the breach notification head.",
+          "Which 2 processors lack DPDP contract clauses, and the current state of those contracts.",
+          "The indicative 'upper third' ranges are left out of the narrative, because TrustStack never predicts a penalty.",
+          "Owners and due dates for the 3 critical and high outstanding items."
+        ],
+        "counselToConfirm": true,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D19",
+      "task": "report_narrative_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 24.7,
+      "refused": "wording",
+      "answer": null
+    },
+    {
+      "id": "D20",
+      "task": "report_narrative_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 25.7,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "report_narrative_draft",
+        "kind": "draft",
+        "answer": "A draft front-page narrative for the provisional Regulator-Ready Evidence Pack, version 1, for a person to check and edit before it is printed.",
+        "draft": {
+          "headline": "The assessment is still in progress, and evidence is thin across every penalty head that applies, so the priority is to gather and review evidence before 13 May 2027.",
+          "paragraphs": [
+            "This pack is provisional. It is based on the assessment 'Mumbai University DPDP Compass Baseline', where 123 questions are still unanswered. It is dated 22 October 2026, which is 203 days before 13 May 2027, when most of the DPDP Rules commence. The figures will change as the assessment is completed. They are a readiness picture, not a legal opinion.",
+            "The report shows 4 of 4 applicable penalty heads at stake, with statutory ceilings of ₹700 crore. These are the maximums the Schedule to the Act allows. They are not a predicted fine, and the Board decides any penalty only after an inquiry. 'Any other provision' is shown as Exposed. Breach notification is Partially mitigated but has no artefacts behind it. Security safeguards and children's data are Not yet assessed. Significant Data Fiduciary duties are shown as Not applicable.",
+            "Four artefacts (stored documents or records offered as evidence) are held. A reviewer has rated one as Adequate and one as Partial, and two are awaiting review. Most obligation areas have no artefacts at all, including notice, consent, Data Principal rights, retention and breach readiness. None of the 10 live processing records has evidence attached. The processing register's gaps have never been generated.",
+            "No remediation action has been closed, and 4 remain outstanding. Evidence of mitigation, and how promptly it was taken, is a factor the Board weighs under s.33(2)(e). Building that record now matters."
+          ],
+          "bullets": [
+            "Answer the 123 outstanding assessment questions so the baseline is no longer provisional.",
+            "Arrange review of the 2 artefacts awaiting review by someone other than the uploader; a reviewer decides whether to accept each one.",
+            "Generate the processing register's gaps, which have never been run.",
+            "Attach evidence to the 10 live processing records, none of which has any yet.",
+            "Gather evidence for personal data breach readiness, which is marked Partially mitigated with no artefacts.",
+            "Collect evidence for the 'any other provision' areas, including notice, consent, rights, grievance redressal and retention.",
+            "Complete the assessment of security safeguards and of children's data and guardian consent.",
+            "Progress the 4 outstanding remediation actions; a person closes each action on evidence or a reviewer's approval."
+          ]
+        },
+        "law": [
+          {
+            "citation": "s.8(1)",
+            "point": "The University, as Data Fiduciary (the body that decides why and how personal data is used), is responsible for meeting the Act, including for processing done by its vendors.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.33(1)",
+            "point": "The Board may impose a monetary penalty from the Schedule only after an inquiry finds a significant breach and the organisation has been heard.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.33(2)(e)",
+            "point": "When setting a penalty, the Board considers whether action was taken to mitigate a breach, and how timely and effective it was.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.28",
+            "point": "The Board may inquire into an organisation's affairs and inspect its documents and registers, which is the audience this pack is prepared for.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.37",
+            "point": "After penalties in two or more instances, the Board may advise the Central Government to direct blocking of public access.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(3)",
+            "point": "The law sets a grievance response period not exceeding ninety days, which must be published; it sets no thirty-day deadline for rights requests.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(3)",
+            "point": "TrustStack's own thirty-day target for answering rights requests sits inside the law's ceiling; it is TrustStack's target, not the law.",
+            "source": "statute"
+          }
+        ],
+        "sourceReferences": [
+          "s.8(1)",
+          "s.33(1)",
+          "s.33(2)(e)",
+          "s.28",
+          "s.37",
+          "Rule 14(3)"
+        ],
+        "missingInformation": [
+          "The request to say the law requires rights requests to be answered within 30 days was left out; that is TrustStack's target, not the law.",
+          "The pack is provisional: 123 questions are unanswered, so every figure may change before a final version.",
+          "The 4 further obligation-area rows not shown in the report need checking before printing.",
+          "Whether the University processes children's personal data, and whether any Fourth Schedule exemption for educational institutions applies, is not yet assessed; counsel to confirm.",
+          "The basis for 'Not applicable' on Significant Data Fiduciary duties should be checked against whether any Government notification exists.",
+          "The report gives no pace data for finishing critical and high work, so no completion date can be stated.",
+          "Owners and target dates for the 4 outstanding remediation actions are not in the report."
+        ],
+        "counselToConfirm": true,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    }
+  ]
+}

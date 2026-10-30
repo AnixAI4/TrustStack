@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TrustStack Feature Tracker</title>
+<style>
+  /* Layout: one column — status line, totals, two charts, disagreements, then the full register as a working table. */
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --fg: #17202b; --muted: #5b6675; --line: #dde2e8;
+    --accent: #1f5f8b; --built: #2f7d5b; --partial: #b7791f; --notbuilt: #a9b2be; --dropped: #d7dce2; --bad: #b4382f;
+    --display: Georgia, "Times New Roman", serif;
+    --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --radius: 8px;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #11161d; --panel: #18202a; --fg: #e6ebf1; --muted: #9aa6b5; --line: #2b3542;
+    --accent: #7fb6dc; --built: #5fbf90; --partial: #e0a948; --notbuilt: #4e5a69; --dropped: #2f3946; --bad: #ef7a70; color-scheme: dark; } }
+  :root[data-theme="dark"] {
+    --bg: #11161d; --panel: #18202a; --fg: #e6ebf1; --muted: #9aa6b5; --line: #2b3542;
+    --accent: #7fb6dc; --built: #5fbf90; --partial: #e0a948; --notbuilt: #4e5a69; --dropped: #2f3946; --bad: #ef7a70; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 var(--body); }
+  .wrap { max-width: 1200px; margin: 0 auto; padding-block: 28px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 22px; }
+  h1 { font-family: var(--display); font-weight: 400; font-size: 2rem; margin: 0; text-wrap: balance; }
+  h2 { font-size: 1.05rem; margin: 0; font-weight: 600; }
+  p { margin: 0; }
+  .take { max-width: 75ch; }
+  .meta, .note { color: var(--muted); font-size: 0.85rem; }
+  .warnline { color: var(--partial); font-size: 0.9rem; }
+  b.n { font-variant-numeric: tabular-nums; }
+  .tiles { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); }
+  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; display: grid; gap: 2px; }
+  .tile span { color: var(--muted); font-size: 0.8rem; letter-spacing: 0.02em; }
+  .tile strong { font-family: var(--display); font-weight: 400; font-size: 2rem; font-variant-numeric: tabular-nums; }
+  .tile.warn strong { color: var(--partial); }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.8rem; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .sw { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .bars { display: grid; gap: 8px; }
+  .bar-row { display: grid; grid-template-columns: minmax(7rem, 12rem) 1fr 2.2rem; gap: 10px; align-items: center; font-size: 0.85rem; }
+  .track { display: flex; height: 16px; border-radius: 4px; overflow: hidden; }
+  .seg { height: 100%; }
+  .tot { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+  .filters label { display: grid; gap: 2px; font-size: 0.78rem; color: var(--muted); }
+  .filters input[type="search"], .filters select { font: inherit; font-size: 0.9rem; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; min-width: 0; }
+  .filters input[type="search"] { width: min(100%, 15rem); }
+  .filters .chk { display: inline-flex; align-items: center; gap: 6px; padding-bottom: 6px; }
+  .tablebox { overflow: auto; max-height: 40rem; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  th, td { text-align: left; vertical-align: top; padding: 7px 10px; border-bottom: 1px solid var(--line); }
+  th { position: sticky; top: 0; background: var(--panel); font-weight: 600; white-space: nowrap; z-index: 1; }
+  th button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  th button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .id { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .chip { display: inline-block; padding: 0 7px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; font-size: 0.78rem; }
+  .s-built { color: var(--built); } .s-partial { color: var(--partial); } .s-not_built { color: var(--muted); } .s-dropped { color: var(--muted); text-decoration: line-through; }
+  .ok { color: var(--built); } .bad { color: var(--bad); } .muted { color: var(--muted); }
+  .sub { color: var(--muted); margin-top: 2px; }
+  .log { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .log li { display: grid; grid-template-columns: 9.5rem 1fr; gap: 12px; font-size: 0.86rem; }
+  .log time { color: var(--muted); font-variant-numeric: tabular-nums; }
+  @media (max-width: 760px) { .hide-narrow { display: none; } .log li { grid-template-columns: 1fr; gap: 0; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:grid;gap:6px">
+    <h1>TrustStack Feature Tracker</h1>
+    <p class="take" id="take"></p>
+    <p class="warnline" id="warnline" hidden></p>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <section class="tiles" aria-label="Totals" id="tiles"></section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Progress by family</h2>
+      <p class="note">How many features in each family are built, partly built, not built or dropped.</p>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--built)"></i>Built</span>
+        <span><i class="sw" style="background:var(--partial)"></i>Partly built</span>
+        <span><i class="sw" style="background:var(--notbuilt)"></i>Not built</span>
+        <span><i class="sw" style="background:var(--dropped)"></i>Dropped</span>
+      </div>
+      <div class="bars" id="families"></div>
+    </section>
+    <section class="card">
+      <h2>What happens to each feature</h2>
+      <p class="note">Keep: the new app's version stands. Merge: bring an old-app strength into it. New: build it. Park: later, on a trigger. Drop: not carried over.</p>
+      <div class="bars" id="decisions"></div>
+    </section>
+  </div>
+
+  <section class="card" id="disagree-card">
+    <h2>Where the register and the code disagree</h2>
+    <p class="note">A built or partly built feature names the files that prove it. Each is looked up on the checked commit; anything missing is listed here instead of showing a status the code does not back.</p>
+    <div class="tablebox"><table><thead><tr><th>ID</th><th>Feature</th><th>What disagrees</th></tr></thead><tbody id="warnrows"></tbody></table></div>
+  </section>
+
+  <section class="card">
+    <h2>Every feature</h2>
+    <div class="filters">
+      <label for="q">Search<input id="q" type="search" placeholder="Feature, old app, basis…"></label>
+      <label for="f-status">Status<select id="f-status"><option value="">All</option><option value="built">Built</option><option value="partial">Partly built</option><option value="not_built">Not built</option><option value="dropped">Dropped</option></select></label>
+      <label for="f-decision">Decision<select id="f-decision"><option value="">All</option><option value="KEEP">Keep</option><option value="MERGE">Merge</option><option value="NEW">New</option><option value="PARK">Park</option><option value="DROP">Drop</option></select></label>
+      <label for="f-family">Family<select id="f-family"><option value="">All</option></select></label>
+      <label for="f-side">For<select id="f-side"><option value="">Everyone</option><option value="client">Clients</option><option value="anixai">AnixAI</option><option value="both">Both</option></select></label>
+      <label class="chk" for="f-sentinel"><input id="f-sentinel" type="checkbox">Sentinel only</label>
+    </div>
+    <p class="note" id="shown"></p>
+    <div class="tablebox">
+      <table>
+        <thead><tr>
+          <th><button type="button" data-sort="id">ID</button></th>
+          <th><button type="button" data-sort="name">Feature</button></th>
+          <th><button type="button" data-sort="status">Status</button></th>
+          <th><button type="button" data-sort="decision">Decision</button></th>
+          <th><button type="button" data-sort="where">Where / when</button></th>
+          <th class="hide-narrow">Old app</th>
+          <th class="hide-narrow">New app</th>
+          <th class="hide-narrow">DPDP basis</th>
+          <th><button type="button" data-sort="codeOk">Code check</button></th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Updates</h2>
+    <p class="note">One entry each time the tracker is regenerated — at the end of every prompt or feature.</p>
+    <ol class="log" id="log"></ol>
+  </section>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById('data').textContent);
+  const F = D.rows;
+  const LABEL = { built: 'Built', partial: 'Partly built', not_built: 'Not built', dropped: 'Dropped' };
+  const DEC = { KEEP: 'Keep', MERGE: 'Merge', NEW: 'New', PARK: 'Park', DROP: 'Drop' };
+  const ORDER = ['built', 'partial', 'not_built', 'dropped'];
+  const COLOR = { built: 'var(--built)', partial: 'var(--partial)', not_built: 'var(--notbuilt)', dropped: 'var(--dropped)' };
+  const FAMILIES = [...new Set(F.map((f) => f.family))];
+  const count = (fn) => F.filter(fn).length;
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+  const when = (iso) => new Date(iso).toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+  const t = { built: count((f) => f.status === 'built'), partial: count((f) => f.status === 'partial'), not_built: count((f) => f.status === 'not_built'), dropped: count((f) => f.status === 'dropped'), sentinel: count((f) => f.sentinel === 'yes'), warn: count((f) => f.codeOk === 'no') };
+
+  const take = document.getElementById('take');
+  take.append('Of the ', el('b', 'n', F.length), ' features planned for the one platform, ', el('b', 'n', t.built), ' are built and ', el('b', 'n', t.partial), ' partly built, checked against the code on ', el('b', '', D.ref), ' at commit ', el('b', '', D.commit), '.');
+  const wl = document.getElementById('warnline');
+  if (t.warn) { wl.hidden = false; wl.textContent = `${t.warn} ${t.warn === 1 ? 'row disagrees' : 'rows disagree'} with the code — see "Where the register and the code disagree".`; }
+  document.getElementById('meta').textContent = `Last updated ${when(D.generatedAt)} · code checked at ${D.commit} (${when(D.commitDate)}) · source: docs/reference/feature_register.json`;
+
+  const tiles = document.getElementById('tiles');
+  for (const [label, n, cls] of [['Built', t.built], ['Partly built', t.partial], ['Not built yet', t.not_built], ['Dropped', t.dropped], ['Sentinel features', t.sentinel], ['Disagree with the code', t.warn, 'warn']]) {
+    const d = el('div', `tile ${cls || ''}`); d.append(el('span', '', label), el('strong', '', n)); tiles.append(d);
+  }
+
+  const fam = document.getElementById('families');
+  const fmax = Math.max(...FAMILIES.map((x) => count((f) => f.family === x)));
+  for (const family of FAMILIES) {
+    const of = F.filter((f) => f.family === family);
+    const row = el('div', 'bar-row'); const track = el('div', 'track'); track.style.width = `${(of.length / fmax) * 100}%`;
+    const parts = [];
+    for (const s of ORDER) { const n = of.filter((f) => f.status === s).length; if (!n) continue; const seg = el('div', 'seg'); seg.style.width = `${(n / of.length) * 100}%`; seg.style.background = COLOR[s]; track.append(seg); parts.push(`${LABEL[s]} ${n}`); }
+    track.title = `${family}: ${parts.join(' · ')}`;
+    row.append(el('span', '', family), track, el('span', 'tot', of.length)); fam.append(row);
+  }
+  const dec = document.getElementById('decisions');
+  const dmax = Math.max(...Object.keys(DEC).map((k) => count((f) => f.decision === k)));
+  for (const k of Object.keys(DEC)) {
+    const n = count((f) => f.decision === k);
+    const row = el('div', 'bar-row'); const track = el('div', 'track'); const seg = el('div', 'seg');
+    seg.style.width = `${(n / dmax) * 100}%`; seg.style.background = 'var(--accent)'; seg.style.borderRadius = '4px'; track.append(seg); track.title = `${DEC[k]}: ${n}`;
+    row.append(el('span', '', DEC[k]), track, el('span', 'tot', n)); dec.append(row);
+  }
+
+  const wr = document.getElementById('warnrows');
+  const bad = F.filter((f) => f.codeOk === 'no');
+  if (!bad.length) { const tr = el('tr'); const td = el('td', 'ok', 'Every row agrees with the code.'); td.colSpan = 3; tr.append(td); wr.append(tr); }
+  for (const f of bad) { const tr = el('tr'); tr.append(el('td', 'id', f.id), el('td', '', f.name), el('td', 'bad', f.codeIssues)); wr.append(tr); }
+
+  const fs = document.getElementById('f-family'); for (const x of FAMILIES) fs.append(new Option(x, x));
+  const state = { key: 'id', dir: 1 };
+  const v = (id) => { const e = document.getElementById(id); return e.type === 'checkbox' ? e.checked : e.value; };
+  function draw() {
+    const q = v('q').trim().toLowerCase();
+    const want = { status: v('f-status'), decision: v('f-decision'), family: v('f-family'), side: v('f-side') };
+    const rows = F.filter((f) => Object.entries(want).every(([k, x]) => !x || f[k] === x) && (!v('f-sentinel') || f.sentinel === 'yes') &&
+      (!q || [f.id, f.name, f.family, f.oldApp, f.newApp, f.basis, f.where, f.note].join(' ').toLowerCase().includes(q)))
+      .sort((a, b) => state.dir * String(a[state.key]).localeCompare(String(b[state.key]), 'en', { numeric: true }));
+    document.getElementById('shown').textContent = `Showing ${rows.length} of ${F.length} features. Click a column heading to sort.`;
+    const tb = document.getElementById('rows'); tb.replaceChildren();
+    for (const f of rows) {
+      const tr = el('tr');
+      const name = el('td', '', f.name); if (f.note) name.append(el('div', 'sub', f.note));
+      const st = el('td'); st.append(el('span', `chip s-${f.status}`, LABEL[f.status] || f.status));
+      const code = f.codeOk === 'yes' ? el('td', f.checks ? 'ok' : 'muted', f.checks ? 'Matches the code' : 'Nothing to check') : el('td', 'bad', f.codeIssues);
+      tr.append(el('td', 'id', f.id), name, st, el('td', '', DEC[f.decision] || f.decision), el('td', '', f.where), el('td', 'hide-narrow', f.oldApp || '—'), el('td', 'hide-narrow', f.newApp || '—'), el('td', 'hide-narrow', f.basis), code);
+      tb.append(tr);
+    }
+  }
+  document.getElementById('q').addEventListener('input', draw);
+  for (const id of ['f-status', 'f-decision', 'f-family', 'f-side', 'f-sentinel']) document.getElementById(id).addEventListener('change', draw);
+  document.querySelectorAll('[data-sort]').forEach((b) => b.addEventListener('click', () => {
+    const k = b.dataset.sort; state.dir = state.key === k ? -state.dir : 1; state.key = k;
+    document.querySelectorAll('[data-sort]').forEach((x) => x.closest('th').setAttribute('aria-sort', x.dataset.sort === k ? (state.dir === 1 ? 'ascending' : 'descending') : 'none'));
+    draw();
+  }));
+  draw();
+
+  const log = document.getElementById('log');
+  for (const e of (D.log || []).slice().reverse()) { const li = el('li'); const tm = el('time', '', when(e.at)); tm.dateTime = e.at; li.append(tm, el('span', '', e.note)); log.append(li); }
+})();
+</script>
+</body>
+</html>

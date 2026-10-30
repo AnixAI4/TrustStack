@@ -1,0 +1,1656 @@
+// TrustStack DPDP Compass — Prisma schema.
+//
+// Schema changes are migrations in this repo, never SQL pasted into the Supabase
+// editor (CLAUDE.md). RLS policies, grants and helper functions cannot be
+// expressed in Prisma, so each migration.sql is hand-extended with them.
+//
+// Prisma connects as the privileged `postgres` role and BYPASSES RLS. It is for
+// migrations, seed and (later) worker jobs — never a user request path (D-015).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  // citext lives in Supabase's `extensions` schema; created in the migration SQL.
+}
+
+model Organization {
+  id                         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                       String
+  legalName                  String?   @map("legal_name")
+  organizationType           String    @map("organization_type")
+  industryCode               String?   @map("industry_code")
+  parentOrganizationId       String?   @map("parent_organization_id") @db.Uuid
+  consultantAssisted         Boolean   @default(false) @map("consultant_assisted")
+  website                    String?
+  headquartersCity           String?   @map("headquarters_city")
+  employeeCount              Int?      @map("employee_count")
+  dataPrincipalCountEstimate Int?      @map("data_principal_count_estimate")
+  /// Slice 9: a Significant Data Fiduciary notification, ENTERED by an
+  /// `organization.update` holder and never inferred (D-028). Both or neither.
+  sdfNotifiedOn              DateTime? @map("sdf_notified_on") @db.Date
+  sdfNotificationRef         String?   @map("sdf_notification_ref")
+  /// Slice 10 Stage 3a: the public address (`/p/{slug}`). Null = no public
+  /// pages. Needs the Rule 9 contact; set by `organization.update` only.
+  publicSlug                 String?   @unique @map("public_slug")
+  /// The published Rule 9 contact: a DPO, or a person able to answer on the
+  /// organisation's behalf. Name and email together, or neither.
+  publicContactName          String?   @map("public_contact_name")
+  publicContactEmail         String?   @map("public_contact_email")
+  publicContactPhone         String?   @map("public_contact_phone")
+  publicContactIsDpo         Boolean   @default(false) @map("public_contact_is_dpo")
+  /// Slice 10 Stage 5: Rule 8(1)'s Third-Schedule class — `ecommerce` ·
+  /// `online_gaming` · `social_media` — ENTERED by an `organization.update`
+  /// holder, never inferred. Null = none: Rule 8(1)–(2) do not apply.
+  thirdScheduleClass         String?   @map("third_schedule_class")
+  /// Slice 11 Stage 1a: the AI assistant's switch (A2) — off by default; on
+  /// only with the client's contract (DPA) reference, by `organization.update`;
+  /// held for `bfsi`/`healthcare` without counsel's sign-off and for an SDF (A4).
+  /// Who turned it on, and when, are stamped by the database (FK in the migration).
+  aiEnabled                  Boolean   @default(false) @map("ai_enabled")
+  aiContractRef              String?   @map("ai_contract_ref")
+  aiEnabledBy                String?   @map("ai_enabled_by") @db.Uuid
+  aiEnabledAt                DateTime? @map("ai_enabled_at") @db.Timestamptz(6)
+  createdAt                  DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                  DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+  deletedAt                  DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  parent                Organization?             @relation("OrganizationParent", fields: [parentOrganizationId], references: [id])
+  children              Organization[]            @relation("OrganizationParent")
+  members               OrganizationUser[]
+  auditLog              AuditLog[]
+  invites               OrganizationInvite[]
+  industry              Industry?                 @relation(fields: [industryCode], references: [code], onDelete: Restrict)
+  departments           Department[]
+  systems               System[]
+  vendors               Vendor[]
+  vendorSystems         VendorSystem[]
+  dataPrincipalTypes    DataPrincipalType[]
+  scope                 OrganizationScope?
+  assessments           Assessment[]
+  assessmentQuestions   AssessmentQuestion[]
+  assessmentResponses   AssessmentResponse[]
+  evidence              Evidence[]
+  evidenceLinks         EvidenceLink[]
+  scoreSnapshots        AssessmentScoreSnapshot[]
+  domainScores          AssessmentDomainScore[]
+  gaps                  AssessmentGap[]
+  gapActions            GapAction[]
+  ropaRecords           RopaRecord[]
+  ropaSystems           RopaSystem[]
+  ropaVendors           RopaVendor[]
+  ropaGaps              RopaGap[]
+  exposureSnapshots     ExposureSnapshot[]
+  breachIncidents       BreachIncident[]
+  rightsRequests        RightsRequest[]
+  intakeSubmissions     IntakeSubmission[]
+  intakeAttempts        IntakeAttempt[]
+  privacyNotices        PrivacyNotice[]
+  consentConfigs        ConsentConfig[]
+  consentRecords        ConsentRecord[]
+  consentSalt           ConsentSalt?
+  vendorAssessments     VendorAssessment[]
+  vendorAnswers         VendorAssessmentAnswer[]
+  vendorLinks           VendorAssessmentLink[]
+  vendorLinkDocuments   VendorLinkDocument[]
+  retentionSchedules    RetentionSchedule[]
+  retentionErasures     RetentionErasure[]
+  retentionErasureVoids RetentionErasureVoid[]
+  aiSystems             AiSystem[]
+  reports               Report[]
+  aiDrafts              AiDraft[]
+
+  @@map("organizations")
+}
+
+model User {
+  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  authProviderUserId String   @unique @map("auth_provider_user_id")
+  email              String   @unique @db.Citext
+  fullName           String?  @map("full_name")
+  createdAt          DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  memberships         OrganizationUser[]        @relation("MembershipUser")
+  invitedMemberships  OrganizationUser[]        @relation("MembershipInvitedBy")
+  auditLog            AuditLog[]
+  sentInvites         OrganizationInvite[]
+  scopeUpdates        OrganizationScope[]
+  assessmentsCreated  Assessment[]
+  responsesAnswered   AssessmentResponse[]      @relation("ResponseAnsweredBy")
+  evidenceUploaded    Evidence[]                @relation("EvidenceUploadedBy")
+  evidenceReviewed    Evidence[]                @relation("EvidenceReviewedBy")
+  evidenceLinked      EvidenceLink[]
+  scoresCalculated    AssessmentScoreSnapshot[] @relation("SnapshotCalculatedBy")
+  exposuresRecorded   ExposureSnapshot[]        @relation("ExposureRecordedBy")
+  reportsGenerated    Report[]                  @relation("ReportGeneratedBy")
+  reportsAbout        Report[]                  @relation("ReportSubject")
+  gapActionsOwned     GapAction[]               @relation("GapActionOwner")
+  gapActionsClosed    GapAction[]               @relation("GapActionClosedBy")
+  gapActionsUpdated   GapAction[]               @relation("GapActionUpdatedBy")
+  ropaRecordsOwned    RopaRecord[]              @relation("RopaRecordOwner")
+  ropaRecordsApproved RopaRecord[]              @relation("RopaRecordApprovedBy")
+  ropaRecordsCreated  RopaRecord[]              @relation("RopaRecordCreatedBy")
+  ropaRecordsUpdated  RopaRecord[]              @relation("RopaRecordUpdatedBy")
+
+  @@map("users")
+}
+
+model OrganizationUser {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String    @map("organization_id") @db.Uuid
+  userId         String    @map("user_id") @db.Uuid
+  roleId         String    @map("role_id") @db.Uuid
+  /// Slice 2 makes departments a managed entity; until then a bare nullable id.
+  departmentId   String?   @map("department_id") @db.Uuid
+  status         String    @default("active")
+  invitedBy      String?   @map("invited_by") @db.Uuid
+  invitedAt      DateTime? @map("invited_at") @db.Timestamptz(6)
+  joinedAt       DateTime? @map("joined_at") @db.Timestamptz(6)
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation("MembershipUser", fields: [userId], references: [id], onDelete: Cascade)
+  role         Role         @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  inviter      User?        @relation("MembershipInvitedBy", fields: [invitedBy], references: [id], onDelete: SetNull)
+  /// Composite FK: a member's department must belong to the member's organisation.
+  department   Department?  @relation(fields: [organizationId, departmentId], references: [organizationId, id], onDelete: Restrict)
+
+  @@unique([organizationId, userId])
+  @@index([userId])
+  @@index([roleId])
+  @@map("organization_users")
+}
+
+/// Global reference data — no organization_id. `organization_users` is what
+/// makes a role tenant-scoped. Rows are inserted by migrations (D-020).
+model Role {
+  id             String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code           String  @unique
+  name           String
+  description    String
+  isPlatformRole Boolean @default(false) @map("is_platform_role")
+
+  permissions RolePermission[]
+  members     OrganizationUser[]
+  invites     OrganizationInvite[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id          String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code        String @unique
+  description String
+
+  roles RolePermission[]
+
+  @@map("permissions")
+}
+
+model RolePermission {
+  roleId       String @map("role_id") @db.Uuid
+  permissionId String @map("permission_id") @db.Uuid
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@index([permissionId])
+  @@map("role_permissions")
+}
+
+/// Pending invitation. Only the SHA-256 of the token is stored — the raw token
+/// is a credential and never reaches the database (Slice 1 pitfall 5).
+model OrganizationInvite {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String    @map("organization_id") @db.Uuid
+  email          String    @db.Citext
+  roleId         String    @map("role_id") @db.Uuid
+  tokenHash      String    @unique @map("token_hash")
+  invitedBy      String    @map("invited_by") @db.Uuid
+  expiresAt      DateTime  @default(dbgenerated("(now() + '7 days'::interval)")) @map("expires_at") @db.Timestamptz(6)
+  acceptedAt     DateTime? @map("accepted_at") @db.Timestamptz(6)
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  role         Role         @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  inviter      User         @relation(fields: [invitedBy], references: [id], onDelete: Cascade)
+
+  // Partial unique (organization_id, email) WHERE accepted_at IS NULL lives in migration SQL.
+  @@index([organizationId])
+  @@map("organization_invites")
+}
+
+model AuditLog {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String   @map("organization_id") @db.Uuid
+  userId         String?  @map("user_id") @db.Uuid
+  eventType      String   @map("event_type")
+  entityType     String   @map("entity_type")
+  entityId       String?  @map("entity_id") @db.Uuid
+  description    String
+  ipAddress      String?  @map("ip_address")
+  userAgent      String?  @map("user_agent")
+  metadata       Json     @default("{}")
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  user         User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, createdAt(sort: Desc)])
+  @@map("audit_logs")
+}
+
+// ===========================================================================
+// Slice 2 — organisation scope. Every tenant table references other tenant
+// tables through COMPOSITE (organization_id, id) foreign keys, so a row can
+// never point at another organisation's row. Case-insensitive name uniqueness
+// and CHECK constraints live in the migration SQL.
+// ===========================================================================
+
+/// Global reference data, inserted by migration (like roles).
+model Industry {
+  code            String @id
+  name            String
+  overlayPackCode String @map("overlay_pack_code")
+
+  organizations Organization[]
+  questionPacks QuestionPack[]
+  aiSignoff     AiIndustrySignoff?
+
+  @@map("industries")
+}
+
+model Department {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String   @map("organization_id") @db.Uuid
+  name           String
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  members      OrganizationUser[]
+  systems      System[]
+  ropaRecords  RopaRecord[]
+
+  @@unique([organizationId, id])
+  @@map("departments")
+}
+
+model System {
+  id                    String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId        String   @map("organization_id") @db.Uuid
+  name                  String
+  systemType            String   @map("system_type")
+  hostingModel          String   @default("unknown") @map("hosting_model")
+  dataLocation          String   @default("unknown") @map("data_location")
+  ownerDepartmentId     String?  @map("owner_department_id") @db.Uuid
+  processesChildrenData String   @default("unknown") @map("processes_children_data")
+  createdAt             DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt             DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization    Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  ownerDepartment Department?    @relation(fields: [organizationId, ownerDepartmentId], references: [organizationId, id], onDelete: Restrict)
+  vendorLinks     VendorSystem[]
+  ropaLinks       RopaSystem[]
+
+  @@unique([organizationId, id])
+  @@map("systems")
+}
+
+model Vendor {
+  id                 String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId     String    @map("organization_id") @db.Uuid
+  name               String
+  service            String?
+  vendorRole         String    @default("unknown") @map("vendor_role")
+  contractExists     String    @default("unknown") @map("contract_exists")
+  dpdpClauses        String    @default("unknown") @map("dpdp_clauses")
+  crossBorder        String    @default("unknown") @map("cross_border")
+  subProcessorsKnown String    @default("unknown") @map("sub_processors_known")
+  /// Slice 10 Stage 4a: the contract's dates. The contract itself is a document (`evidence_links` type `vendor`).
+  contractSignedOn   DateTime? @map("contract_signed_on") @db.Date
+  contractReviewBy   DateTime? @map("contract_review_by") @db.Date
+  createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  systemLinks  VendorSystem[]
+  ropaLinks    RopaVendor[]
+  assessments  VendorAssessment[]
+
+  @@unique([organizationId, id])
+  @@map("vendors")
+}
+
+model VendorSystem {
+  organizationId String   @map("organization_id") @db.Uuid
+  vendorId       String   @map("vendor_id") @db.Uuid
+  systemId       String   @map("system_id") @db.Uuid
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  vendor       Vendor       @relation(fields: [organizationId, vendorId], references: [organizationId, id], onDelete: Cascade)
+  system       System       @relation(fields: [organizationId, systemId], references: [organizationId, id], onDelete: Cascade)
+
+  @@id([vendorId, systemId])
+  @@index([organizationId])
+  @@index([systemId])
+  @@map("vendor_systems")
+}
+
+model DataPrincipalType {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId   String   @map("organization_id") @db.Uuid
+  code             String
+  label            String
+  includesChildren String   @default("unknown") @map("includes_children")
+  estimatedCount   Int?     @map("estimated_count")
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, id])
+  @@map("data_principal_types")
+}
+
+/// One row per organisation: the wizard's answers plus the DERIVED risk tags.
+/// `risk_tags` is written only from packages/core deriveRiskTags() output.
+model OrganizationScope {
+  organizationId     String    @id @map("organization_id") @db.Uuid
+  childrenData       String    @default("unknown") @map("children_data")
+  /// Explicit, because an EMPTY vendor register means nothing was recorded, not
+  /// that no processor exists. Only a documented "no" scopes VENDOR out (D-037).
+  usesDataProcessors String    @default("unknown") @map("uses_data_processors")
+  aiUsageTypes       String[]  @default([]) @map("ai_usage_types")
+  marketingTracking  String    @default("unknown") @map("marketing_tracking")
+  crossBorder        String    @default("unknown") @map("cross_border")
+  multiLocation      Boolean   @default(false) @map("multi_location")
+  publicFacingPortal String    @default("unknown") @map("public_facing_portal")
+  sensitiveDocuments String    @default("unknown") @map("sensitive_documents")
+  /// Slice 9: personal data of persons with disability who have a lawful
+  /// guardian (s.9(1)) — with children's data, it decides whether head 3 applies.
+  guardianData       String    @default("unknown") @map("guardian_data")
+  riskTags           String[]  @default([]) @map("risk_tags")
+  derivedAt          DateTime? @map("derived_at") @db.Timestamptz(6)
+  updatedBy          String?   @map("updated_by") @db.Uuid
+  createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  updater      User?        @relation(fields: [updatedBy], references: [id], onDelete: SetNull)
+
+  @@map("organization_scopes")
+}
+
+// ===========================================================================
+// Slice 3 — question bank and assessments.
+//
+// The bank (dpdp_domains, question_packs, questions, question_versions) is
+// GLOBAL reference data, inserted by migration and seeder, SELECT-only to
+// users (D-020). `question_versions` is immutable: a meaning change is a new
+// version, never an edit.
+//
+// `assessments` and `assessment_questions` are tenant tables on the D-027
+// pattern. `assessment_questions` COPIES the question text, domain and weight
+// — joining live `question_versions` at read time would let a bank edit
+// rewrite an assessment's history.
+// ===========================================================================
+
+/// The 16 domains. Active weights total exactly 100 — asserted in CI and by
+/// packages/core assertDomainWeightsTotal(). Weights come from the workbook's
+/// Config sheet; its Question_Bank weight column is stale at 104 (D-006).
+model DpdpDomain {
+  code                 String  @id
+  domainId             String  @unique @map("domain_id")
+  name                 String
+  weight               Decimal @db.Decimal(5, 2)
+  defaultApplicability String  @map("default_applicability")
+  defaultOwner         String  @map("default_owner")
+  sortOrder            Int     @map("sort_order")
+
+  questionVersions QuestionVersion[]
+
+  @@map("dpdp_domains")
+}
+
+model QuestionPack {
+  code         String  @id
+  tier         String
+  industryCode String? @map("industry_code")
+  name         String
+  version      String
+  status       String  @default("draft")
+  sourceFile   String? @map("source_file")
+
+  industry  Industry?  @relation(fields: [industryCode], references: [code], onDelete: Restrict)
+  questions Question[]
+
+  @@map("question_packs")
+}
+
+/// One row per stable question code, pointing at its current version.
+model Question {
+  code           String   @id
+  packCode       String   @map("pack_code")
+  sourceTag      String   @map("source_tag")
+  currentVersion String   @map("current_version")
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  pack     QuestionPack      @relation(fields: [packCode], references: [code], onDelete: Restrict)
+  versions QuestionVersion[]
+
+  @@index([packCode])
+  @@map("questions")
+}
+
+/// Immutable. No UPDATE or DELETE grant to any user role.
+model QuestionVersion {
+  questionCode         String   @map("question_code")
+  version              String
+  questionText         String   @map("question_text")
+  domainCode           String   @map("domain_code")
+  secondaryDomainCodes String[] @default([]) @map("secondary_domain_codes")
+  applicability        String
+  typeText             String?  @map("type_text")
+  triggerText          String?  @map("trigger_text")
+  triggerCondition     Json?    @map("trigger_condition")
+  riskTags             String[] @default([]) @map("risk_tags")
+  evidenceGuidance     String?  @map("evidence_guidance")
+  riskIfWeak           String?  @map("risk_if_weak")
+  suggestedOwner       String?  @map("suggested_owner")
+  /// Null when the authored file has no Priority column — never invented.
+  priority             String?
+  /// Core pack only (the workbook's Criticality).
+  criticality          String?
+  /// Null at seed, required before GA. Never the workbook's placeholder (D-013).
+  legalControlBasis    String?  @map("legal_control_basis")
+  recommendedFix       String?  @map("recommended_fix")
+  truststackModule     String?  @map("truststack_module")
+  naRule               String   @map("na_rule")
+  sourceRef            String?  @map("source_ref")
+  status               String   @default("draft")
+  createdAt            DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  question Question   @relation(fields: [questionCode], references: [code], onDelete: Restrict)
+  domain   DpdpDomain @relation(fields: [domainCode], references: [code], onDelete: Restrict)
+
+  @@id([questionCode, version])
+  @@index([domainCode])
+  @@map("question_versions")
+}
+
+/// The scope that produced the question set is snapshotted here, so a later
+/// scope edit never silently changes what this assessment was built from.
+model Assessment {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String    @map("organization_id") @db.Uuid
+  name           String
+  assessmentType String    @default("baseline") @map("assessment_type")
+  status         String    @default("draft")
+  industryCode   String?   @map("industry_code")
+  riskTags       String[]  @default([]) @map("risk_tags")
+  packCodes      String[]  @default([]) @map("pack_codes")
+  scopeDerivedAt DateTime? @map("scope_derived_at") @db.Timestamptz(6)
+  generatedAt    DateTime? @map("generated_at") @db.Timestamptz(6)
+  createdBy      String?   @map("created_by") @db.Uuid
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization      Organization             @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  creator           User?                    @relation(fields: [createdBy], references: [id], onDelete: SetNull)
+  questions         AssessmentQuestion[]
+  responses         AssessmentResponse[]
+  scoreSnapshot     AssessmentScoreSnapshot?
+  exposureSnapshots ExposureSnapshot[]
+  reports           Report[]
+  gaps              AssessmentGap[]
+
+  @@unique([organizationId, id])
+  @@index([organizationId])
+  @@map("assessments")
+}
+
+/// Append-only snapshot. Regenerating a DRAFT goes through an RPC that
+/// deletes and re-inserts; users hold no UPDATE or DELETE grant.
+model AssessmentQuestion {
+  organizationId   String   @map("organization_id") @db.Uuid
+  assessmentId     String   @map("assessment_id") @db.Uuid
+  questionCode     String   @map("question_code")
+  questionVersion  String   @map("question_version")
+  questionText     String   @map("question_text")
+  domainCode       String   @map("domain_code")
+  domainWeight     Decimal  @map("domain_weight") @db.Decimal(5, 2)
+  applicability    String
+  priority         String?
+  evidenceGuidance String?  @map("evidence_guidance")
+  suggestedOwner   String?  @map("suggested_owner")
+  packCode         String   @map("pack_code")
+  sortOrder        Int      @map("sort_order")
+  /// `core` · `overlay` · `trigger:<expression>` · `potentially_applicable`.
+  includedReason   String   @map("included_reason")
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  organization Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  assessment   Assessment          @relation(fields: [organizationId, assessmentId], references: [organizationId, id], onDelete: Cascade)
+  response     AssessmentResponse?
+  gap          AssessmentGap?
+
+  @@id([assessmentId, questionCode])
+  @@unique([organizationId, assessmentId, questionCode])
+  @@index([organizationId])
+  @@index([assessmentId, sortOrder])
+  @@map("assessment_questions")
+}
+
+/// One answer to one SNAPSHOTTED question (Slice 4). `adjusted_score` and
+/// `evidence_level` are derived by the database — never sent by a client:
+/// adjusted = min(claimed, app.evidence_cap(evidence level, 0 when unreviewed)).
+model AssessmentResponse {
+  id                    String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId        String   @map("organization_id") @db.Uuid
+  assessmentId          String   @map("assessment_id") @db.Uuid
+  questionCode          String   @map("question_code")
+  /// `applicable` · `not_applicable` (N/A needs a reason — a CHECK).
+  applicabilityDecision String   @map("applicability_decision")
+  naReason              String?  @map("na_reason")
+  claimedMaturity       Int?     @map("claimed_maturity") @db.SmallInt
+  /// The strongest REVIEWED evidence linked to this answer; null until one is reviewed.
+  evidenceLevel         Int?     @map("evidence_level") @db.SmallInt
+  adjustedScore         Int?     @map("adjusted_score") @db.SmallInt
+  notes                 String?
+  answeredBy            String?  @map("answered_by") @db.Uuid
+  answeredAt            DateTime @default(now()) @map("answered_at") @db.Timestamptz(6)
+  createdAt             DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt             DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  assessment   Assessment         @relation(fields: [organizationId, assessmentId], references: [organizationId, id], onDelete: Cascade)
+  question     AssessmentQuestion @relation(fields: [organizationId, assessmentId, questionCode], references: [organizationId, assessmentId, questionCode], onDelete: NoAction)
+  answerer     User?              @relation("ResponseAnsweredBy", fields: [answeredBy], references: [id], onDelete: SetNull)
+
+  /// One answer per question. Assessment ids are globally unique, so this is
+  /// UNIQUE (assessment_id, question_code) with the tenant carried along.
+  @@unique([organizationId, assessmentId, questionCode])
+  @@unique([organizationId, id])
+  @@index([organizationId])
+  @@map("assessment_responses")
+}
+
+/// A STORED artefact — `storage_path` is NOT NULL and there is no
+/// "observed but not stored" path (D-039). The file lives in the private
+/// `evidence` bucket at organizations/{organization_id}/evidence/{id}/{file_name}.
+model Evidence {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String    @map("organization_id") @db.Uuid
+  storagePath    String    @unique @map("storage_path")
+  fileName       String    @map("file_name")
+  contentType    String    @map("content_type")
+  byteSize       Int       @map("byte_size")
+  uploadedBy     String?   @map("uploaded_by") @db.Uuid
+  uploadedAt     DateTime  @default(now()) @map("uploaded_at") @db.Timestamptz(6)
+  /// `pending` · `adequate` · `strong` · `partial` · `rejected` · `outdated`.
+  reviewStatus   String    @default("pending") @map("review_status")
+  evidenceLevel  Int?      @map("evidence_level") @db.SmallInt
+  reviewedBy     String?   @map("reviewed_by") @db.Uuid
+  reviewedAt     DateTime? @map("reviewed_at") @db.Timestamptz(6)
+  reviewNotes    String?   @map("review_notes")
+  updatedAt      DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  uploader     User?          @relation("EvidenceUploadedBy", fields: [uploadedBy], references: [id], onDelete: SetNull)
+  reviewer     User?          @relation("EvidenceReviewedBy", fields: [reviewedBy], references: [id], onDelete: SetNull)
+  links        EvidenceLink[]
+
+  @@unique([organizationId, id])
+  @@index([organizationId])
+  @@map("evidence")
+}
+
+/// Polymorphic (D-008): the six Slice 10 modules attach evidence here with no
+/// schema change. Today the only linked entity is an assessment response.
+model EvidenceLink {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId   String   @map("organization_id") @db.Uuid
+  evidenceId       String   @map("evidence_id") @db.Uuid
+  linkedEntityType String   @map("linked_entity_type")
+  linkedEntityId   String   @map("linked_entity_id") @db.Uuid
+  linkedBy         String?  @map("linked_by") @db.Uuid
+  linkedAt         DateTime @default(now()) @map("linked_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  evidence     Evidence     @relation(fields: [organizationId, evidenceId], references: [organizationId, id], onDelete: Cascade)
+  linker       User?        @relation(fields: [linkedBy], references: [id], onDelete: SetNull)
+
+  @@unique([evidenceId, linkedEntityType, linkedEntityId])
+  @@index([organizationId])
+  @@index([linkedEntityType, linkedEntityId])
+  @@map("evidence_links")
+}
+
+/// A FINALISED score, frozen (Slice 5). Written only by
+/// `public.finalise_assessment()`, which computes every number in SQL from the
+/// stored adjusted scores — an RPC that stored numbers the caller computed
+/// would store numbers the caller could forge. Users hold SELECT only, and a
+/// trigger refuses UPDATE and DELETE even to tooling: a finalised score is
+/// evidence of what was assessed and when, so it must never move.
+model AssessmentScoreSnapshot {
+  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId     String   @map("organization_id") @db.Uuid
+  assessmentId       String   @map("assessment_id") @db.Uuid
+  calculatedAt       DateTime @default(now()) @map("calculated_at") @db.Timestamptz(6)
+  calculatedBy       String?  @map("calculated_by") @db.Uuid
+  /// Σ of the scored domains' scores, before any red-flag cap.
+  rawScore           Decimal  @map("raw_score") @db.Decimal(7, 4)
+  /// The lowest red-flag cap that fired, or 100.
+  scoreCap           Decimal  @map("score_cap") @db.Decimal(7, 4)
+  /// `min(raw_score, score_cap)` — the reported DPDP Compass Readiness Score.
+  finalScore         Decimal  @map("final_score") @db.Decimal(7, 4)
+  /// The D-038 denominator: Σ weight of the SCORED domains. Often 100, not always.
+  applicableWeight   Decimal  @map("applicable_weight") @db.Decimal(5, 2)
+  /// 0–100, the mean of the SCORED domains' confidences. Four decimals, so a
+  /// stored snapshot equals what `packages/core` computes for the live score.
+  evidenceConfidence Decimal  @map("evidence_confidence") @db.Decimal(7, 4)
+  maturityLevel      String   @map("maturity_level")
+  criticalCount      Int      @map("critical_count")
+  highCount          Int      @map("high_count")
+  /// Which flags fired, each with its cap and the answers that tripped it.
+  redFlags           Json     @default("[]") @map("red_flags")
+  engineVersion      String   @map("engine_version")
+
+  organization      Organization            @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  assessment        Assessment              @relation(fields: [organizationId, assessmentId], references: [organizationId, id], onDelete: Cascade)
+  calculator        User?                   @relation("SnapshotCalculatedBy", fields: [calculatedBy], references: [id], onDelete: SetNull)
+  domainScores      AssessmentDomainScore[]
+  exposureSnapshots ExposureSnapshot[]
+
+  /// One finalised snapshot per assessment.
+  @@unique([organizationId, assessmentId])
+  @@unique([organizationId, id])
+  @@index([organizationId])
+  @@map("assessment_score_snapshots")
+}
+
+/// One row per domain per snapshot — the sixteen lines of the scorecard,
+/// including the empty ones. A domain that is `scoped_out` or
+/// `all_not_applicable` carries a null score and leaves the weight
+/// denominator; it is never scored zero and never renormalised away (D-038).
+model AssessmentDomainScore {
+  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId     String   @map("organization_id") @db.Uuid
+  snapshotId         String   @map("snapshot_id") @db.Uuid
+  domainCode         String   @map("domain_code")
+  /// The SNAPSHOT's weight, never the live `dpdp_domains` row (D-035).
+  weight             Decimal  @db.Decimal(5, 2)
+  /// `scored` · `scoped_out` · `all_not_applicable`.
+  state              String
+  applicableCount    Int      @map("applicable_count")
+  notApplicableCount Int      @map("not_applicable_count")
+  avgAdjusted        Decimal? @map("avg_adjusted") @db.Decimal(5, 4)
+  score              Decimal? @db.Decimal(7, 4)
+  evidenceConfidence Decimal? @map("evidence_confidence") @db.Decimal(7, 4)
+  maturityLevel      String?  @map("maturity_level")
+  criticalCount      Int      @map("critical_count")
+  highCount          Int      @map("high_count")
+  status             String
+  sortOrder          Int      @map("sort_order")
+
+  organization Organization            @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  snapshot     AssessmentScoreSnapshot @relation(fields: [organizationId, snapshotId], references: [organizationId, id], onDelete: Cascade)
+
+  @@unique([snapshotId, domainCode])
+  @@index([organizationId])
+  @@map("assessment_domain_scores")
+}
+
+/// One gap per weak answer (Slice 6): an applicable response whose stored
+/// `adjusted_score` is 3 or below (D-054). DERIVED — written only by
+/// `app.refresh_assessment_gaps()`, in SQL, from the stored adjusted scores;
+/// users hold SELECT only. Severity and priority are row invariants of the
+/// adjusted score, so a forged severity is refused even from tooling. Once the
+/// assessment is finalised its gaps are as frozen as its score (D-058).
+model AssessmentGap {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String   @map("organization_id") @db.Uuid
+  assessmentId   String   @map("assessment_id") @db.Uuid
+  questionCode   String   @map("question_code")
+  domainCode     String   @map("domain_code")
+  /// `critical` · `high` · `medium` · `low` — from the adjusted score.
+  severity       String
+  /// `P0`…`P3` — from the severity, never the question's authored priority.
+  priority       String
+  /// The adjusted score this gap stands at, as of the last generation.
+  adjustedScore  Int      @map("adjusted_score") @db.SmallInt
+  /// `open` · `superseded` (the answer no longer opens it; kept because its
+  /// action carries human work — D-057).
+  state          String   @default("open")
+  finding        String
+  recommendedFix String?  @map("recommended_fix")
+  /// When the gap was FIRST opened. Regeneration does not move it.
+  generatedAt    DateTime @default(now()) @map("generated_at") @db.Timestamptz(6)
+  updatedAt      DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  assessment   Assessment         @relation(fields: [organizationId, assessmentId], references: [organizationId, id], onDelete: Cascade)
+  question     AssessmentQuestion @relation(fields: [organizationId, assessmentId, questionCode], references: [organizationId, assessmentId, questionCode], onDelete: Cascade)
+  actions      GapAction[]
+
+  @@unique([organizationId, assessmentId, questionCode])
+  @@unique([organizationId, id])
+  @@index([organizationId])
+  @@map("assessment_gaps")
+}
+
+/// The remediation action for a gap: owner, due date, status. Created by the
+/// generator, edited by people. `closed_at`, `closed_by`, `closure_basis` and
+/// `updated_by` are stamped by the database — never sent by a client. Closing
+/// needs accepted evidence on the action or a reviewer who is not its owner
+/// (D-056). Regeneration never rewrites an existing action (D-057).
+model GapAction {
+  id                  String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId      String    @map("organization_id") @db.Uuid
+  /// Exactly one of `gapId` / `ropaGapId` / `breachIncidentId` / `rightsRequestId` / `retentionScheduleId` is set (D-060, Slice 10; a CHECK).
+  gapId               String?   @map("gap_id") @db.Uuid
+  ropaGapId           String?   @map("ropa_gap_id") @db.Uuid
+  breachIncidentId    String?   @map("breach_incident_id") @db.Uuid
+  rightsRequestId     String?   @map("rights_request_id") @db.Uuid
+  /// Slice 10 Stage 5: a retention schedule whose erasure is owed.
+  retentionScheduleId String?   @map("retention_schedule_id") @db.Uuid
+  title               String
+  ownerUserId         String?   @map("owner_user_id") @db.Uuid
+  /// The question's suggested owner, as authored ("Registrar / DPO").
+  ownerRole           String?   @map("owner_role")
+  /// `open` · `in_progress` · `blocked` · `closed`.
+  status              String    @default("open")
+  /// Stored, not computed at read time (D-055). Null = next assessment cycle.
+  dueDate             DateTime? @map("due_date") @db.Date
+  closedAt            DateTime? @map("closed_at") @db.Timestamptz(6)
+  closedBy            String?   @map("closed_by") @db.Uuid
+  /// `evidence` · `reviewer_approval` · `erasure_recorded` (a retention schedule's action only) — set exactly when closed.
+  closureBasis        String?   @map("closure_basis")
+  notes               String?
+  /// The last USER to edit the action. Non-null = it carries human work.
+  updatedBy           String?   @map("updated_by") @db.Uuid
+  createdAt           DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization      Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  gap               AssessmentGap?     @relation(fields: [organizationId, gapId], references: [organizationId, id], onDelete: Cascade)
+  ropaGap           RopaGap?           @relation(fields: [organizationId, ropaGapId], references: [organizationId, id], onDelete: Cascade)
+  breach            BreachIncident?    @relation(fields: [organizationId, breachIncidentId], references: [organizationId, id], onDelete: Cascade)
+  rightsRequest     RightsRequest?     @relation(fields: [organizationId, rightsRequestId], references: [organizationId, id], onDelete: Cascade)
+  retentionSchedule RetentionSchedule? @relation(fields: [organizationId, retentionScheduleId], references: [organizationId, id], onDelete: Cascade)
+  owner             User?              @relation("GapActionOwner", fields: [ownerUserId], references: [id], onDelete: SetNull)
+  closer            User?              @relation("GapActionClosedBy", fields: [closedBy], references: [id], onDelete: SetNull)
+  updater           User?              @relation("GapActionUpdatedBy", fields: [updatedBy], references: [id], onDelete: SetNull)
+
+  @@unique([organizationId, id])
+  @@index([organizationId])
+  @@index([gapId])
+  @@index([ropaGapId])
+  @@index([breachIncidentId])
+  @@index([rightsRequestId])
+  @@index([retentionScheduleId])
+  @@map("gap_actions")
+}
+
+// ---------------------------------------------------------------------------
+// Slice 10, Stage 2 — the rights and grievance register (s.11–14, Rule 14; D-080)
+// ---------------------------------------------------------------------------
+
+/// One Data Principal's request to exercise a right, or a grievance. The code
+/// and the respond-by date are derived by the database (receipt + 90 days,
+/// Rule 14(3)); the identity check and the response record who recorded them.
+/// Never deleted — withdrawn by the person, or void (entered in error), with
+/// the reason. The user columns (`*_by`) carry FKs ON DELETE SET NULL in SQL;
+/// they are plain ids here so `User` does not grow six back-relations.
+model RightsRequest {
+  id                  String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId      String    @map("organization_id") @db.Uuid
+  /// `DPR-<year received>-NNN`, or `GRV-…` for a grievance, per organisation, assigned by the database.
+  requestCode         String    @map("request_code")
+  /// core RIGHTS_KINDS: access · correction · completion · updating · erasure · nomination · grievance.
+  kind                String
+  /// `open` · `responded` · `withdrawn` · `void`.
+  status              String    @default("open")
+  receivedOn          DateTime  @map("received_on") @db.Date
+  /// DERIVED: receipt + 90 days (Rule 14(3)).
+  respondBy           DateTime  @map("respond_by") @db.Date
+  channel             String
+  requesterName       String    @map("requester_name")
+  requesterEmail      String?   @map("requester_email")
+  requesterPhone      String?   @map("requester_phone")
+  /// `self` · `nominee` · `guardian`.
+  requesterCapacity   String    @default("self") @map("requester_capacity")
+  principalIdentifier String?   @map("principal_identifier")
+  summary             String
+  relatedRequestId    String?   @map("related_request_id") @db.Uuid
+  nomineeName         String?   @map("nominee_name")
+  nomineeContact      String?   @map("nominee_contact")
+  nomineeRelationship String?   @map("nominee_relationship")
+  ownerUserId         String?   @map("owner_user_id") @db.Uuid
+  identityVerifiedOn  DateTime? @map("identity_verified_on") @db.Date
+  identityMethod      String?   @map("identity_method")
+  identityRecordedBy  String?   @map("identity_recorded_by") @db.Uuid
+  identityRecordedAt  DateTime? @map("identity_recorded_at") @db.Timestamptz(6)
+  /// `fulfilled` · `partly_fulfilled` · `declined`; null until responded.
+  outcome             String?
+  respondedOn         DateTime? @map("responded_on") @db.Date
+  responseSummary     String?   @map("response_summary")
+  responseRecordedBy  String?   @map("response_recorded_by") @db.Uuid
+  responseRecordedAt  DateTime? @map("response_recorded_at") @db.Timestamptz(6)
+  closureReason       String?   @map("closure_reason")
+  closedAt            DateTime? @map("closed_at") @db.Timestamptz(6)
+  closedBy            String?   @map("closed_by") @db.Uuid
+  createdBy           String?   @map("created_by") @db.Uuid
+  updatedBy           String?   @map("updated_by") @db.Uuid
+  createdAt           DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  related      RightsRequest?     @relation("RightsRequestRelated", fields: [organizationId, relatedRequestId], references: [organizationId, id], onDelete: NoAction, onUpdate: Cascade)
+  followUps    RightsRequest[]    @relation("RightsRequestRelated")
+  actions      GapAction[]
+  intakes      IntakeSubmission[]
+
+  @@unique([organizationId, id])
+  @@unique([organizationId, requestCode])
+  @@index([organizationId])
+  @@index([organizationId, status, receivedOn])
+  @@map("rights_requests")
+}
+
+// ---------------------------------------------------------------------------
+// Slice 10, Stage 1 — the breach register (s.8(6), Rule 7; D-080)
+// ---------------------------------------------------------------------------
+
+/// One personal data breach. The code and the Board report's due time are
+/// derived by the database (aware + 72 h, or the Board's extension); every
+/// intimation records when it was made and who recorded it. Never deleted —
+/// a breach found not to be one is `dismissed`, with the reason. The user
+/// columns (`*_by`) carry FKs ON DELETE SET NULL in SQL; they are plain ids
+/// here so `User` does not grow seven back-relations.
+model BreachIncident {
+  id                         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId             String    @map("organization_id") @db.Uuid
+  /// `BRH-<year aware, in India>-NNN`, per organisation, assigned by the database.
+  incidentCode               String    @map("incident_code")
+  title                      String
+  description                String?
+  /// core BREACH_NATURES.
+  nature                     String
+  /// `critical` · `high` · `medium` · `low` — the staff's assessment; its actions carry it.
+  severity                   String
+  /// `open` · `contained` · `closed` · `dismissed`.
+  status                     String    @default("open")
+  awareAt                    DateTime  @map("aware_at") @db.Timestamptz(6)
+  occurredAt                 DateTime? @map("occurred_at") @db.Timestamptz(6)
+  location                   String?
+  principalsAffected         Int?      @map("principals_affected")
+  dataCategories             String?   @map("data_categories")
+  likelyImpact               String?   @map("likely_impact")
+  containmentMeasures        String?   @map("containment_measures")
+  dismissalReason            String?   @map("dismissal_reason")
+  /// DERIVED: aware + 72 hours, or the time the Board allowed (Rule 7(2)(b)).
+  boardReportDueAt           DateTime  @map("board_report_due_at") @db.Timestamptz(6)
+  boardExtensionUntil        DateTime? @map("board_extension_until") @db.Timestamptz(6)
+  boardExtensionRef          String?   @map("board_extension_ref")
+  boardExtensionRecordedBy   String?   @map("board_extension_recorded_by") @db.Uuid
+  boardExtensionRecordedAt   DateTime? @map("board_extension_recorded_at") @db.Timestamptz(6)
+  boardInitialAt             DateTime? @map("board_initial_at") @db.Timestamptz(6)
+  boardInitialRecordedBy     String?   @map("board_initial_recorded_by") @db.Uuid
+  boardInitialRecordedAt     DateTime? @map("board_initial_recorded_at") @db.Timestamptz(6)
+  boardReportAt              DateTime? @map("board_report_at") @db.Timestamptz(6)
+  boardReportRef             String?   @map("board_report_ref")
+  boardReportRecordedBy      String?   @map("board_report_recorded_by") @db.Uuid
+  boardReportRecordedAt      DateTime? @map("board_report_recorded_at") @db.Timestamptz(6)
+  principalsIntimatedAt      DateTime? @map("principals_intimated_at") @db.Timestamptz(6)
+  principalsIntimationMethod String?   @map("principals_intimation_method")
+  principalsRecordedBy       String?   @map("principals_recorded_by") @db.Uuid
+  principalsRecordedAt       DateTime? @map("principals_recorded_at") @db.Timestamptz(6)
+  closedAt                   DateTime? @map("closed_at") @db.Timestamptz(6)
+  closedBy                   String?   @map("closed_by") @db.Uuid
+  createdBy                  String?   @map("created_by") @db.Uuid
+  updatedBy                  String?   @map("updated_by") @db.Uuid
+  createdAt                  DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                  DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  actions      GapAction[]
+
+  @@unique([organizationId, id])
+  @@unique([organizationId, incidentCode])
+  @@index([organizationId])
+  @@index([organizationId, boardReportDueAt])
+  @@map("breach_incidents")
+}
+
+// ---------------------------------------------------------------------------
+// Slice 7 — the ROPA / Processing Activity Register (D-061…D-064)
+// ---------------------------------------------------------------------------
+
+/// One processing activity. A DPDP READINESS artefact, never a statutory
+/// record (D-011). Completeness, band, risk and the link counts are DERIVED by
+/// the database on every write and CHECKed as row invariants — no user holds a
+/// grant on them. The free text is kept as typed; links to the Slice 2
+/// registers sit beside it.
+model RopaRecord {
+  id                       String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId           String    @map("organization_id") @db.Uuid
+  /// `ROPA-001` — human-readable, unique per organisation, not the key.
+  recordCode               String    @map("record_code")
+  name                     String
+  description              String?
+  departmentId             String?   @map("department_id") @db.Uuid
+  departmentText           String?   @map("department_text")
+  ownerUserId              String?   @map("owner_user_id") @db.Uuid
+  dataPrincipalTypes       String?   @map("data_principal_types")
+  /// Free text, as the workbook has it (D-061).
+  dataCategories           String?   @map("data_categories")
+  estimatedDataPrincipals  Int?      @map("estimated_data_principals")
+  purpose                  String?
+  legalBasisNote           String?   @map("legal_basis_note")
+  collectionSource         String?   @map("collection_source")
+  systemsText              String?   @map("systems_text")
+  vendorsText              String?   @map("vendors_text")
+  sharing                  String?
+  retentionRule            String?   @map("retention_rule")
+  securitySafeguards       String?   @map("security_safeguards")
+  noticeLinked             String?   @map("notice_linked")
+  consentLinked            String?   @map("consent_linked")
+  rightsWorkflow           String?   @map("rights_workflow")
+  grievanceLinked          String?   @map("grievance_linked")
+  /// `yes` · `no` · `unknown` — unknown behaves as risk (D-026).
+  childrenData             String    @default("unknown") @map("children_data")
+  crossBorder              String    @default("unknown") @map("cross_border")
+  aiProcessing             String    @default("unknown") @map("ai_processing")
+  highRiskDocuments        String    @default("unknown") @map("high_risk_documents")
+  evidenceNote             String?   @map("evidence_note")
+  /// D-065 — the ground relied on (s.4/s.6/s.7/s.17); null while undecided. A note for counsel.
+  lawfulBasis              String?   @map("lawful_basis")
+  /// D-065 — Rule 10 verifiable parental consent; s.9(3) tracking; Rule 12 exemption.
+  childParentalConsent     String    @default("unknown") @map("child_parental_consent")
+  childExemption           String?   @map("child_exemption")
+  childTracking            String    @default("unknown") @map("child_tracking")
+  /// D-065 — what ends the retention (s.8(7), Rule 8), and the law when one requires keeping it.
+  retentionTrigger         String?   @map("retention_trigger")
+  retentionLaw             String?   @map("retention_law")
+  /// D-065 — Rule 6(1) safeguards confirmed in place.
+  safeguards               String[]  @default([])
+  /// D-065 — linked processors without a contract or DPDP clauses. Counted by the database.
+  vendorContractGaps       Int       @default(0) @map("vendor_contract_gaps")
+  lastReviewedAt           DateTime? @map("last_reviewed_at") @db.Date
+  nextReviewAt             DateTime? @map("next_review_at") @db.Date
+  /// `draft` · `in_review` · `approved` · `archived`.
+  status                   String    @default("draft")
+  version                  Int       @default(1)
+  completenessScore        Int       @default(0) @map("completeness_score") @db.SmallInt
+  completenessBand         String    @default("incomplete") @map("completeness_band")
+  completenessMissing      String[]  @default([]) @map("completeness_missing")
+  riskFactors              String[]  @default([]) @map("risk_factors")
+  riskPoints               Int       @default(0) @map("risk_points") @db.SmallInt
+  riskRatingDerived        String    @default("low") @map("risk_rating_derived")
+  /// Kept only as a RAISE: an assessor never lowers the derived floor.
+  riskRatingAssessor       String?   @map("risk_rating_assessor")
+  /// D-067 — required whenever an assessor raises the rating.
+  riskRatingAssessorReason String?   @map("risk_rating_assessor_reason")
+  /// D-067 — the version of the risk rules that produced the rating.
+  riskModelVersion         String    @default("1.0.0") @map("risk_model_version")
+  riskRating               String    @default("low") @map("risk_rating")
+  systemLinkCount          Int       @default(0) @map("system_link_count")
+  vendorLinkCount          Int       @default(0) @map("vendor_link_count")
+  evidenceCount            Int       @default(0) @map("evidence_count")
+  approvedBy               String?   @map("approved_by") @db.Uuid
+  approvedAt               DateTime? @map("approved_at") @db.Timestamptz(6)
+  createdBy                String?   @map("created_by") @db.Uuid
+  updatedBy                String?   @map("updated_by") @db.Uuid
+  createdAt                DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  department   Department?        @relation(fields: [organizationId, departmentId], references: [organizationId, id], onDelete: NoAction)
+  owner        User?              @relation("RopaRecordOwner", fields: [ownerUserId], references: [id], onDelete: SetNull)
+  approver     User?              @relation("RopaRecordApprovedBy", fields: [approvedBy], references: [id], onDelete: SetNull)
+  creator      User?              @relation("RopaRecordCreatedBy", fields: [createdBy], references: [id], onDelete: SetNull)
+  updater      User?              @relation("RopaRecordUpdatedBy", fields: [updatedBy], references: [id], onDelete: SetNull)
+  systems      RopaSystem[]
+  vendors      RopaVendor[]
+  gaps         RopaGap[]
+  retention    RetentionSchedule?
+
+  @@unique([organizationId, id])
+  @@index([organizationId])
+  @@map("ropa_records")
+}
+
+model RopaSystem {
+  organizationId String   @map("organization_id") @db.Uuid
+  ropaRecordId   String   @map("ropa_record_id") @db.Uuid
+  systemId       String   @map("system_id") @db.Uuid
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  record       RopaRecord   @relation(fields: [organizationId, ropaRecordId], references: [organizationId, id], onDelete: Cascade)
+  system       System       @relation(fields: [organizationId, systemId], references: [organizationId, id], onDelete: NoAction)
+
+  @@id([ropaRecordId, systemId])
+  @@index([organizationId])
+  @@index([systemId])
+  @@map("ropa_systems")
+}
+
+model RopaVendor {
+  organizationId String   @map("organization_id") @db.Uuid
+  ropaRecordId   String   @map("ropa_record_id") @db.Uuid
+  vendorId       String   @map("vendor_id") @db.Uuid
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  record       RopaRecord   @relation(fields: [organizationId, ropaRecordId], references: [organizationId, id], onDelete: Cascade)
+  vendor       Vendor       @relation(fields: [organizationId, vendorId], references: [organizationId, id], onDelete: NoAction)
+
+  @@id([ropaRecordId, vendorId])
+  @@index([organizationId])
+  @@index([vendorId])
+  @@map("ropa_vendors")
+}
+
+/// A ROPA-driven gap (D-060): derived from the register by its own generator,
+/// SELECT-only to users. Its actions live in the SHARED `gap_actions` table.
+/// `ropaRecordId` is null only for `no_records`. One per record and rule —
+/// a NULLS NOT DISTINCT unique index the migration adds, which Prisma cannot express.
+model RopaGap {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String   @map("organization_id") @db.Uuid
+  ropaRecordId   String?  @map("ropa_record_id") @db.Uuid
+  gapCode        String   @map("gap_code")
+  /// This slice's own ladder — never `question_severity`.
+  severity       String
+  priority       String
+  state          String   @default("open")
+  finding        String
+  recommendedFix String   @map("recommended_fix")
+  generatedAt    DateTime @default(now()) @map("generated_at") @db.Timestamptz(6)
+  updatedAt      DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  record       RopaRecord?  @relation(fields: [organizationId, ropaRecordId], references: [organizationId, id], onDelete: Cascade)
+  actions      GapAction[]
+
+  @@unique([organizationId, id])
+  @@index([organizationId])
+  @@map("ropa_gaps")
+}
+
+// ---------------------------------------------------------------------------
+// Slice 9 — exposure history (D-072.1, SLICE_09 §7)
+// ---------------------------------------------------------------------------
+
+/// Where the organisation stood against the Schedule's penalty heads on a
+/// date. Written ONLY by `public.record_exposure_snapshot(org)`, which derives
+/// every value in SQL (`app.exposure_evaluate`, the mirror of core's
+/// `exposureFor`). SELECT-only to users; immutable by trigger; deleted only
+/// with what it was about (the cascade, as D-052).
+model ExposureSnapshot {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId  String   @map("organization_id") @db.Uuid
+  recordedAt      DateTime @default(now()) @map("recorded_at") @db.Timestamptz(6)
+  recordedBy      String?  @map("recorded_by") @db.Uuid
+  /// The date in India the snapshot describes (D-055).
+  asOf            DateTime @map("as_of") @db.Date
+  modelVersion    String   @map("model_version")
+  /// `finalised` · `provisional` · `none` — which assessment fed it (D-069.1).
+  basis           String
+  assessmentId    String?  @map("assessment_id") @db.Uuid
+  scoreSnapshotId String?  @map("score_snapshot_id") @db.Uuid
+  /// Per modelled head: status, position, reasons — `app.exposure_evaluate`'s shape.
+  heads           Json
+  /// Σ CEILINGS of the heads at stake, in crore. A ceiling, never a fine.
+  ceilingsAtStake Decimal  @map("ceilings_at_stake") @db.Decimal(9, 3)
+  exposedHeads    Int      @map("exposed_heads")
+  applicableHeads Int      @map("applicable_heads")
+  forecast        Json
+
+  organization  Organization             @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  recorder      User?                    @relation("ExposureRecordedBy", fields: [recordedBy], references: [id], onDelete: SetNull)
+  assessment    Assessment?              @relation(fields: [organizationId, assessmentId], references: [organizationId, id], onDelete: Cascade)
+  scoreSnapshot AssessmentScoreSnapshot? @relation(fields: [organizationId, scoreSnapshotId], references: [organizationId, id], onDelete: Cascade)
+
+  reports Report[]
+
+  @@unique([organizationId, id])
+  @@index([organizationId, recordedAt])
+  @@map("exposure_snapshots")
+}
+
+/// Slice 9, Stage 3 — the report store (D-076). A stored, versioned artefact:
+/// what was shown on the day. Written ONLY by `public.begin_report`,
+/// `complete_report` and `fail_report`; no user write grant; nothing may edit
+/// a finished row (trigger). The file is at
+/// `organizations/{organization_id}/reports/{id}/{file_name}` in the private
+/// `reports` bucket. The migration narrows the assessment and snapshot
+/// foreign keys to `ON DELETE SET NULL (column)` — a report outlives the
+/// basis it pointed at — which Prisma cannot express, so they say NoAction here.
+model Report {
+  id                 String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId     String    @map("organization_id") @db.Uuid
+  /// exposure_brief · programme_status · owner_action_pack · evidence_pack · gap_action_tracker · ropa_register · evidence_index
+  kind               String
+  /// pdf · xlsx
+  format             String
+  /// Per organisation + kind + subject, from 1; never reused.
+  version            Int
+  /// The owner an owner's pack is about; null for every other kind.
+  subjectUserId      String?   @map("subject_user_id") @db.Uuid
+  assessmentId       String?   @map("assessment_id") @db.Uuid
+  /// The exposure snapshot recorded for this report (exposure kinds).
+  exposureSnapshotId String?   @map("exposure_snapshot_id") @db.Uuid
+  /// The date in India it describes (D-055).
+  asOf               DateTime  @map("as_of") @db.Date
+  /// running · ready · failed
+  status             String    @default("running")
+  storagePath        String    @unique @map("storage_path")
+  fileName           String    @map("file_name")
+  byteSize           BigInt?   @map("byte_size")
+  generatedBy        String?   @map("generated_by") @db.Uuid
+  requestedAt        DateTime  @default(now()) @map("requested_at") @db.Timestamptz(6)
+  generatedAt        DateTime? @map("generated_at") @db.Timestamptz(6)
+  error              String?
+  /// Slice 11 Stage 2b (D-133.1): the document an Exposure Brief, Programme Status Report or evidence pack printed — written once, as it finishes.
+  document           Json?
+  /// A narrated version: the version whose stored figures it prints (composite FK in the migration).
+  narratedFromId     String?   @map("narrated_from_id") @db.Uuid
+  /// …and the accepted AI narrative in front of them (composite FK to ai_drafts in the migration).
+  narrativeDraftId   String?   @map("narrative_draft_id") @db.Uuid
+
+  organization     Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  generator        User?             @relation("ReportGeneratedBy", fields: [generatedBy], references: [id], onDelete: SetNull)
+  subject          User?             @relation("ReportSubject", fields: [subjectUserId], references: [id], onDelete: Restrict)
+  assessment       Assessment?       @relation(fields: [organizationId, assessmentId], references: [organizationId, id], onDelete: NoAction)
+  exposureSnapshot ExposureSnapshot? @relation(fields: [organizationId, exposureSnapshotId], references: [organizationId, id], onDelete: NoAction)
+
+  @@unique([organizationId, id])
+  @@index([organizationId, requestedAt])
+  @@map("reports")
+}
+
+// ---------------------------------------------------------------------------
+// Slice 10, Stage 3a — public intake (Rule 14(1)–(3), Rule 9; D-084)
+// ---------------------------------------------------------------------------
+
+/// A public form's submission, waiting for its emailed code. NOT the register:
+/// it becomes a `rights_requests` row only when the code is entered. No user
+/// and not `anon` may read it; only the `intake_*` functions (service role)
+/// touch it. Expires after 24 hours (Slice 13 purges it).
+model IntakeSubmission {
+  id                  String    @id @db.Uuid
+  organizationId      String    @map("organization_id") @db.Uuid
+  kind                String
+  requesterName       String    @map("requester_name")
+  requesterEmail      String    @map("requester_email")
+  requesterPhone      String?   @map("requester_phone")
+  requesterCapacity   String    @default("self") @map("requester_capacity")
+  principalIdentifier String?   @map("principal_identifier")
+  summary             String
+  /// A grievance may name an earlier request by its code.
+  relatedRequestCode  String?   @map("related_request_code")
+  nomineeName         String?   @map("nominee_name")
+  nomineeContact      String?   @map("nominee_contact")
+  nomineeRelationship String?   @map("nominee_relationship")
+  /// The day in India it was submitted — the request's receipt (D-084).
+  submittedOn         DateTime  @map("submitted_on") @db.Date
+  /// sha256(`${id}:${code}`) — the code itself is never stored.
+  codeHash            String    @map("code_hash")
+  codeExpiresAt       DateTime  @map("code_expires_at") @db.Timestamptz(6)
+  codesSent           Int       @default(1) @map("codes_sent")
+  wrongCodes          Int       @default(0) @map("wrong_codes")
+  confirmedAt         DateTime? @map("confirmed_at") @db.Timestamptz(6)
+  rightsRequestId     String?   @map("rights_request_id") @db.Uuid
+  expiresAt           DateTime  @map("expires_at") @db.Timestamptz(6)
+  createdAt           DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  organization  Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  rightsRequest RightsRequest? @relation(fields: [organizationId, rightsRequestId], references: [organizationId, id], onDelete: NoAction)
+
+  @@index([organizationId])
+  @@index([expiresAt])
+  @@map("intake_submissions")
+}
+
+/// One counted public event (a submission, or a code sent), for the limits in
+/// `app.intake_limits()`. Keyed by a keyed hash of the client address and a
+/// hash of the email address — never either one.
+model IntakeAttempt {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String   @map("organization_id") @db.Uuid
+  /// `rights` · `grievance` · `consent` (Stage 3b).
+  surface        String
+  /// `submission` · `code_sent` · `consent_record` (Stage 3b, with no email address).
+  event          String
+  clientHash     String   @map("client_hash")
+  emailHash      String?  @map("email_hash")
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, surface, clientHash, createdAt], map: "intake_attempts_client_idx")
+  @@index([emailHash, event, createdAt], map: "intake_attempts_email_idx")
+  @@map("intake_attempts")
+}
+
+// ---------------------------------------------------------------------------
+// Slice 10, Stage 3b — the privacy notice, the consent widget and the consent
+// register (s.5, s.6, s.9, Rules 3, 10–12; migration 20261014000000_notice_consent)
+// ---------------------------------------------------------------------------
+
+/// One version of the privacy notice, in one language. Numbered by the
+/// database; a published version never changes and is never deleted. The
+/// user columns carry FKs ON DELETE SET NULL in SQL; plain ids here.
+model PrivacyNotice {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String    @map("organization_id") @db.Uuid
+  /// core CONSENT_LANGUAGES.
+  language       String    @default("en")
+  version        Int
+  /// `draft` · `published`.
+  status         String    @default("draft")
+  title          String
+  summary        String?
+  /// Rule 3(b): [{ key, title, uses, dataItems[] }].
+  purposes       Json      @default("[]")
+  withdrawMeans  String?   @map("withdraw_means")
+  rightsMeans    String?   @map("rights_means")
+  complaintMeans String?   @map("complaint_means")
+  publishedAt    DateTime? @map("published_at") @db.Timestamptz(6)
+  publishedBy    String?   @map("published_by") @db.Uuid
+  createdBy      String?   @map("created_by") @db.Uuid
+  updatedBy      String?   @map("updated_by") @db.Uuid
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  configs      ConsentConfig[]
+
+  @@unique([organizationId, id])
+  @@unique([organizationId, language, version])
+  @@index([organizationId])
+  @@map("privacy_notices")
+}
+
+/// One version of the consent widget: the purposes it offers (from the
+/// published notice it cites), its languages and its look.
+model ConsentConfig {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String    @map("organization_id") @db.Uuid
+  version        Int
+  status         String    @default("draft")
+  noticeId       String    @map("notice_id") @db.Uuid
+  purposes       String[]  @default([])
+  languages      String[]  @default(["en", "hi", "mr"])
+  /// `bottom_bar` · `centre_modal` · `corner`.
+  position       String    @default("bottom_bar")
+  primaryColor   String    @default("#1e3a8a") @map("primary_color")
+  publishedAt    DateTime? @map("published_at") @db.Timestamptz(6)
+  publishedBy    String?   @map("published_by") @db.Uuid
+  createdBy      String?   @map("created_by") @db.Uuid
+  updatedBy      String?   @map("updated_by") @db.Uuid
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  notice       PrivacyNotice   @relation(fields: [organizationId, noticeId], references: [organizationId, id], onDelete: NoAction)
+  records      ConsentRecord[]
+
+  @@unique([organizationId, id])
+  @@unique([organizationId, version])
+  @@index([organizationId])
+  @@map("consent_configs")
+}
+
+/// One choice a Data Principal made — append-only; withdrawal is a new row.
+/// `principal_key` is HMAC-SHA256 of the identifier under the organisation's
+/// salt, never the identifier.
+model ConsentRecord {
+  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId     String   @map("organization_id") @db.Uuid
+  configId           String   @map("config_id") @db.Uuid
+  principalKey       String   @map("principal_key")
+  /// `given` · `refused` · `withdrawn`.
+  action             String
+  purposes           String[] @default([])
+  /// `self` · `child` · `guardian_ward`.
+  principalKind      String   @default("self") @map("principal_kind")
+  /// core VERIFICATION_METHODS; null = none recorded.
+  verificationMethod String?  @map("verification_method")
+  language           String   @default("en")
+  /// `widget` · `staff`.
+  source             String
+  reference          String?
+  recordedBy         String?  @map("recorded_by") @db.Uuid
+  recordedAt         DateTime @default(now()) @map("recorded_at") @db.Timestamptz(6)
+
+  organization Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  config       ConsentConfig @relation(fields: [organizationId, configId], references: [organizationId, id], onDelete: NoAction)
+
+  @@index([organizationId, principalKey, recordedAt(sort: Desc)], map: "consent_records_principal_idx")
+  @@index([organizationId, recordedAt(sort: Desc)])
+  @@map("consent_records")
+}
+
+/// Each organisation's salt for the principal key. No grant to any role.
+model ConsentSalt {
+  organizationId String   @id @map("organization_id") @db.Uuid
+  salt           Bytes    @default(dbgenerated("extensions.gen_random_bytes(32)"))
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("consent_salts")
+}
+
+// ---------------------------------------------------------------------------
+// Slice 10, Stage 4a — processor assessments (migration 20261015000000_processor_register).
+// Written only by the staff functions (start / save / submit / review / discard);
+// users hold SELECT. An accepted assessment and its answers never change.
+// ---------------------------------------------------------------------------
+
+/// One version of one vendor's assessment.
+model VendorAssessment {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String    @map("organization_id") @db.Uuid
+  vendorId       String    @map("vendor_id") @db.Uuid
+  /// Numbered per vendor by `start_vendor_assessment`.
+  version        Int
+  /// `draft` · `submitted` · `returned` · `accepted`.
+  status         String    @default("draft")
+  /// `staff` · `vendor` (Stage 4b: a link is open for it, or its respondent submitted it).
+  source         String    @default("staff")
+  sourceNote     String?   @map("source_note")
+  /// TrustStack's indicator, 0–100, higher is riskier — derived at submission and acceptance.
+  riskScore      Int?      @map("risk_score")
+  riskTier       String?   @map("risk_tier")
+  unevidenced    String[]  @default([])
+  reviewBy       DateTime? @map("review_by") @db.Date
+  returnReason   String?   @map("return_reason")
+  createdBy      String?   @map("created_by") @db.Uuid
+  submittedBy    String?   @map("submitted_by") @db.Uuid
+  submittedAt    DateTime? @map("submitted_at") @db.Timestamptz(6)
+  reviewedBy     String?   @map("reviewed_by") @db.Uuid
+  reviewedAt     DateTime? @map("reviewed_at") @db.Timestamptz(6)
+  /// Stage 4b: the vendor's respondent declared the answers accurate and complete — name, role, when.
+  declaredName   String?   @map("declared_name")
+  declaredRole   String?   @map("declared_role")
+  declaredAt     DateTime? @map("declared_at") @db.Timestamptz(6)
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization             @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  vendor       Vendor                   @relation(fields: [organizationId, vendorId], references: [organizationId, id], onDelete: NoAction)
+  answers      VendorAssessmentAnswer[]
+  links        VendorAssessmentLink[]
+
+  @@unique([organizationId, id])
+  @@unique([organizationId, vendorId, version])
+  @@index([organizationId])
+  @@map("vendor_assessments")
+}
+
+/// One answer in one assessment.
+model VendorAssessmentAnswer {
+  organizationId String   @map("organization_id") @db.Uuid
+  assessmentId   String   @map("assessment_id") @db.Uuid
+  questionCode   String   @map("question_code")
+  answer         String?
+  notApplicable  Boolean  @default(false) @map("not_applicable")
+  naReason       String?  @map("na_reason")
+  /// One of the vendor's documents, cited for this answer.
+  evidenceId     String?  @map("evidence_id") @db.Uuid
+  answeredBy     String?  @map("answered_by") @db.Uuid
+  answeredAt     DateTime @default(now()) @map("answered_at") @db.Timestamptz(6)
+
+  organization Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  assessment   VendorAssessment @relation(fields: [organizationId, assessmentId], references: [organizationId, id], onDelete: Cascade)
+
+  @@id([assessmentId, questionCode])
+  @@index([organizationId])
+  @@index([evidenceId])
+  @@map("vendor_assessment_answers")
+}
+
+/// Stage 4b: a link to one respondent at the vendor for one assessment. Only
+/// hashes of the token, the one-time code and the respondent's session are
+/// stored; members read who it went to and its state, never a hash.
+model VendorAssessmentLink {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId  String    @map("organization_id") @db.Uuid
+  assessmentId    String    @map("assessment_id") @db.Uuid
+  tokenHash       String    @unique @map("token_hash")
+  respondentName  String    @map("respondent_name")
+  respondentEmail String    @map("respondent_email")
+  expiresAt       DateTime  @map("expires_at") @db.Timestamptz(6)
+  codeHash        String?   @map("code_hash")
+  codeExpiresAt   DateTime? @map("code_expires_at") @db.Timestamptz(6)
+  codesSent       Int       @default(0) @map("codes_sent")
+  wrongCodes      Int       @default(0) @map("wrong_codes")
+  sessionHash     String?   @map("session_hash")
+  confirmedAt     DateTime? @map("confirmed_at") @db.Timestamptz(6)
+  submittedAt     DateTime? @map("submitted_at") @db.Timestamptz(6)
+  revokedAt       DateTime? @map("revoked_at") @db.Timestamptz(6)
+  revokedBy       String?   @map("revoked_by") @db.Uuid
+  /// Who sent it — they may not review the assessment (D-092).
+  createdBy       String?   @map("created_by") @db.Uuid
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  organization Organization         @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  assessment   VendorAssessment     @relation(fields: [organizationId, assessmentId], references: [organizationId, id], onDelete: Cascade)
+  documents    VendorLinkDocument[]
+
+  @@unique([organizationId, id])
+  @@index([organizationId])
+  @@index([organizationId, assessmentId], map: "vendor_assessment_links_assessment_id_idx")
+  @@map("vendor_assessment_links")
+}
+
+/// Stage 4b: a document uploaded through a link — what its respondent may see and cite.
+model VendorLinkDocument {
+  organizationId String   @map("organization_id") @db.Uuid
+  linkId         String   @map("link_id") @db.Uuid
+  evidenceId     String   @unique @map("evidence_id") @db.Uuid
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  organization Organization         @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  link         VendorAssessmentLink @relation(fields: [organizationId, linkId], references: [organizationId, id], onDelete: Cascade)
+
+  @@id([linkId, evidenceId])
+  @@index([organizationId])
+  @@map("vendor_link_documents")
+}
+
+/// Slice 10 Stage 5 — the retention register: one schedule per processing
+/// activity (s.8(7), Rule 8). The end date and the Rule 8(2) inform-by date are
+/// DERIVED by the database (start + period in calendar months); no user writes them.
+model RetentionSchedule {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String    @map("organization_id") @db.Uuid
+  ropaRecordId   String    @map("ropa_record_id") @db.Uuid
+  /// core RETENTION_BASES: purpose_served · consent_withdrawn · fixed_period · legal_requirement · deemed_inactivity.
+  basis          String
+  /// At least 12 (Rule 8(3)); exactly 36 for the deemed basis (Rule 8(1)).
+  periodMonths   Int       @default(12) @map("period_months")
+  /// Named exactly when a law requires keeping the data.
+  lawName        String?   @map("law_name")
+  /// The day the clock started; null = no end recorded.
+  startsOn       DateTime? @map("starts_on") @db.Date
+  /// DERIVED: start + period.
+  endsOn         DateTime? @map("ends_on") @db.Date
+  /// DERIVED: two days before the end, for the deemed basis only (Rule 8(2)).
+  informBy       DateTime? @map("inform_by") @db.Date
+  notes          String?
+  createdBy      String?   @map("created_by") @db.Uuid
+  updatedBy      String?   @map("updated_by") @db.Uuid
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  ropaRecord   RopaRecord         @relation(fields: [organizationId, ropaRecordId], references: [organizationId, id], onDelete: Cascade)
+  erasures     RetentionErasure[]
+  actions      GapAction[]
+
+  @@unique([organizationId, id])
+  @@unique([organizationId, ropaRecordId])
+  @@index([organizationId])
+  @@map("retention_schedules")
+}
+
+/// An erasure, recorded once and never changed (s.8(7)). Who recorded it, and
+/// when, are stamped by the database.
+model RetentionErasure {
+  id                   String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId       String    @map("organization_id") @db.Uuid
+  retentionScheduleId  String    @map("retention_schedule_id") @db.Uuid
+  erasedOn             DateTime  @map("erased_on") @db.Date
+  /// core ERASURE_METHODS: deleted · anonymised · destroyed · other (described).
+  method               String
+  methodNote           String?   @map("method_note")
+  /// s.8(7)(b): yes · no · not_applicable.
+  processorsTold       String    @map("processors_told")
+  /// Rule 8(2), the deemed basis only.
+  principalsInformedOn DateTime? @map("principals_informed_on") @db.Date
+  recordedBy           String?   @map("recorded_by") @db.Uuid
+  recordedAt           DateTime  @default(now()) @map("recorded_at") @db.Timestamptz(6)
+
+  organization Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  schedule     RetentionSchedule     @relation(fields: [organizationId, retentionScheduleId], references: [organizationId, id], onDelete: Cascade)
+  void         RetentionErasureVoid?
+
+  @@unique([organizationId, id])
+  @@index([organizationId])
+  @@index([retentionScheduleId])
+  @@map("retention_erasures")
+}
+
+/// An erasure marked as recorded in error (D-096, R4): once per erasure, with a
+/// reason, by someone other than its recorder; never changed. The erasure stays.
+model RetentionErasureVoid {
+  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId     String   @map("organization_id") @db.Uuid
+  retentionErasureId String   @map("retention_erasure_id") @db.Uuid
+  reason             String
+  voidedBy           String?  @map("voided_by") @db.Uuid
+  voidedAt           DateTime @default(now()) @map("voided_at") @db.Timestamptz(6)
+
+  organization Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  erasure      RetentionErasure @relation(fields: [organizationId, retentionErasureId], references: [organizationId, id], onDelete: Cascade)
+
+  @@unique([organizationId, retentionErasureId])
+  @@index([organizationId])
+  @@map("retention_erasure_voids")
+}
+
+/// Slice 10 Stage 5 — the AI risk register: one row per AI system or AI use.
+/// Enabling, never a status (D-073); written with `ropa.write` (D-094.2).
+model AiSystem {
+  id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId   String    @map("organization_id") @db.Uuid
+  /// The scope's system, or null. Composite FK to `systems`, ON DELETE SET NULL
+  /// (system_id) — declared in the migration, not here (Prisma would null both columns).
+  systemId         String?   @map("system_id") @db.Uuid
+  /// core AI_REGISTER_USAGE_TYPES, or null.
+  usageType        String?   @map("usage_type")
+  name             String
+  purpose          String
+  personalData     String    @map("personal_data")
+  /// s.9(3): does it track, behaviourally monitor or target advertising at children? yes · no · unknown.
+  childTracking    String    @default("unknown") @map("child_tracking")
+  /// The Fourth Schedule exemption relied on (core ROPA_CHILD_EXEMPTIONS), only when `childTracking` is yes.
+  childExemption   String?   @map("child_exemption")
+  humanReview      String?   @map("human_review")
+  /// `in_use` · `retired`.
+  status           String    @default("in_use")
+  lastReviewedOn   DateTime? @map("last_reviewed_on") @db.Date
+  reviewRecordedBy String?   @map("review_recorded_by") @db.Uuid
+  reviewRecordedAt DateTime? @map("review_recorded_at") @db.Timestamptz(6)
+  createdBy        String?   @map("created_by") @db.Uuid
+  updatedBy        String?   @map("updated_by") @db.Uuid
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, id])
+  @@unique([organizationId, systemId])
+  @@index([organizationId])
+  @@map("ai_systems")
+}
+
+/// Slice 11 Stage 1a: counsel's sign-off that an industry held under s.16(2)
+/// (`bfsi`, `healthcare`) may use the AI assistant (A4). Platform reference
+/// data, written by migration only. Empty until counsel signs.
+model AiIndustrySignoff {
+  industryCode String   @id @map("industry_code")
+  counselRef   String   @map("counsel_ref")
+  signedOn     DateTime @map("signed_on") @db.Date
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  industry Industry @relation(fields: [industryCode], references: [code], onDelete: Restrict)
+
+  @@map("ai_industry_signoffs")
+}
+
+/// Slice 11 Stage 1a: one row per AI model call — a draft for a person, or a
+/// rejected call (refusal, failed guardrail). Inserted once, as the person;
+/// the prompt context and the answer live only here (§4.4, §4.10).
+model AiDraft {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId   String   @map("organization_id") @db.Uuid
+  /// core AI_TASKS (the four explain helpers; Stage 2a's three drafting tasks; Stage 2b's three).
+  task             String
+  targetType       String   @map("target_type")
+  targetId         String?  @map("target_id") @db.Uuid
+  targetKey        String?  @map("target_key")
+  /// `draft` · `rejected` (Stage 1a) · `accepted` · `discarded` (Stage 2a — a drafting task only).
+  status           String
+  rejection        String?
+  /// SHA-256 of the context sent.
+  inputDigest      String   @map("input_digest")
+  context          Json
+  output           Json?
+  model            String
+  corpusVersion    String   @map("corpus_version")
+  promptVersion    String   @map("prompt_version")
+  inputTokens      Int      @default(0) @map("input_tokens")
+  outputTokens     Int      @default(0) @map("output_tokens")
+  cacheReadTokens  Int      @default(0) @map("cache_read_tokens")
+  cacheWriteTokens Int      @default(0) @map("cache_write_tokens")
+  latencyMs        Int      @default(0) @map("latency_ms")
+  injectionFlagged Boolean  @default(false) @map("injection_flagged")
+  citationFlags    Json     @default("[]") @map("citation_flags")
+  /// Stamped by the database (FK in the migration).
+  requestedBy      String?  @map("requested_by") @db.Uuid
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  /// Stage 1b: `up` · `down` · null — given once, by the person who asked.
+  feedback         String?
+  /// ≤ 500, scrubbed (A3); never audited.
+  feedbackComment  String?   @map("feedback_comment")
+  /// Stamped by the database (FK in the migration).
+  feedbackBy       String?   @map("feedback_by") @db.Uuid
+  feedbackAt       DateTime? @map("feedback_at") @db.Timestamptz(6)
+  /// Stage 2a: the person's edited text, kept with an accepted draft only (D-129).
+  acceptedOutput   Json?     @map("accepted_output")
+  /// Stamped by the database (FK in the migration): a holder of the register's write permission.
+  decidedBy        String?   @map("decided_by") @db.Uuid
+  decidedAt        DateTime? @map("decided_at") @db.Timestamptz(6)
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, id])
+  @@index([organizationId, createdAt])
+  @@index([requestedBy, createdAt])
+  @@index([organizationId, targetId])
+  @@map("ai_drafts")
+}

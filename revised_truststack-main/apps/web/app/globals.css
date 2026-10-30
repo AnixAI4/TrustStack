@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+/*
+ * TrustStack design tokens (Slice 10.5 Stage B0, D-101) — the old app's look
+ * (`truststack-platform/tailwind.config.ts`): navy #003366, blue #2563EB, the
+ * slate text and border greys, and semantic danger / warning / success with
+ * light backgrounds.
+ *
+ * Two layers:
+ *  - Semantic tokens (`brand-*`, `surface-*`, `line-*`, `ink-*`, `danger-*`,
+ *    `warning-*`, `success-*`, `shadow-*`) for the shell and the shared
+ *    components in `app/components/`.
+ *  - The `indigo` scale — every existing screen's primary colour — is
+ *    remapped onto the brand navy and blue, so each screen takes the look
+ *    without a per-file edit. The `slate` scale already IS the old app's
+ *    greys (#0F172A, #475569, #94A3B8, #E2E8F0, #CBD5E1).
+ *
+ * Fonts are self-hosted (`@fontsource-variable/*`, imported in the root
+ * layout): no runtime call to a font CDN, so a client-hosted install works
+ * offline (proposed Slice 15).
+ */
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans Variable", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-navy: #003366;
+  --color-brand-navy-dark: #001a33;
+  --color-brand-navy-light: #004080;
+  --color-brand-blue: #2563eb;
+  --color-brand-blue-light: #3b82f6;
+  --color-brand-blue-pale: #eff6ff;
+
+  --color-surface: #ffffff;
+  --color-surface-page: #f4f8fc;
+  --color-surface-muted: #f4f7f9;
+  --color-surface-subtle: #f1f5f9;
+
+  --color-line: #e2e8f0;
+  --color-line-light: #f1f5f9;
+  --color-line-strong: #cbd5e1;
+
+  --color-ink: #0f172a;
+  --color-ink-soft: #475569;
+  --color-ink-muted: #94a3b8;
+
+  --color-danger: #dc2626;
+  --color-danger-light: #fef2f2;
+  --color-danger-border: #fecaca;
+  --color-danger-text: #b91c1c;
+  --color-warning: #d97706;
+  --color-warning-light: #fffbeb;
+  --color-warning-border: #fde68a;
+  --color-warning-text: #92400e;
+  --color-success: #059669;
+  --color-success-light: #ecfdf5;
+  --color-success-border: #a7f3d0;
+  --color-success-text: #065f46;
+  --color-info: #2563eb;
+  --color-info-light: #eff6ff;
+  --color-info-border: #bfdbfe;
+  --color-info-text: #1e40af;
+
+  /* The primary scale every existing screen uses, on the brand. */
+  --color-indigo-50: #eff6ff;
+  --color-indigo-100: #dbeafe;
+  --color-indigo-200: #bfdbfe;
+  --color-indigo-300: #93c5fd;
+  --color-indigo-400: #60a5fa;
+  --color-indigo-500: #2563eb;
+  --color-indigo-600: #1d4ed8;
+  --color-indigo-700: #003366;
+  --color-indigo-800: #00284f;
+  --color-indigo-900: #001a33;
+  --color-indigo-950: #000f1f;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.06);
+  --shadow-nav: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-toast: 0 8px 30px rgba(15, 23, 42, 0.16), 0 2px 6px rgba(15, 23, 42, 0.08);
+
+  --radius-card: 0.75rem;
+
+  --animate-toast-in: toast-in 0.18s ease-out;
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-surface-page);
+    color: var(--color-ink);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-blue);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: rgba(37, 99, 235, 0.15);
+    color: var(--color-brand-navy);
+  }
+
+  /*
+   * Cards: every existing bordered panel ("rounded-xl border") sits on white
+   * with a soft shadow inside the app's content area. `:where()` keeps this at
+   * zero specificity and the base layer keeps it under every utility, so a
+   * panel that sets its own background (bg-red-50, bg-amber-50 …) keeps it.
+   */
+  [data-shell-content] :where(.rounded-xl.border, .rounded-lg.border),
+  [data-public-content] :where(.rounded-xl.border, .rounded-lg.border) {
+    background-color: var(--color-surface);
+  }
+  [data-shell-content] :where(.rounded-xl.border:not(.border-dashed)) {
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Native controls take the brand on focus. */
+  :where(input, select, textarea):focus-visible {
+    outline: 2px solid var(--color-brand-blue);
+    outline-offset: 0;
+    border-color: var(--color-brand-blue);
+  }
+}
+
+/* Thin, quiet scrollbars for the fixed frame's scrolling areas. */
+.ts-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-strong) transparent;
+}
+.ts-scroll-dark {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}

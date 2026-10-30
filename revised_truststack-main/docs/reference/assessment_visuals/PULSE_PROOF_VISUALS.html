@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pulse and Proof Visuals</title>
+<style>
+  /* Layout: a sticky audience switcher, then one view per audience; every chart is inline SVG drawn from the sample data below. */
+  :root {
+    --bg: #f5f6f8; --panel: #ffffff; --fg: #18212c; --muted: #5d6877; --line: #dde2e9;
+    --brand: #1d4f7a; --declared: #8a63c9; --proven: #1f7a5a; --warn: #b7791f; --bad: #b43a2f; --soft: #eef1f5;
+    --l0: #c9d1db; --l1: #e7b4ad; --l2: #edcf9b; --l3: #d8e3a4; --l4: #9fd2b3; --l5: #5fae86;
+    --display: Georgia, "Times New Roman", serif;
+    --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --r: 10px;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #10151c; --panel: #17202a; --fg: #e5ebf2; --muted: #9ba7b6; --line: #2a3442; --brand: #8ab8df;
+    --declared: #b597ec; --proven: #63c49b; --warn: #e3ac4f; --bad: #ef7d71; --soft: #1e2833;
+    --l0: #3a4554; --l1: #7a3f3a; --l2: #7c6331; --l3: #66723a; --l4: #2f6f52; --l5: #3f9a70; color-scheme: dark; } }
+  :root[data-theme="dark"] {
+    --bg: #10151c; --panel: #17202a; --fg: #e5ebf2; --muted: #9ba7b6; --line: #2a3442; --brand: #8ab8df;
+    --declared: #b597ec; --proven: #63c49b; --warn: #e3ac4f; --bad: #ef7d71; --soft: #1e2833;
+    --l0: #3a4554; --l1: #7a3f3a; --l2: #7c6331; --l3: #66723a; --l4: #2f6f52; --l5: #3f9a70; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 var(--body); }
+  .bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--panel); border-bottom: 1px solid var(--line); }
+  .bar-in { max-width: 1180px; margin: 0 auto; padding-block: 10px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+  .bar h1 { font: 400 1.25rem var(--display); margin: 0 12px 0 0; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tabs button { font: inherit; font-size: .85rem; border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+  .tabs button[aria-selected="true"] { background: var(--brand); color: var(--panel); border-color: var(--brand); }
+  .tabs button:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-block: 22px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 18px; }
+  .note { color: var(--muted); font-size: .82rem; }
+  .sample { display: inline-block; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--warn); border: 1px solid var(--warn); border-radius: 999px; padding: 0 8px; }
+  h2 { font: 400 1.5rem var(--display); margin: 0; text-wrap: balance; }
+  h3 { font-size: 1rem; margin: 0; }
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+  .lede { display: grid; gap: 4px; }
+  .big { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: end; }
+  .fig { display: grid; gap: 0; }
+  .fig b { font: 400 2.6rem/1 var(--display); font-variant-numeric: tabular-nums; }
+  .fig span { font-size: .8rem; color: var(--muted); }
+  .dec b { color: var(--declared); } .pro b { color: var(--proven); }
+  .tag { font-size: .72rem; border-radius: 999px; padding: 1px 8px; border: 1px solid currentColor; white-space: nowrap; }
+  .t-dec { color: var(--declared); } .t-pro { color: var(--proven); } .t-being { color: var(--warn); }
+  table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: .78rem; }
+  .tbox { overflow-x: auto; }
+  .num { font-variant-numeric: tabular-nums; text-align: right; }
+  .act { display: grid; grid-template-columns: 1.6rem 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .act:last-child { border-bottom: 0; }
+  .act i { font-style: normal; font: 400 1.2rem var(--display); color: var(--brand); }
+  .act small { color: var(--muted); display: block; }
+  .strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px; }
+  .cell { border-radius: 8px; padding: 8px; font-size: .78rem; display: grid; gap: 2px; border: 1px solid var(--line); }
+  .cell b { font-size: .82rem; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .78rem; color: var(--muted); }
+  .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -2px; margin-right: 5px; }
+  .q { display: grid; gap: 8px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .opts { display: flex; flex-wrap: wrap; gap: 6px; }
+  .opts button { font: inherit; font-size: .82rem; padding: 5px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; }
+  .opts button[aria-pressed="true"] { background: var(--declared); border-color: var(--declared); color: var(--panel); }
+  .opts button:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .ladder { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 10px; }
+  .rung { border-radius: var(--r); padding: 14px; border: 1px solid var(--line); background: var(--soft); display: grid; gap: 4px; }
+  .rung b { font: 400 1.15rem var(--display); }
+  .wl { display: flex; align-items: center; gap: 10px; border: 1px dashed var(--line); border-radius: 8px; padding: 8px 12px; font-size: .82rem; color: var(--muted); }
+  .wl .logo { width: 34px; height: 34px; border-radius: 8px; background: var(--brand); color: var(--panel); display: grid; place-items: center; font-weight: 700; }
+  svg text { fill: var(--muted); font: 11px var(--body); }
+  [hidden] { display: none !important; }
+  @media (prefers-reduced-motion: no-preference) { .view { animation: in .25s ease-out; } @keyframes in { from { opacity: .4 } to { opacity: 1 } } }
+</style>
+</head>
+<body>
+<div class="bar"><div class="bar-in">
+  <h1>Pulse and Proof Visuals</h1>
+  <div class="tabs" role="tablist" aria-label="Audience">
+    <button role="tab" data-v="board" aria-selected="true">Board</button>
+    <button role="tab" data-v="dpo" aria-selected="false">DPO</button>
+    <button role="tab" data-v="owner" aria-selected="false">Department owner</button>
+    <button role="tab" data-v="result" aria-selected="false">Pulse result (client)</button>
+    <button role="tab" data-v="partner" aria-selected="false">Professional</button>
+    <button role="tab" data-v="auditor" aria-selected="false">Auditor</button>
+  </div>
+</div></div>
+
+<main class="wrap">
+  <p class="note"><span class="sample">Sample data</span> &nbsp;A fictional client, "Sahyadri Co-operative Bank", used to show the Step 4 visuals. Nothing here is a real organisation's result. Declared figures are always purple and outlined; proven figures are always green and solid. <b>Superseded:</b> the production colours and chart forms are in VISUAL_JOURNEY_REPORT.html (Step 4b.2a: proven blue, declared orange).</p>
+
+  <!-- BOARD -->
+  <section class="view" data-view="board">
+    <div class="lede"><h2>"You say 72. You can prove 41."</h2>
+      <p class="note">For the Board: one message, the cost at stake, the deadline, and the three decisions. Self-declared and proven are never blended.</p></div>
+    <div class="grid">
+      <div class="card">
+        <div class="big">
+          <div class="fig dec"><b>72</b><span>Declared (Pulse, 12 Oct 2026) — self-declared</span></div>
+          <div class="fig pro"><b>41</b><span>Proven (Proof, live) — evidence-backed</span></div>
+          <div class="fig"><b id="days">—</b><span>days to 13 May 2027</span></div>
+        </div>
+        <p class="note">The gap is the work: 31 points of claims not yet backed by reviewed evidence.</p>
+      </div>
+      <div class="card"><h3>Readiness over time</h3><div id="trend"></div>
+        <div class="legend"><span><i class="sw" style="border:2px dashed var(--declared)"></i>Declared (Pulse)</span><span><i class="sw" style="background:var(--proven)"></i>Proven (Proof)</span><span><i class="sw" style="border:1px dotted var(--declared)"></i>Expected from closed actions</span></div></div>
+    </div>
+    <div class="card"><h3>Where the claims and the proof are furthest apart</h3><p class="note">Each domain: declared (outlined) vs proven (solid), out of the domain's weight. Largest gaps first.</p><div id="gapbars"></div></div>
+    <div class="grid">
+      <div class="card"><h3>Penalty ceilings in play (the Act's Schedule)</h3><table><tr><th>Duty</th><th class="num">Ceiling</th><th>Position</th></tr>
+        <tr><td>Security safeguards — s.8(5)</td><td class="num">₹250 cr</td><td><span class="tag t-being">Being proven</span></td></tr>
+        <tr><td>Breach intimation — s.8(6), R.7</td><td class="num">₹200 cr</td><td><span class="tag t-dec">Declared only</span></td></tr>
+        <tr><td>Children's data — s.9</td><td class="num">₹200 cr</td><td><span class="tag t-pro">Proven</span></td></tr></table>
+        <p class="note">A ceiling is a statutory maximum, not a prediction.</p></div>
+      <div class="card"><h3>Three decisions for the Board</h3>
+        <div class="act"><i>1</i><div>Approve the breach playbook and name the incident lead<small>Unblocks BREACH (declared 6/8, proven 2/8)</small></div></div>
+        <div class="act"><i>2</i><div>Fund the processor contract review (14 vendors)<small>VENDOR: claims not yet backed by signed DPAs</small></div></div>
+        <div class="act"><i>3</i><div>Set the next Pulse for January and Proof of SECURITY by March<small>Keeps the 13 May 2027 path on track</small></div></div></div>
+    </div>
+  </section>
+
+  <!-- DPO -->
+  <section class="view" data-view="dpo" hidden>
+    <div class="lede"><h2>What to do this month</h2><p class="note">For the DPO: the five actions first, then every domain at a glance, the unknowns and the disagreements.</p></div>
+    <div class="grid">
+      <div class="card"><h3>Your five actions this month <span class="note">(ranked by rule: red flags → priority → penalty ceiling → legal clock)</span></h3><div id="five"></div></div>
+      <div class="card"><h3>What changed since the last Pulse (14 Sep → 12 Oct)</h3>
+        <table><tr><th>Domain</th><th>Then</th><th>Now</th><th>Why</th></tr>
+        <tr><td>Notice</td><td>Aware</td><td>Approved</td><td>New notice approved 3 Oct</td></tr>
+        <tr><td>Rights</td><td>Written down</td><td>In use</td><td>Request register live</td></tr>
+        <tr><td>Breach</td><td>I don't know</td><td>Written down</td><td>Unknown resolved</td></tr></table>
+        <p class="note">3 actions closed in between — expected movement shown dotted on the trend until re-checked.</p></div>
+    </div>
+    <div class="card"><h3>All 16 domains</h3>
+      <div class="legend"><span><i class="sw" style="background:var(--l0)"></i>Not started</span><span><i class="sw" style="background:var(--l1)"></i>Aware</span><span><i class="sw" style="background:var(--l2)"></i>Written down</span><span><i class="sw" style="background:var(--l3)"></i>Approved</span><span><i class="sw" style="background:var(--l4)"></i>In use</span><span><i class="sw" style="background:var(--l5)"></i>Checked regularly</span></div>
+      <div class="strip" id="strip"></div>
+      <p class="note">Colour = declared level (average of the domain's Pulse answers). The chip = how far it is proven. "How sure" comes from the "How do you know?" spot checks — it never changes the score.</p></div>
+    <div class="grid">
+      <div class="card"><h3>Unknowns to resolve (4)</h3><table><tr><th>Question</th><th>Asked to</th></tr>
+        <tr><td>Do processors return or delete data at contract end?</td><td>Procurement</td></tr>
+        <tr><td>Are access logs kept for one year (R.6(1)(e))?</td><td>IT</td></tr>
+        <tr><td>Who answers rights requests in branches?</td><td>Operations</td></tr>
+        <tr><td>Is any data stored outside India?</td><td>IT</td></tr></table><p class="note">"I don't know" counts as 0 and becomes a task (unknown behaves as risk).</p></div>
+      <div class="card"><h3>Team disagreements (2)</h3><table><tr><th>Question</th><th>IT says</th><th>HR says</th></tr>
+        <tr><td>Staff access is removed on exit</td><td>In use</td><td>Aware</td></tr>
+        <tr><td>Breach roles are assigned</td><td>Approved</td><td>Not started</td></tr></table><p class="note">Two answers 2+ levels apart become a finding; the coordinator settles it.</p></div>
+    </div>
+  </section>
+
+  <!-- OWNER -->
+  <section class="view" data-view="owner" hidden>
+    <div class="lede"><h2>Your part: Information Technology</h2><p class="note">For a department owner: only their questions, plain words, about 10 minutes. Try the answers.</p></div>
+    <div class="card"><div class="legend"><span id="ownprog">0 of 3 answered</span></div><div id="ownerqs"></div>
+      <p class="note">Each question shows why it matters and the provision; ✦ Explain opens plain-language help (never answers for you).</p></div>
+    <div class="grid">
+      <div class="card"><h3>Evidence you'll be asked for (when this domain is proven)</h3><table><tr><th>Item</th><th>For</th></tr>
+        <tr><td>Access review record, last quarter</td><td>SECURITY</td></tr><tr><td>Log retention setting screenshot (≥ 1 year)</td><td>SECURITY</td></tr><tr><td>Backup restore test report</td><td>SECURITY</td></tr></table></div>
+      <div class="card"><h3>Your actions</h3><div class="act"><i>1</i><div>Turn on 1-year log retention for core banking<small>Due 30 Nov · R.6(1)(e)</small></div></div></div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="view" data-view="result" hidden>
+    <div class="wl"><span class="logo">SK</span><span><b>Prepared by Shah &amp; Kulkarni, Chartered Accountants</b> · powered by TrustStack</span></div>
+    <div class="lede"><h2>Your DPDP Compass™ Pulse — 12 Oct 2026</h2><p class="note">Client-facing. Actions first, then the self-declared result. The result wording is fixed; a partner can change only the name and logo.</p></div>
+    <div class="grid">
+      <div class="card"><h3>Start here: five actions this month</h3><div id="five2"></div></div>
+      <div class="card"><div class="big"><div class="fig dec"><b>72</b><span>Declared score — self-declared, not verified</span></div><div class="fig"><b>4</b><span>unknowns to resolve</span></div></div>
+        <div id="ring"></div>
+        <p class="note">Band: "Defined" (readiness band, D-114). This is not a compliance certificate. Prove a domain to turn claims into an evidence-backed score.</p></div>
+    </div>
+    <div class="card"><h3>From Pulse to Proof</h3><div class="ladder">
+      <div class="rung"><b>Pulse</b><span class="note">Where do we stand? ~20 min, self-declared.</span><span class="tag t-dec">Done 12 Oct</span></div>
+      <div class="rung"><b>Proof</b><span class="note">What can we show? Domain by domain, evidence-backed.</span><span class="tag t-being">3 of 16 domains being proven</span></div>
+      <div class="rung"><b>Sentinel</b><span class="note">Still on track? Daily checks of the legal clocks.</span><span class="tag t-pro">Essentials on</span></div></div></div>
+  </section>
+
+  <!-- PARTNER -->
+  <section class="view" data-view="partner" hidden>
+    <div class="lede"><h2>Your clients</h2><p class="note">For a certified professional: every client's latest Pulse, what needs attention, and the practice pack in use.</p></div>
+    <div class="grid">
+      <div class="card"><div class="big"><div class="fig"><b>18</b><span>of 25 client organisations (Practice Plus)</span></div><div class="fig dec"><b>61</b><span>average declared score</span></div><div class="fig"><b>5</b><span>clients due for a Pulse</span></div></div></div>
+    </div>
+    <div class="card tbox"><table id="clients"><tr><th>Client</th><th>Declared</th><th>Trend</th><th>Proven</th><th class="num">Unknowns</th><th>Top action</th><th class="num">Days since Pulse</th></tr></table></div>
+  </section>
+
+  <!-- AUDITOR -->
+  <section class="view" data-view="auditor" hidden>
+    <div class="lede"><h2>Evidence-backed position</h2><p class="note">For an auditor or an inquiry (s.28): only proven figures, the reviewed evidence behind them, and Sentinel's ledger check.</p></div>
+    <div class="grid">
+      <div class="card"><div class="big"><div class="fig pro"><b>41</b><span>Proven score (live; last finalised 41 on 20 Oct)</span></div><div class="fig"><b>212</b><span>evidence items reviewed by someone other than the uploader</span></div></div>
+        <p class="note">Ledger check: 1,284 entries · chain verified ✓ (first a3f9…, last 7c21…)</p></div>
+      <div class="card"><h3>Evidence coverage by domain</h3><div id="cover"></div></div>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const D = [
+    ['GOV','Governance',7,6.2,4.0,'proven','sure'],['INV','Data inventory',8,5.6,2.4,'being','partly'],['ROPA','Processing register',6,4.8,3.6,'proven','sure'],
+    ['PURPOSE','Purpose & basis',7,5.2,2.1,'declared','not'],['NOTICE','Notice',7,5.6,3.9,'proven','sure'],['CONSENT','Consent',7,4.9,2.0,'declared','partly'],
+    ['RIGHTS','Rights',7,5.3,2.8,'being','partly'],['GRIEVANCE','Grievance',5,4.0,2.5,'being','sure'],['RETENTION','Retention',6,3.6,1.2,'declared','not'],
+    ['ACCURACY','Accuracy',4,3.2,1.6,'declared','partly'],['SECURITY','Security',10,7.6,3.0,'being','partly'],['BREACH','Breach',8,6.0,2.0,'declared','not'],
+    ['VENDOR','Processors',7,4.6,1.4,'declared','not'],['CHILD','Children',4,3.4,3.0,'proven','sure'],['CROSSBORDER','Cross-border',3,2.0,0.9,'declared','not'],['SDF_AI','SDF & AI',4,2.4,0.9,'declared','partly']];
+  const ACT = [['Name the breach incident lead and approve the playbook','Owner: CISO · due 15 Nov · red flag (BREACH) · ₹200 cr ceiling · R.7'],
+    ['Sign DPDP clauses with the 6 processors that hold customer data','Owner: Procurement · due 30 Nov · P0 · s.8(2), R.6(1)(f)'],
+    ['Keep access logs for one year on core banking','Owner: IT · due 30 Nov · red flag (SECURITY) · ₹250 cr · R.6(1)(e)'],
+    ['Decide the lawful basis for 4 processing records','Owner: DPO · due 10 Dec · P0 · s.4, s.7'],
+    ['Publish the retention schedule for loan files','Owner: Legal · due 15 Dec · P1 · s.8(7), R.8']];
+  const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x !== undefined) e.textContent = x; return e; };
+  const NS = 'http://www.w3.org/2000/svg';
+  const sv = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+
+  document.getElementById('days').textContent = Math.max(0, Math.ceil((new Date('2027-05-13') - new Date()) / 864e5));
+
+  // Trend: declared (dashed) vs proven (solid) + expected (dotted)
+  (function () {
+    const pts = [['Jul',48,null],['Aug',55,22],['Sep',63,30],['Oct',72,41]];
+    const W = 520, H = 200, L = 34, B = 26, T = 10, R = 12;
+    const x = (i) => L + i * ((W - L - R) / 4), y = (v) => H - B - (v / 100) * (H - B - T);
+    const s = sv('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%', role: 'img', 'aria-label': 'Declared and proven readiness, July to October, with expected movement' });
+    for (const g of [0, 25, 50, 75, 100]) { s.append(sv('line', { x1: L, x2: W - R, y1: y(g), y2: y(g), stroke: 'var(--line)' })); const t = sv('text', { x: 4, y: y(g) + 4 }); t.textContent = g; s.append(t); }
+    pts.forEach((p, i) => { const t = sv('text', { x: x(i) - 8, y: H - 6 }); t.textContent = p[0]; s.append(t); });
+    const path = (key, attrs) => { const d = pts.map((p, i) => p[key] == null ? null : `${x(i)},${y(p[key])}`).filter(Boolean); s.append(sv('polyline', { points: d.join(' '), fill: 'none', 'stroke-width': 2.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', ...attrs })); };
+    path(1, { stroke: 'var(--declared)', 'stroke-dasharray': '6 5' });
+    path(2, { stroke: 'var(--proven)' });
+    s.append(sv('line', { x1: x(3), y1: y(41), x2: x(4) - 4, y2: y(49), stroke: 'var(--declared)', 'stroke-dasharray': '2 4', 'stroke-width': 2 }));
+    const tx = sv('text', { x: x(3) + 6, y: y(49) - 6 }); tx.textContent = 'expected 49'; s.append(tx);
+    pts.forEach((p, i) => { s.append(sv('circle', { cx: x(i), cy: y(p[1]), r: 4, fill: 'var(--panel)', stroke: 'var(--declared)', 'stroke-width': 2 })); if (p[2] != null) s.append(sv('circle', { cx: x(i), cy: y(p[2]), r: 4, fill: 'var(--proven)' })); });
+    document.getElementById('trend').append(s);
+  })();
+
+  // Gap bars per domain
+  (function () {
+    const rows = D.slice().sort((a, b) => (b[3] - b[4]) - (a[3] - a[4]));
+    const W = 760, rh = 22, L = 150, H = rows.length * rh + 8, R = 130;
+    const max = 10, x = (v) => L + (v / max) * (W - L - R);
+    const s = sv('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%', role: 'img', 'aria-label': 'Declared versus proven score by domain' });
+    rows.forEach((r, i) => {
+      const yy = i * rh + 4; const t = sv('text', { x: 0, y: yy + 13 }); t.textContent = r[1]; s.append(t);
+      s.append(sv('rect', { x: L, y: yy + 2, width: x(r[2]) - L, height: 14, rx: 3, fill: 'var(--soft)' }));
+      s.append(sv('rect', { x: L, y: yy + 2, width: x(r[3]) - L, height: 14, rx: 3, fill: 'none', stroke: 'var(--declared)', 'stroke-width': 1.5, 'stroke-dasharray': '4 3' }));
+      s.append(sv('rect', { x: L, y: yy + 5, width: x(r[4]) - L, height: 8, rx: 2, fill: 'var(--proven)' }));
+      const v = sv('text', { x: W - R + 10, y: yy + 13 }); v.textContent = `${r[3].toFixed(1)} vs ${r[4].toFixed(1)} of ${r[2]}`; s.append(v);
+    });
+    document.getElementById('gapbars').append(s);
+  })();
+
+  // Five actions
+  for (const id of ['five', 'five2']) { const box = document.getElementById(id); ACT.forEach((a, i) => { const d = el('div', 'act'); d.append(el('i', '', i + 1)); const t = el('div', '', a[0]); t.append(el('small', '', a[1])); d.append(t); box.append(d); }); }
+
+  // 16-domain strip
+  const lvl = (avg) => `var(--l${Math.min(5, Math.max(0, Math.round(avg)))})`;
+  const st = { proven: ['Proven', 't-pro'], being: ['Being proven', 't-being'], declared: ['Declared', 't-dec'] };
+  D.forEach((r) => { const avg = (r[3] / r[2]) * 5; const c = el('div', 'cell'); c.style.background = lvl(avg); c.append(el('b', '', r[1])); const chip = el('span', `tag ${st[r[5]][1]}`, st[r[5]][0]); chip.style.background = 'var(--panel)'; c.append(chip); c.append(el('span', '', `How sure: ${r[6] === 'sure' ? 'sure' : r[6] === 'partly' ? 'partly sure' : 'not sure'}`)); document.getElementById('strip').append(c); });
+
+  // Owner questions (interactive)
+  const OPTS = ['Not started', 'Aware', 'Written down', 'Approved', 'In use', 'Checked regularly', "I don't know"];
+  const QS = [['Who can see customer data is reviewed every quarter', 'Why it matters: stale access is the commonest cause of breaches. R.6(1)(b)'],
+    ['Access logs are kept for at least one year', 'Why it matters: needed to detect and investigate misuse. R.6(1)(e), R.8(3)'],
+    ['Backups are tested by restoring them', 'Why it matters: keeps services running after an incident. R.6(1)(d)']];
+  const answered = new Set();
+  QS.forEach((q, qi) => { const box = el('div', 'q'); box.append(el('b', '', q[0])); box.append(el('span', 'note', q[1] + ' · ✦ Explain')); const o = el('div', 'opts'); OPTS.forEach((t) => { const b = el('button', '', t); b.type = 'button'; b.setAttribute('aria-pressed', 'false'); b.addEventListener('click', () => { o.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', 'false')); b.setAttribute('aria-pressed', 'true'); answered.add(qi); document.getElementById('ownprog').textContent = `${answered.size} of ${QS.length} answered`; }); o.append(b); }); box.append(o); document.getElementById('ownerqs').append(box); });
+
+  // Ring (declared by domain group)
+  (function () {
+    const groups = [['Governance & data', 33, 24.4], ['People-facing', 26, 18.8], ['Security & vendors', 25, 18.2], ['Special risk', 16, 10.6]];
+    const W = 360, H = 120; const s = sv('svg', { viewBox: `0 0 ${W} ${H}`, width: '100%', role: 'img', 'aria-label': 'Declared score by area' });
+    groups.forEach((g, i) => { const y = i * 28 + 8; const t = sv('text', { x: 0, y: y + 12 }); t.textContent = g[0]; s.append(t); s.append(sv('rect', { x: 130, y, width: 180, height: 14, rx: 3, fill: 'var(--soft)' })); s.append(sv('rect', { x: 130, y, width: 180 * g[2] / g[1], height: 14, rx: 3, fill: 'none', stroke: 'var(--declared)', 'stroke-width': 1.5, 'stroke-dasharray': '4 3' })); const v = sv('text', { x: 316, y: y + 12 }); v.textContent = `${Math.round(100 * g[2] / g[1])}%`; s.append(v); });
+    document.getElementById('ring').append(s);
+  })();
+
+  // Partner clients table with sparklines
+  const CL = [['Sahyadri Co-operative Bank', 72, [48, 55, 63, 72], 41, 4, 'Breach incident lead', 17], ['Konkan Diagnostics', 58, [40, 52, 58], 0, 6, 'Lawful basis for patient records', 33],
+    ['Deccan Polytechnic', 66, [61, 66], 22, 3, "Parental consent for under-18s", 48], ['Malabar Traders', 44, [44], 0, 9, 'Publish a privacy notice', 95], ['Vidarbha Logistics', 51, [39, 51], 0, 5, 'Processor contracts', 71]];
+  const tb = document.getElementById('clients');
+  CL.forEach((c) => { const tr = el('tr'); tr.append(el('td', '', c[0])); const d = el('td'); d.append(el('span', 'tag t-dec', `${c[1]} declared`)); tr.append(d);
+    const sp = el('td'); const s = sv('svg', { viewBox: '0 0 80 22', width: 80, height: 22, role: 'img', 'aria-label': 'Declared trend' }); const pts = c[2].map((v, i, a) => `${a.length === 1 ? 40 : 4 + i * (72 / (a.length - 1))},${20 - v / 5}`); s.append(sv('polyline', { points: pts.join(' '), fill: 'none', stroke: 'var(--declared)', 'stroke-width': 2, 'stroke-dasharray': '4 3' })); sp.append(s); tr.append(sp);
+    const p = el('td'); p.append(c[3] ? el('span', 'tag t-pro', `${c[3]} proven`) : el('span', 'note', 'not started')); tr.append(p);
+    tr.append(el('td', 'num', c[4])); tr.append(el('td', '', c[5])); const ds = el('td', 'num', c[6]); if (c[6] > 60) ds.style.color = 'var(--warn)'; tr.append(ds); tb.append(tr); });
+
+  // Coverage bars (auditor)
+  (function () {
+    const rows = D.filter((r) => r[5] !== 'declared'); const W = 420, rh = 22, L = 130; const s = sv('svg', { viewBox: `0 0 ${W} ${rows.length * rh + 6}`, width: '100%', role: 'img', 'aria-label': 'Share of questions with reviewed evidence by domain' });
+    rows.forEach((r, i) => { const y = i * rh + 3; const pct = r[5] === 'proven' ? 100 : Math.round(30 + (r[4] / r[2]) * 60); const t = sv('text', { x: 0, y: y + 13 }); t.textContent = r[1]; s.append(t); s.append(sv('rect', { x: L, y: y + 2, width: 240, height: 14, rx: 3, fill: 'var(--soft)' })); s.append(sv('rect', { x: L, y: y + 2, width: 240 * pct / 100, height: 14, rx: 3, fill: 'var(--proven)' })); const v = sv('text', { x: L + 246, y: y + 13 }); v.textContent = `${pct}%`; s.append(v); });
+    document.getElementById('cover').append(s);
+  })();
+
+  // Tabs
+  const tabs = document.querySelectorAll('[role="tab"]');
+  const show = (v) => { tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.v === v))); document.querySelectorAll('.view').forEach((s) => { s.hidden = s.dataset.view !== v; }); };
+  tabs.forEach((t) => t.addEventListener('click', () => show(t.dataset.v)));
+  const fromHash = () => { const h = location.hash.slice(1); if ([...tabs].some((t) => t.dataset.v === h)) show(h); };
+  fromHash(); window.addEventListener('hashchange', fromHash);
+})();
+</script>
+</body>
+</html>

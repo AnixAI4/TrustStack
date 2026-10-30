@@ -1,0 +1,137 @@
+[
+  {
+    "at": "2026-10-28T11:26:25+00:00",
+    "note": "Tracker created: 68 consolidated features (Steps 1–2 approved), checked against main; standalone HTML page added.",
+    "commit": "e41dde2"
+  },
+  {
+    "at": "2026-10-28T11:30:42+00:00",
+    "note": "Step 3 written: Sentinel design — 23 controls (17 on data held today), ledger, applicability tiers, build stages S1–S6; F-05 multi-entity now partly built (parent link found).",
+    "commit": "e41dde2"
+  },
+  {
+    "at": "2026-10-28T12:05:03+00:00",
+    "note": "Step 3 approved (Q1–Q6 as recommended): no Sentinel score; Essentials in core; tiers Essentials·Lite·Sentinel·Critical; 12-month/30-day defaults; legal-clock alerts always on; order 12 (+S1) → 13 → Sentinel S2–S3 → 14.",
+    "commit": "e41dde2"
+  },
+  {
+    "at": "2026-10-28T12:08:17+00:00",
+    "note": "Step 4 written: market research — 6 competitor groups, table stakes, 8 differentiators, gaps (consent at scale, discovery, on-prem), proposed position 'the DPDP assurance platform that proves it'.",
+    "commit": "e41dde2"
+  },
+  {
+    "at": "2026-10-28T12:14:10+00:00",
+    "note": "Step 4 approved. Step 5 written: five-layer industry model; finding — only Core + University packs approved (9 overlays draft, 6 risk packs empty); pack factory and order BFSI → Healthcare → Public sector.",
+    "commit": "e41dde2"
+  },
+  {
+    "at": "2026-10-28T12:18:15+00:00",
+    "note": "Step 5 approved. Step 6 written: build sequence — 12 (+S1) → 12.5 Packs I → 13 → 13.5 Sentinel → 14 launch mid-Dec → 15 client-hosted Jan; Phase B before 13 May 2027; Phase C after. Every row's 'Where / when' updated.",
+    "commit": "e41dde2"
+  },
+  {
+    "at": "2026-10-28T12:20:04+00:00",
+    "note": "Step 6 approved. Step 7 written: executive summary, sales story ('the DPDP assurance platform that proves it'), top 10 must-win features, risks, sign-off.",
+    "commit": "e41dde2"
+  },
+  {
+    "at": "2026-10-28T12:22:17+00:00",
+    "note": "Step 6 Q5 done: PR #43 merged (analysis + tracker on main); sequence written into SLICES.md, Slice 12 (+§4.13 Sentinel S1), stubs 12.5 / 13.5 / Track M; D-141.",
+    "commit": "8a82ef9"
+  },
+  {
+    "at": "2026-10-28T12:31:44+00:00",
+    "note": "Step 7 approved — consolidated analysis closed (D-142). Next: 'SLICE_12 approved' (Reassessment + Sentinel tier card).",
+    "commit": "4a931f8"
+  },
+  {
+    "at": "2026-10-29T02:17:02+00:00",
+    "note": "Multi-level assessment (F-69) started. Step 1 written: Pulse can reuse the engine (pluggable cap rule), question metadata and gaps; needs a declared score, Pulse marker, 'I don't know', assignment, per-domain proven state; overlaps Slice 12.",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T02:20:56+00:00",
+    "note": "Multi-level assessment Step 1 approved; Step 2 written: market research — quick scores are a commodity; nobody shows declared vs proven, team answering, or evidence-capped scores; avoid pass/fail and 'compliant'.",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T03:29:05+00:00",
+    "note": "Combined programme approved (business models + multi-level assessment). Step B1 written: Tally, Zoho, ClearTax, Vanta, OneTrust, DSCI analogues — 10 lessons; network is the moat; wholesale pricing not commission; practice packs by client count.",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T04:52:18+00:00",
+    "note": "Step B1 approved. Step B2 written: professional rules — no commissions or paid leads for CAs/CSs/advocates; four lawful routes (practice licence, invite-your-professional, academy, authorised partners for unregulated firms).",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T04:57:41+00:00",
+    "note": "Step B2 approved. Step B3 written: 8 segments, 16 revenue streams, editions Essentials/Professional/Enterprise + Practice Starter/Plus/Firm, flywheel, channel rules, launch waves.",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T04:59:51+00:00",
+    "note": "Step B3 approved. Step B4 written: partner programme — Pulse Practitioner + Proof Assessor certifications with practical exam, starter kit, earned recognition, authorised partner tiers, quality system, B2-safe directory, data roles, journeys.",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T05:06:17+00:00",
+    "note": "Step B4 approved. Step B5 written: operating model — NewCo runs partners/Academy, LLP builds and licenses the TrustStack mark; value streams V1–V7; partners as L1 support; tools by wave; trigger-based hires; KPIs.",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T05:11:42+00:00",
+    "note": "Step B5 approved. Step B6 written: price list (Essentials ₹24–60k; Practice ₹24k/75k/2L; Level 1 ₹17,999 incl. Starter year 1), unit economics, CA earns ~₹10L on ~13% tool cost, 3-year partner/Academy scenarios (Base ₹1.4 / 7.0 / 21.8 cr).",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T05:15:34+00:00",
+    "note": "Step B6 approved. Step B7 written: platform requirements P-1–P-16 (partner workspace via membership, client access page, entitlements, sign-up, billing, ethics in the DB, white-label, Academy, directory, console); register gains F-70–F-78; F-63/F-64/F-65/F-68 promoted to NEW.",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T05:17:46+00:00",
+    "note": "Step B7 approved; Phase I closed. Assessment Step 2 decisions revisited (first Pulse free after sign-up; result wording locked for white-label). Step 3 written: Pulse → Proof → Sentinel design (questions, answers, declared score, five actions, repeats, Team Pulse, prove by domain, guardrails, data model).",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T05:21:29+00:00",
+    "note": "Assessment Steps 2 and 3 approved. Step 4 written: Pulse/Proof visuals mock-up (6 audience views, one visual language: declared purple dashed, proven green solid) — docs/reference/assessment_visuals/PULSE_PROOF_VISUALS.html.",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T05:34:38+00:00",
+    "note": "Step 4 approved. Step 4b built: production-grade visual journey report from real data (98-answer validated baseline scored by the engine + demo registers) — 15 interactive charts; generator tools/visual_report.mjs; F-79 added.",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T05:48:10+00:00",
+    "note": "Step 4b charts redesigned to a professional standard (validated palette, table views, label/clipping fixes, overdue retention accuracy fix)",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T13:47:40+00:00",
+    "note": "Step 4b approved; Step 5 AI use cases and guardrails written, awaiting approval",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T17:13:30+00:00",
+    "note": "Step 5 approved; Step 6 simplicity check written (12 planned surfaces scored, fixes S1-S12), awaiting approval",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T17:21:31+00:00",
+    "note": "Step 6 approved; Step 7 implementation plan: Pulse as Slice 12.3, SLICE_12_3 prompt, D-143, U48-U59; awaiting approval",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T17:23:13+00:00",
+    "note": "Step 7 approved (D-144): combined programme closed; Pulse = Slice 12.3; branch merged",
+    "commit": "af49230"
+  },
+  {
+    "at": "2026-10-29T17:41:23+00:00",
+    "note": "Combined programme merged to main (PR #46, 0bad5ae); cost model Partner & Academy sheet added outside the repo",
+    "commit": "0bad5ae"
+  }
+]

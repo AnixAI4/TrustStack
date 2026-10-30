@@ -1,0 +1,40 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Dependencies / build
+node_modules/
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+.turbo/
+coverage/
+packages/db/src/generated/
+next-env.d.ts
+supabase/.temp/
+supabase/.branches/
+playwright-report/
+test-results/
+.vercel/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Office lock files
+~$*
+
+# Local scratch
+*.local
+tmp/
+scratch/
+
+# Claude Code: local settings and session worktrees
+.claude/settings.local.json
+.claude/worktrees/

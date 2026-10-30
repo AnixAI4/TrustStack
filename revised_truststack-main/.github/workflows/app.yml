@@ -1,0 +1,703 @@
+name: app
+
+# Slice Contract gates 2–5 and 9 in CI. Integration runs against an ephemeral
+# local Supabase (Postgres + Auth + PostgREST in Docker) — CI needs no secrets
+# and every run proves the migrations apply to an empty database.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: app-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SUPABASE_CLI_VERSION: 2.117.0
+  # Local-stack-only value. Not a secret: it protects example.com users in a
+  # container that exists for the length of this job.
+  SEED_USER_PASSWORD: ci-local-only-Passw0rd-not-secret
+  # Same reasoning: signs active-org cookies for a server that lives one job.
+  ACTIVE_ORG_COOKIE_SECRET: ci-local-only-cookie-hmac-key-not-a-secret-0123456789
+  # Slice 11: the AI gateway runs against the recorded fake — no live model call
+  # in CI, and no key (SLICE_11 §0.4). The kill switch is on for this job only.
+  AI_ENABLED: "true"
+  AI_PROVIDER: fake
+
+jobs:
+  # D-132: Actions minutes are metered past the free 2,000 a month. A push that changes only
+  # documents (docs/**, *.md) skips the two heavy jobs — nothing in them reads a document at run
+  # time (the question packs and the Act reach the code only through generated files under apps/
+  # and packages/). Judged per PUSH, not per PR: a pull_request's path filter sees the whole PR.
+  # A first push, a force-push or anything unclear runs everything.
+  changes:
+    name: what changed
+    runs-on: ubuntu-latest
+    outputs:
+      code: ${{ steps.diff.outputs.code }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: diff
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            echo "code=true" >> "$GITHUB_OUTPUT"; echo "No usable earlier commit: run everything."; exit 0
+          fi
+          changed=$(git diff --name-only "$BEFORE" "$AFTER")
+          echo "$changed"
+          if echo "$changed" | grep -qvE '^docs/|\.md$'; then
+            echo "code=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "code=false" >> "$GITHUB_OUTPUT"; echo "Documents only: the app's checks are skipped for this push."
+          fi
+
+  quality:
+    name: typecheck · unit · service-role guard
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: ubuntu-latest
+    env:
+      # Prisma's config needs a URL to load; nothing connects in this job.
+      DIRECT_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @truststack/db generate
+      - name: packages/core stays framework-free (D-004)
+        run: |
+          if grep -rnE "from ['\"](next|react|react-dom|@supabase/|@prisma/|pg)['\"/]" packages/core/src; then
+            echo "::error::packages/core must not import frameworks or I/O clients"; exit 1
+          fi
+      - name: No route groups under app/ (D-012 — they bypass middleware)
+        run: |
+          if find apps/web/app -type d -name '(*)' | grep .; then
+            echo "::error::route group found — use a plain folder so middleware matches"; exit 1
+          fi
+      - run: pnpm typecheck
+      - run: pnpm test:unit
+      - run: pnpm check:secrets
+
+  integration:
+    name: migrations · RLS gate 5 · API gate 5 · e2e
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: supabase/setup-cli@v1
+        with:
+          version: ${{ env.SUPABASE_CLI_VERSION }}
+      - run: pnpm install --frozen-lockfile
+
+      # Storage joined in Slice 4: the evidence bucket, its policies and signed
+      # URLs are tested for real, not mocked. It creates the `storage` schema
+      # the evidence migration writes its bucket and policies into.
+      - name: Start local Supabase (db, auth, rest, storage, gateway)
+        run: supabase start -x studio,imgproxy,realtime,edge-runtime,logflare,vector,supavisor,postgres-meta,mailpit
+
+      - name: Export local Supabase env
+        run: |
+          supabase status -o env > /tmp/sb.env
+          set -a; . /tmp/sb.env; set +a
+          {
+            echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL"
+            echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$ANON_KEY"
+            echo "SUPABASE_SERVICE_ROLE_KEY=$SERVICE_ROLE_KEY"
+            echo "DATABASE_URL=$DB_URL"
+            echo "DIRECT_URL=$DB_URL"
+          } >> "$GITHUB_ENV"
+
+      - name: Migrations apply to an empty database
+        run: pnpm db:migrate
+
+      - name: Seed is idempotent
+        run: |
+          pnpm db:seed
+          pnpm db:seed
+          n=$(psql "$DATABASE_URL" -tAc "select (select count(*) from organizations) || '/' || (select count(*) from users) || '/' || (select count(*) from organization_users) || '/' || (select count(*) from audit_logs) || '/' || (select count(*) from roles) || '/' || (select count(*) from permissions) || '/' || (select count(*) from role_permissions) || '/' || (select count(*) from industries) || '/' || (select count(*) from departments) || '/' || (select count(*) from systems) || '/' || (select count(*) from vendors) || '/' || (select count(*) from vendor_systems) || '/' || (select count(*) from data_principal_types) || '/' || (select count(*) from organization_scopes) || '/' || (select count(*) from dpdp_domains) || '/' || (select count(*) from question_packs) || '/' || (select count(*) from questions) || '/' || (select count(*) from question_versions) || '/' || (select count(*) from assessments) || '/' || (select count(*) from assessment_questions) || '/' || (select count(*) from assessment_responses) || '/' || (select count(*) from evidence) || '/' || (select count(*) from evidence_links) || '/' || (select count(*) from assessment_score_snapshots) || '/' || (select count(*) from assessment_domain_scores) || '/' || (select count(*) from assessment_gaps) || '/' || (select count(*) from gap_actions) || '/' || (select count(*) from ropa_records) || '/' || (select count(*) from ropa_systems) || '/' || (select count(*) from ropa_vendors) || '/' || (select count(*) from ropa_gaps) || '/' || (select count(*) from breach_incidents) || '/' || (select count(*) from rights_requests) || '/' || (select count(*) from privacy_notices) || '/' || (select count(*) from consent_configs) || '/' || (select count(*) from consent_records) || '/' || (select count(*) from vendor_assessments) || '/' || (select count(*) from vendor_assessment_answers) || '/' || (select count(*) from vendor_assessment_links) || '/' || (select count(*) from retention_schedules) || '/' || (select count(*) from retention_erasures) || '/' || (select count(*) from ai_systems)")
+          echo "orgs/users/memberships/audit/roles/permissions/role_permissions/industries/departments/systems/vendors/vendor_systems/dp_types/scopes/domains/packs/questions/versions/assessments/assessment_questions/responses/evidence/evidence_links/snapshots/domain_scores/gaps/gap_actions/ropa_records/ropa_systems/ropa_vendors/ropa_gaps/breach_incidents/rights_requests/privacy_notices/consent_configs/consent_records/vendor_assessments/vendor_answers/vendor_links/retention_schedules/retention_erasures/ai_systems = $n"
+          # The two zeros are deliberate: the seed finalises nothing, because
+          # finalising needs every question answered (D-041). The trailing 1/1
+          # is the ONE gap and its action, derived from the one seeded answer.
+          # Slice 7: MU's ten workbook ROPA records, 10 system links, 1 vendor
+          # link — and NO ROPA gap, which is generated on request (D-062).
+          # Slice 8: one permission (question.read_bank) granted to two roles (D-068).
+          # Slice 10: breach.read (ten roles) and breach.write (eight); MU's one
+          # past breach and its one remedial action (the second gap action).
+          # Slice 10 Stage 2: rights.read (ten roles) and rights.write (eight);
+          # MU's access request and grievance, the grievance's action (the third).
+          # Slice 10 Stage 3b: consent.read (ten roles), consent.write (eight),
+          # consent.publish (five); MU's notice v1, widget v1, and three consents.
+          # Slice 10 Stage 4a: vendor.assess (eight roles) and vendor.review (six);
+          # the payment gateway's two documents (evidence 3, links 3); MU's two
+          # processor assessments (accepted, awaiting review), 45 answers each.
+          # Slice 10 Stage 4b: the proctoring vendor's assessment, answered by the
+          # vendor through one used link (45 answers), and its own upload
+          # (evidence 4, links 4).
+          # Slice 10 Stage 5: retention.read (ten roles) and retention.write (eight);
+          # a schedule for each of MU's ten records, one erasure, the overdue
+          # erasure's action (the fourth gap action), and the AI proctoring row.
+          [ "$n" = "2/9/10/2/10/41/286/10/10/11/4/5/8/2/16/20/1527/1527/1/124/1/4/4/0/0/1/4/10/10/1/0/1/2/1/1/3/3/135/1/10/1/1" ] || { echo "::error::seed is not idempotent or counts changed ($n)"; exit 1; }
+
+      - name: DPDP invariant — active domain weights total exactly 100 (D-006)
+        run: |
+          t=$(psql "$DATABASE_URL" -tAc "select round(sum(weight), 2) from dpdp_domains")
+          echo "domain weight total = $t"
+          [ "$t" = "100.00" ] || { echo "::error::DOMAIN_WEIGHT_TOTAL_INVALID: domain weights total $t, expected 100.00"; exit 1; }
+
+      - name: The question bank is reference data — no user write grant (D-020)
+        run: |
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and grantee = 'authenticated'
+              and table_name in ('dpdp_domains','question_packs','questions','question_versions','assessment_questions')
+              and privilege_type <> 'SELECT'")
+          if [ -n "$bad" ]; then echo "::error::the bank or the snapshot is writable by users: $bad"; exit 1; fi
+
+      - name: The black box is the database's — no client reads the bank or provenance (D-071)
+        run: |
+          # No table-level SELECT left on the provenance tables, and none of the
+          # provenance columns granted to a user role.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and grantee in ('anon', 'authenticated') and privilege_type = 'SELECT'
+              and table_name in ('assessment_questions', 'assessments', 'industries')
+            union all
+            select table_name || '.' || column_name from information_schema.column_privileges
+            where table_schema = 'public' and grantee in ('anon', 'authenticated') and privilege_type = 'SELECT'
+              and ((table_name = 'assessment_questions' and column_name in ('pack_code', 'included_reason'))
+                or (table_name = 'assessments' and column_name = 'pack_codes')
+                or (table_name = 'industries' and column_name = 'overlay_pack_code'))")
+          if [ -n "$bad" ]; then echo "::error::provenance is readable by a user role: $bad"; exit 1; fi
+          # Every SELECT policy on the bank tables requires question.read_bank.
+          open=$(psql "$DATABASE_URL" -tAc "
+            select tablename || ':' || policyname from pg_policies
+            where schemaname = 'public' and cmd in ('SELECT', 'ALL')
+              and tablename in ('question_packs', 'questions', 'question_versions')
+              and coalesce(qual, '') not like '%question.read_bank%'")
+          if [ -n "$open" ]; then echo "::error::a bank table is readable without question.read_bank: $open"; exit 1; fi
+
+      - name: The evidence cap is the database's — no user may write a derived score (Slice 4)
+        run: |
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || '.' || column_name || ':' || privilege_type from information_schema.column_privileges
+            where table_schema = 'public' and grantee in ('anon', 'authenticated')
+              and privilege_type in ('INSERT', 'UPDATE')
+              and ((table_name = 'assessment_responses' and column_name in ('adjusted_score', 'evidence_level', 'answered_by', 'answered_at'))
+                or (table_name = 'evidence' and column_name in ('reviewed_by', 'reviewed_at', 'uploaded_by', 'storage_path') and privilege_type = 'UPDATE'))")
+          if [ -n "$bad" ]; then echo "::error::a derived or stamped column is user-writable: $bad"; exit 1; fi
+          s=$(psql "$DATABASE_URL" -tAc "select app.adjusted_score(5, 0) || '/' || app.adjusted_score(4, 1) || '/' || app.adjusted_score(4, 2) || '/' || app.adjusted_score(5, null)")
+          echo "cap: claim5+E0 / claim4+E1 / claim4+E2 / claim5+unreviewed = $s"
+          [ "$s" = "1/2/2/1" ] || { echo "::error::the evidence cap is wrong ($s)"; exit 1; }
+
+      - name: The evidence bucket is private and nobody may overwrite or delete an artefact (D-042)
+        run: |
+          p=$(psql "$DATABASE_URL" -tAc "select public from storage.buckets where id = 'evidence'")
+          [ "$p" = "f" ] || { echo "::error::evidence bucket missing or public ($p)"; exit 1; }
+          bad=$(psql "$DATABASE_URL" -tAc "select policyname from pg_policies where schemaname = 'storage' and tablename = 'objects' and cmd in ('UPDATE', 'DELETE', 'ALL')")
+          if [ -n "$bad" ]; then echo "::error::storage.objects has an UPDATE/DELETE policy: $bad"; exit 1; fi
+
+      - name: The scoring engine in SQL is the one the spec describes (Slice 5)
+        run: |
+          # Red flags at <= 2 (D-046), seven of them, lowest cap 50.
+          f=$(psql "$DATABASE_URL" -tAc "select app.red_flag_max_adjusted() || '/' || (select count(*) from app.red_flags()) || '/' || (select min(cap) from app.red_flags())")
+          echo "red flags: threshold / count / lowest cap = $f"
+          [ "$f" = "2/7/50" ] || { echo "::error::the red-flag table is wrong ($f)"; exit 1; }
+          # The bands, at every boundary — each belongs to the LOWER band.
+          b=$(psql "$DATABASE_URL" -tAc "select app.maturity_band(0.2) || '|' || app.maturity_band(0.4) || '|' || app.maturity_band(0.75) || '|' || app.maturity_band(0.9001)")
+          echo "bands at 0.20 / 0.40 / 0.75 / 0.9001 = $b"
+          [ "$b" = "Level 0 - Not Started|Level 1 - Aware|Level 3 - Implementing|Level 5 - Continuous Assurance" ] \
+            || { echo "::error::the maturity bands are wrong ($b)"; exit 1; }
+          # Severity is read off the ADJUSTED score, so an unevidenced claim of
+          # 5 is High, not Critical.
+          s=$(psql "$DATABASE_URL" -tAc "select app.question_severity(app.adjusted_score(5, null)) || '/' || app.question_severity(0) || '/' || app.question_severity(2)")
+          echo "severity: claim5+E0 / 0 / 2 = $s"
+          [ "$s" = "high/critical/medium" ] || { echo "::error::the severity ladder is wrong ($s)"; exit 1; }
+
+      - name: A finalised score is evidence — no user may write one (Slice 5)
+        run: |
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and grantee in ('anon', 'authenticated')
+              and table_name in ('assessment_score_snapshots', 'assessment_domain_scores')
+              and privilege_type <> 'SELECT'")
+          if [ -n "$bad" ]; then echo "::error::a snapshot table is user-writable: $bad"; exit 1; fi
+          # And nothing may edit one, including tooling: both tables carry the
+          # immutability trigger.
+          n=$(psql "$DATABASE_URL" -tAc "
+            select count(*) from pg_trigger t join pg_class c on c.oid = t.tgrelid
+            where c.relname in ('assessment_score_snapshots', 'assessment_domain_scores')
+              and t.tgname like '%_immutable' and not t.tgisinternal")
+          [ "$n" = "2" ] || { echo "::error::a snapshot table has no immutability trigger ($n of 2)"; exit 1; }
+
+      - name: A stored exposure snapshot is evidence — derived in SQL, written by one RPC, immutable (Slice 9)
+        run: |
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and grantee in ('anon', 'authenticated')
+              and table_name = 'exposure_snapshots' and privilege_type <> 'SELECT'")
+          if [ -n "$bad" ]; then echo "::error::exposure_snapshots is user-writable: $bad"; exit 1; fi
+          n=$(psql "$DATABASE_URL" -tAc "
+            select count(*) from pg_trigger t join pg_class c on c.oid = t.tgrelid
+            where c.relname = 'exposure_snapshots' and t.tgname = 'exposure_snapshots_immutable' and not t.tgisinternal")
+          [ "$n" = "1" ] || { echo "::error::exposure_snapshots has no immutability trigger"; exit 1; }
+          # The model's version, thresholds and the forecast's seed, straight from SQL.
+          v=$(psql "$DATABASE_URL" -tAc "select app.exposure_model_version() || '/' || (select exposed_below_percent || '/' || mitigated_min_percent || '/' || mitigated_min_confidence from app.exposure_thresholds()) || '/' || (select seed from app.exposure_forecast_config())")
+          echo "exposure model / thresholds / seed = $v"
+          # Slice 10: one minor version per stage (D-079.6) — Stage 1 is 1.1.0, Stage 2 1.2.0, Stage 3b 1.3.0, Stage 4a 1.4.0, Stage 5 1.5.0,
+          # Stage 6 1.6.0 (Aniket's change at the gate: a recorded breach assesses head 2, D-098).
+          # Slice 10.5 B4 1.7.0 (Q1, D-104.1): breach, rights and retention actions count in the forecast's outstanding work.
+          [ "$v" = "1.7.0/0.4/0.6/60/20270513" ] || { echo "::error::the exposure model in SQL is not 1.7.0 as approved ($v)"; exit 1; }
+
+      - name: A breach's clock is the database's, and a breach is never deleted (Slice 10, Stage 1)
+        run: |
+          # Rule 7(2)(b): 72 hours — statute, from SQL.
+          h=$(psql "$DATABASE_URL" -tAc "select app.breach_board_report_hours()")
+          [ "$h" = "72" ] || { echo "::error::the Board report period is not 72 hours ($h)"; exit 1; }
+          # No user may delete a breach, nor write its code, its due time or any stamp.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and grantee in ('anon', 'authenticated')
+              and table_name = 'breach_incidents' and privilege_type not in ('SELECT', 'INSERT', 'UPDATE')
+            union all
+            select table_name || '.' || column_name || ':' || privilege_type from information_schema.column_privileges
+            where table_schema = 'public' and grantee in ('anon', 'authenticated') and table_name = 'breach_incidents'
+              and privilege_type in ('INSERT', 'UPDATE')
+              and (column_name in ('incident_code', 'board_report_due_at', 'created_by', 'updated_by', 'closed_at', 'closed_by')
+                   or column_name like '%_recorded_%'
+                   or (column_name = 'aware_at' and privilege_type = 'UPDATE')
+                   or (column_name = 'status' and privilege_type = 'INSERT'))")
+          if [ -n "$bad" ]; then echo "::error::the breach register exposes a derived or stamped column: $bad"; exit 1; fi
+          # The model reads the register: two breach rows (1.1.0) and a recorded breach assessing head 2 (1.6.0, D-098), repetition +1/+2 on head 2.
+          m=$(psql "$DATABASE_URL" -tAc "select (select string_agg(code || ':' || effect, ',' order by ord) from app.exposure_module_inputs() where register = 'Breach register') || '/' || (select points || '/' || repeated_points || '/' || only_head from app.exposure_position_factors() where code = 'repetition')")
+          [ "$m" = "breach_board_overdue:exposed,breach_principals_pending:not_mitigated,breach_recorded:assessed/1/2/H2" ] || { echo "::error::the breach rows in SQL are not as approved ($m)"; exit 1; }
+
+      - name: A request's clock is the database's, anon reaches nothing, and nothing is deleted (Slice 10, Stage 2)
+        run: |
+          # Rule 14(3): ninety days — statute; thirty days — TrustStack's target, from SQL.
+          d=$(psql "$DATABASE_URL" -tAc "select app.rights_ceiling_days() || '/' || app.rights_target_days()")
+          [ "$d" = "90/30" ] || { echo "::error::the response periods are not 90 days (Rules) and 30 (target) ($d)"; exit 1; }
+          # No user may delete a request, nor write its code, its respond-by date or any stamp;
+          # and anon holds nothing at all — public intake is Stage 3, through RPCs only.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select grantee || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and table_name = 'rights_requests'
+              and (grantee = 'anon' or (grantee = 'authenticated' and privilege_type not in ('SELECT', 'INSERT', 'UPDATE')))
+            union all
+            select table_name || '.' || column_name || ':' || privilege_type from information_schema.column_privileges
+            where table_schema = 'public' and grantee in ('anon', 'authenticated') and table_name = 'rights_requests'
+              and privilege_type in ('INSERT', 'UPDATE')
+              and (column_name in ('request_code', 'respond_by', 'created_by', 'updated_by', 'closed_at', 'closed_by')
+                   or column_name like '%_recorded_%'
+                   or (column_name = 'received_on' and privilege_type = 'UPDATE')
+                   or (column_name = 'status' and privilege_type = 'INSERT')
+                   or grantee = 'anon')")
+          if [ -n "$bad" ]; then echo "::error::the rights register exposes a derived or stamped column, or anon holds a grant: $bad"; exit 1; fi
+          # The model reads the register: two head-7 rows in 1.2.0 — the ceiling sets Exposed, the target only speaks.
+          m=$(psql "$DATABASE_URL" -tAc "select string_agg(code || ':' || effect, ',' order by ord) from app.exposure_module_inputs() where register = 'Rights and grievance register'")
+          [ "$m" = "rights_ceiling_overdue:exposed,rights_target_overdue:reason" ] || { echo "::error::the 1.2.0 rights rows in SQL are not as approved ($m)"; exit 1; }
+
+      - name: Public intake is the server's alone — no anon door, nobody reads a pending submission (Slice 10, Stage 3a)
+        run: |
+          # The four intake functions: service_role only. The anon key is public, so an
+          # anon-executable intake function would skip the emailed code and the address limit (D-086).
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select p.oid::regprocedure::text || ':' || r.rolname
+            from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+            cross join (values ('anon'), ('authenticated')) r(rolname)
+            where n.nspname = 'public' and p.proname like 'intake\_%'
+              and has_function_privilege(r.rolname, p.oid, 'EXECUTE')")
+          if [ -n "$bad" ]; then echo "::error::an intake function is executable by a client role: $bad"; exit 1; fi
+          c=$(psql "$DATABASE_URL" -tAc "select count(*) from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+            where n.nspname = 'public' and p.proname like 'intake\_%' and has_function_privilege('service_role', p.oid, 'EXECUTE')")
+          [ "$c" = "4" ] || { echo "::error::expected the server to hold EXECUTE on four intake functions, found $c"; exit 1; }
+          # Pending submissions and attempts: no grant to any client role, nor to the service role's table access.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || grantee || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and table_name in ('intake_submissions', 'intake_attempts')
+              and grantee in ('anon', 'authenticated', 'service_role')")
+          if [ -n "$bad" ]; then echo "::error::an intake table is readable or writable by a role: $bad"; exit 1; fi
+          # The limits as approved: 5 submissions/h per address · 3 codes/h, 10/day per email · 5 wrong codes · 10 min · 24 h.
+          l=$(psql "$DATABASE_URL" -tAc "select row(l.*)::text from app.intake_limits() l")
+          [ "$l" = "(5,3,10,5,10,24)" ] || { echo "::error::the intake limits are not as approved ($l)"; exit 1; }
+          # No seeded organisation has public pages: the seed also reaches hosted.
+          s=$(psql "$DATABASE_URL" -tAc "select count(*) from organizations where public_slug is not null")
+          [ "$s" = "0" ] || { echo "::error::the seed opened public pages ($s)"; exit 1; }
+
+      - name: Consent is the register's — public functions the server's alone, records append-only, salts unread (Slice 10, Stage 3b)
+        run: |
+          # The widget's and the notice page's three functions: service_role only (D-086.1, D-087).
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select p.oid::regprocedure::text || ':' || r.rolname
+            from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+            cross join (values ('anon'), ('authenticated')) r(rolname)
+            where n.nspname = 'public' and p.proname in ('consent_notice', 'consent_widget', 'consent_record_public')
+              and has_function_privilege(r.rolname, p.oid, 'EXECUTE')")
+          if [ -n "$bad" ]; then echo "::error::a public consent function is executable by a client role: $bad"; exit 1; fi
+          # No client role writes a consent record or reads a salt; anon holds nothing on any consent table.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || grantee || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public'
+              and ((table_name = 'consent_records' and grantee in ('anon', 'authenticated') and privilege_type <> 'SELECT')
+                or (table_name = 'consent_salts' and grantee in ('anon', 'authenticated', 'service_role'))
+                or (table_name in ('privacy_notices', 'consent_configs', 'consent_records', 'consent_principals') and grantee = 'anon'))")
+          if [ -n "$bad" ]; then echo "::error::a consent table is writable or readable where it must not be: $bad"; exit 1; fi
+          # A record never changes; a published notice or widget version never changes (their triggers).
+          n=$(psql "$DATABASE_URL" -tAc "
+            select count(*) from pg_trigger t join pg_class c on c.oid = t.tgrelid
+            where not t.tgisinternal and (c.relname, t.tgname) in
+              (('consent_records', 'consent_records_guard'), ('privacy_notices', 'privacy_notices_before_write'),
+               ('consent_configs', 'consent_configs_before_write'))")
+          [ "$n" = "3" ] || { echo "::error::a consent table has lost its guard trigger ($n of 3)"; exit 1; }
+          # The model reads the register: one head-3 row in 1.3.0 — an unverified child's or guardian's consent sets Exposed.
+          m=$(psql "$DATABASE_URL" -tAc "select string_agg(code || ':' || effect, ',' order by ord) from app.exposure_module_inputs() where head = 'H3'")
+          [ "$m" = "child_consent_unverified:exposed" ] || { echo "::error::the 1.3.0 consent row in SQL is not as approved ($m)"; exit 1; }
+          # The widget's limits as approved (core CONSENT_LIMITS): 120 an hour per address, 10 per person.
+          l=$(psql "$DATABASE_URL" -tAc "select row(l.*)::text from app.consent_limits() l")
+          [ "$l" = "(120,10)" ] || { echo "::error::the consent limits are not as approved ($l)"; exit 1; }
+
+      - name: A processor assessment is written by its functions, frozen once accepted, and reviewed by someone else (Slice 10, Stage 4a)
+        run: |
+          # No client role writes either table; anon reads neither.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || grantee || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and table_name in ('vendor_assessments', 'vendor_assessment_answers')
+              and ((grantee = 'authenticated' and privilege_type <> 'SELECT') or grantee = 'anon')")
+          if [ -n "$bad" ]; then echo "::error::a processor assessment table is writable or readable where it must not be: $bad"; exit 1; fi
+          # The five functions: never anon's.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select p.oid::regprocedure::text from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+            where n.nspname = 'public'
+              and p.proname in ('start_vendor_assessment', 'save_vendor_assessment', 'submit_vendor_assessment', 'review_vendor_assessment', 'discard_vendor_assessment')
+              and has_function_privilege('anon', p.oid, 'EXECUTE')")
+          if [ -n "$bad" ]; then echo "::error::a processor assessment function is executable by anon: $bad"; exit 1; fi
+          # Frozen once accepted, for tooling too: the guard triggers.
+          n=$(psql "$DATABASE_URL" -tAc "
+            select count(*) from pg_trigger t join pg_class c on c.oid = t.tgrelid
+            where not t.tgisinternal and (c.relname, t.tgname) in
+              (('vendor_assessments', 'vendor_assessments_guard'), ('vendor_assessment_answers', 'vendor_assessment_answers_guard'))")
+          [ "$n" = "2" ] || { echo "::error::a processor assessment table has lost its guard trigger ($n of 2)"; exit 1; }
+          # The questionnaire as approved: 45 questions, 44 scored, five answers a document must back.
+          q=$(psql "$DATABASE_URL" -tAc "select count(*) || '/' || count(*) filter (where weight > 0) || '/' || string_agg(code, ',' order by ord) filter (where needs_document) from app.vendor_questions()")
+          [ "$q" = "45/44/A3,A4,C4,D2,G1" ] || { echo "::error::the processor questionnaire in SQL is not as approved ($q)"; exit 1; }
+          # The model reads the register: the 1.4.0 rows — a contract gap bars Mitigated on heads 1 and 7; out of date is a reason.
+          m=$(psql "$DATABASE_URL" -tAc "select string_agg(code || ':' || head || ':' || effect, ',' order by ord) from app.exposure_module_inputs() where register = 'Processor register'")
+          [ "$m" = "vendor_contract_missing:H1:not_mitigated,vendor_contract_missing:H7:not_mitigated,vendor_assessment_out_of_date:H1:reason,vendor_assessment_out_of_date:H7:reason" ] \
+            || { echo "::error::the 1.4.0 processor rows in SQL are not as approved ($m)"; exit 1; }
+          # The seed: the payment gateway accepted, the LMS provider awaiting review — neither accepted by the person who entered it.
+          s=$(psql "$DATABASE_URL" -tAc "select string_agg(status, ',' order by status) from vendor_assessments")
+          [ "$s" = "accepted,submitted,submitted" ] || { echo "::error::the seeded processor assessments are not as expected ($s)"; exit 1; }
+          self=$(psql "$DATABASE_URL" -tAc "select count(*) from vendor_assessments where reviewed_by is not null and reviewed_by in (created_by, submitted_by)")
+          [ "$self" = "0" ] || { echo "::error::a processor assessment was reviewed by the person who entered it ($self)"; exit 1; }
+
+      - name: The vendor's link is the server's, stores only hashes, and its sender never reviews (Slice 10, Stage 4b)
+        run: |
+          # The seven public functions: service_role only (D-086.1); send and revoke: never anon's.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select p.oid::regprocedure::text from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+            where n.nspname = 'public' and (
+              (p.proname like 'vendor\_link\_%' and (has_function_privilege('anon', p.oid, 'EXECUTE')
+                 or has_function_privilege('authenticated', p.oid, 'EXECUTE') or not has_function_privilege('service_role', p.oid, 'EXECUTE')))
+              or (p.proname in ('send_vendor_link', 'revoke_vendor_link') and has_function_privilege('anon', p.oid, 'EXECUTE')))")
+          if [ -n "$bad" ]; then echo "::error::a vendor-link function is executable where it must not be: $bad"; exit 1; fi
+          c=$(psql "$DATABASE_URL" -tAc "select count(*) from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.proname like 'vendor\_link\_%'")
+          [ "$c" = "7" ] || { echo "::error::expected the seven vendor-link functions ($c)"; exit 1; }
+          # No client writes the link tables; no hash column is readable; anon reads nothing.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || grantee || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and table_name in ('vendor_assessment_links', 'vendor_link_documents')
+              and ((grantee = 'authenticated' and privilege_type <> 'SELECT') or grantee = 'anon')
+            union all
+            select table_name || '.' || column_name from information_schema.column_privileges
+            where table_schema = 'public' and grantee in ('anon', 'authenticated') and table_name = 'vendor_assessment_links'
+              and column_name in ('token_hash', 'code_hash', 'session_hash')")
+          if [ -n "$bad" ]; then echo "::error::a vendor-link table is writable, or a hash readable: $bad"; exit 1; fi
+          l=$(psql "$DATABASE_URL" -tAc "select row(l.*)::text from app.vendor_link_limits() l")
+          [ "$l" = "(14,10)" ] || { echo "::error::the vendor-link limits are not as approved ($l)"; exit 1; }
+          # The seed: the vendor's submission is declared and has no staff submitter; nobody who sent a link reviewed it.
+          v=$(psql "$DATABASE_URL" -tAc "select count(*) from vendor_assessments where source = 'vendor' and status = 'submitted' and declared_at is not null and submitted_by is null")
+          [ "$v" = "1" ] || { echo "::error::the seeded vendor submission is not as expected ($v)"; exit 1; }
+          sent=$(psql "$DATABASE_URL" -tAc "select count(*) from vendor_assessments a join vendor_assessment_links k on k.organization_id = a.organization_id and k.assessment_id = a.id where a.reviewed_by = k.created_by")
+          [ "$sent" = "0" ] || { echo "::error::a processor assessment was reviewed by the person who sent the vendor its link ($sent)"; exit 1; }
+
+      - name: A retention end date is the database's, an erasure is never changed, and the AI register sets no status (Slice 10, Stage 5)
+        run: |
+          # Rule 8(3): one year, for every client; Rule 8(1): three years; Rule 8(2): two days; the AI review default: twelve months.
+          d=$(psql "$DATABASE_URL" -tAc "select app.retention_min_months() || '/' || app.retention_deemed_months() || '/' || app.retention_notice_days() || '/' || app.ai_review_months()")
+          [ "$d" = "12/36/2/12" ] || { echo "::error::the retention periods are not as the Rules say ($d)"; exit 1; }
+          # No user deletes a schedule, an erasure, a void or an AI row, updates an erasure or a void (D-096), or writes a derived or stamped column; anon holds nothing.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || grantee || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and table_name in ('retention_schedules', 'retention_erasures', 'retention_erasure_voids', 'ai_systems')
+              and (grantee = 'anon'
+                   or (grantee = 'authenticated' and privilege_type not in ('SELECT', 'INSERT', 'UPDATE'))
+                   or (grantee = 'authenticated' and table_name in ('retention_erasures', 'retention_erasure_voids') and privilege_type = 'UPDATE'))
+            union all
+            select table_name || '.' || column_name || ':' || privilege_type from information_schema.column_privileges
+            where table_schema = 'public' and grantee in ('anon', 'authenticated')
+              and table_name in ('retention_schedules', 'retention_erasures', 'retention_erasure_voids', 'ai_systems') and privilege_type in ('INSERT', 'UPDATE')
+              and (column_name in ('ends_on', 'inform_by', 'recorded_by', 'recorded_at', 'review_recorded_by', 'review_recorded_at',
+                                   'voided_by', 'voided_at', 'created_by', 'updated_by') or grantee = 'anon')")
+          if [ -n "$bad" ]; then echo "::error::the retention or AI register exposes a derived or stamped column, a delete, or an anon grant: $bad"; exit 1; fi
+          # The erasure record's and the void's update guards hold for tooling too.
+          n=$(psql "$DATABASE_URL" -tAc "
+            select count(*) from pg_trigger t join pg_class c on c.oid = t.tgrelid
+            where not t.tgisinternal and t.tgenabled = 'O'
+              and (c.relname, t.tgname) in (('retention_erasures', 'retention_erasures_before_write'), ('retention_schedules', 'retention_schedules_before_write'),
+                                            ('retention_erasure_voids', 'retention_erasure_voids_before_write'))")
+          [ "$n" = "3" ] || { echo "::error::a retention trigger is missing or disabled ($n of 3)"; exit 1; }
+          # D-096: an erasure counts only when the processors were told (or none held it) and it is not voided — in the model's input and the closing trigger.
+          c=$(psql "$DATABASE_URL" -tAc "
+            select (pg_get_functiondef('app.exposure_input(uuid, date)'::regprocedure) like '%processors_told <> ''no''%retention_erasure_voids%')::text
+                   || '/' || (pg_get_functiondef('app.gap_action_before_update()'::regprocedure) like '%processors_told <> ''no''%retention_erasure_voids%')::text")
+          [ "$c" = "true/true" ] || { echo "::error::an incomplete or voided erasure would still count ($c)"; exit 1; }
+          # D-096 (R5): the AI register is read with ropa.read and asks s.9(3)'s question; MU's proctoring relies on A3.
+          a=$(psql "$DATABASE_URL" -tAc "
+            select (select qual like '%ropa.read%' from pg_policies where tablename = 'ai_systems' and policyname = 'ai_systems_select_member')::text
+                   || '/' || (select child_tracking || ':' || coalesce(child_exemption, '-') from ai_systems where name = 'AI proctoring')")
+          [ "$a" = "true/yes:education" ] || { echo "::error::the AI register's children answer or read permission is not as approved ($a)"; exit 1; }
+          # The model reads the registers: 1.5.0 — overdue erasure Exposed, no end recorded a reason (D-094.1), an unreviewed AI system a reason on head 4.
+          m=$(psql "$DATABASE_URL" -tAc "select string_agg(code || ':' || head || ':' || effect, ',' order by ord) from app.exposure_module_inputs() where register in ('Retention register', 'AI risk register')")
+          [ "$m" = "retention_overdue:H7:exposed,retention_end_unrecorded:H7:reason,ai_system_unreviewed:H4:reason" ] \
+            || { echo "::error::the 1.5.0 rows in SQL are not as approved ($m)"; exit 1; }
+          # The seed: MU's ten schedules — one past its end with no erasure, one with no end, one erased.
+          r=$(psql "$DATABASE_URL" -tAc "
+            select count(*) filter (where s.ends_on < current_date and not exists (select 1 from retention_erasures x where x.retention_schedule_id = s.id and x.erased_on >= s.starts_on))
+                   || '/' || count(*) filter (where s.ends_on is null)
+                   || '/' || (select count(*) from retention_erasures)
+                   || '/' || (select count(*) from retention_erasure_voids)
+            from retention_schedules s")
+          [ "$r" = "1/1/1/0" ] || { echo "::error::the seeded retention register is not as expected ($r)"; exit 1; }
+
+      - name: The AI assistant is off unless a contract says otherwise, and its drafts are the person's, recorded once and decided once (Slice 11, Stages 1a–2b)
+        run: |
+          # A2: off by default; on only with a contract reference (a CHECK). A4: bfsi and healthcare held; an SDF held. MU on, BML off (seed).
+          v=$(psql "$DATABASE_URL" -tAc "
+            select (select column_default from information_schema.columns where table_name = 'organizations' and column_name = 'ai_enabled')
+                   || '/' || array_to_string(app.ai_held_industries(), ',')
+                   || '/' || coalesce(app.ai_hold_reason('bfsi', null), '-') || ':' || coalesce(app.ai_hold_reason('university', current_date), '-') || ':' || coalesce(app.ai_hold_reason('university', null), '-')
+                   || '/' || (select count(*) from ai_industry_signoffs)
+                   || '/' || (select string_agg(name || '=' || ai_enabled::text, ',' order by name) from organizations where id in ('0b000000-0000-4000-8000-000000000001', '0b000000-0000-4000-8000-000000000002'))
+                   || '/' || (select count(*) from ai_drafts)")
+          [ "$v" = "false/bfsi,healthcare/sector:sdf:-/0/Bharat Manufacturing Ltd=false,Mumbai University=true/0" ] \
+            || { echo "::error::the AI switch, its holds or the seed are not as approved ($v)"; exit 1; }
+          # No user updates or deletes a draft or writes a stamp; anon holds nothing; the sign-offs are written by migration only.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || grantee || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and table_name in ('ai_drafts', 'ai_industry_signoffs')
+              and (grantee = 'anon'
+                   or (grantee = 'authenticated' and table_name = 'ai_drafts' and privilege_type not in ('SELECT', 'INSERT'))
+                   or (grantee = 'authenticated' and table_name = 'ai_industry_signoffs' and privilege_type <> 'SELECT'))
+            union all
+            select table_name || '.' || column_name || ':' || privilege_type from information_schema.column_privileges
+            where table_schema = 'public' and grantee in ('anon', 'authenticated') and privilege_type in ('INSERT', 'UPDATE')
+              and ((table_name = 'ai_drafts' and (column_name in ('requested_by', 'created_at', 'id', 'feedback_by', 'feedback_at', 'decided_by', 'decided_at') or grantee = 'anon'))
+                   or (table_name = 'ai_drafts' and privilege_type = 'UPDATE' and column_name not in ('accepted_output', 'feedback', 'feedback_comment', 'status'))
+                   or (table_name = 'organizations' and column_name in ('ai_enabled_by', 'ai_enabled_at')))")
+          if [ -n "$bad" ]; then echo "::error::an AI draft or the switch exposes an update, a delete, a stamp or an anon grant: $bad"; exit 1; fi
+          # Stage 1b: the four explain helpers; Stages 2a–2b: six drafting tasks — each read with its own permission (§4.7).
+          t=$(psql "$DATABASE_URL" -tAc "select string_agg(t || '=' || app.ai_task_read_permission(t), ',') from unnest(app.ai_tasks()) t")
+          [ "$t" = "question_helper=assessment.read,evidence_helper=evidence.read,gap_helper=gap.read,score_helper=score.read,ropa_draft=ropa.read,breach_intimation_draft=breach.read,rights_response_draft=rights.read,notice_draft=consent.read,notice_translation_draft=consent.read,report_narrative_draft=report.read" ] \
+            || { echo "::error::the AI tasks or their read permissions are not as approved ($t)"; exit 1; }
+          # Stages 2a–2b (D-129.3, §7c.1): a draft is decided with its register's write permission; an explanation has none.
+          w=$(psql "$DATABASE_URL" -tAc "select string_agg(t || '=' || coalesce(app.ai_task_write_permission(t), '-'), ',') from unnest(app.ai_tasks()) t")
+          [ "$w" = "question_helper=-,evidence_helper=-,gap_helper=-,score_helper=-,ropa_draft=ropa.write,breach_intimation_draft=breach.write,rights_response_draft=rights.write,notice_draft=consent.write,notice_translation_draft=consent.write,report_narrative_draft=report.generate" ] \
+            || { echo "::error::the AI tasks' write permissions are not as approved ($w)"; exit 1; }
+          # A person may change a rating (1b) and take one decision (2a) — nothing else.
+          u=$(psql "$DATABASE_URL" -tAc "select string_agg(column_name, ',' order by column_name) from information_schema.column_privileges
+            where table_schema = 'public' and table_name = 'ai_drafts' and grantee = 'authenticated' and privilege_type = 'UPDATE'")
+          [ "$u" = "accepted_output,feedback,feedback_comment,status" ] || { echo "::error::a person may change more of an AI draft than its rating and its decision ($u)"; exit 1; }
+          f=$(psql "$DATABASE_URL" -tAc "select (qual like '%requested_by = app.current_user_id()%' and with_check like '%requested_by = app.current_user_id()%')::text from pg_policies where tablename = 'ai_drafts' and policyname = 'ai_drafts_update_feedback'")
+          [ "$f" = "true" ] || { echo "::error::an AI answer can be rated by someone other than the person who asked ($f)"; exit 1; }
+          d=$(psql "$DATABASE_URL" -tAc "select (qual like '%ai_task_write_permission%' and with_check like '%ai_task_write_permission%')::text from pg_policies where tablename = 'ai_drafts' and policyname = 'ai_drafts_update_decision'")
+          [ "$d" = "true" ] || { echo "::error::an AI draft can be decided without the register's write permission ($d)"; exit 1; }
+          # The two update policies are OR'd: the GUARD keeps a rating to its asker and a decision to a writer.
+          g=$(psql "$DATABASE_URL" -tAc "select (def like '%OLD.requested_by IS DISTINCT FROM v_actor%' and def like '%ai_task_write_permission(OLD.task)%')::text
+            from (select pg_get_functiondef('app.guard_ai_draft_update()'::regprocedure) as def) x")
+          [ "$g" = "true" ] || { echo "::error::the AI draft guard no longer keeps the rating to its asker and the decision to a writer ($g)"; exit 1; }
+          # The guards and the audit hold for tooling too.
+          n=$(psql "$DATABASE_URL" -tAc "
+            select count(*) from pg_trigger t join pg_class c on c.oid = t.tgrelid
+            where not t.tgisinternal and t.tgenabled = 'O'
+              and (c.relname, t.tgname) in (('ai_drafts', 'ai_drafts_guard_insert'), ('ai_drafts', 'ai_drafts_guard_update'), ('ai_drafts', 'ai_drafts_audit'),
+                                            ('ai_drafts', 'ai_drafts_audit_feedback'), ('ai_drafts', 'ai_drafts_audit_decision'),
+                                            ('organizations', 'organizations_guard_ai'), ('organizations', 'organizations_guard_ai_insert'), ('organizations', 'organizations_audit_ai'))")
+          [ "$n" = "8" ] || { echo "::error::an AI trigger is missing or disabled ($n of 8)"; exit 1; }
+          # §4.7: a draft is read with ai.use AND the task's read permission.
+          q=$(psql "$DATABASE_URL" -tAc "select (qual like '%ai.use%' and qual like '%ai_task_read_permission%')::text from pg_policies where tablename = 'ai_drafts' and policyname = 'ai_drafts_select_member'")
+          [ "$q" = "true" ] || { echo "::error::the AI drafts' read policy is not as approved ($q)"; exit 1; }
+
+      - name: A report is a record — written by its functions, immutable, in a private bucket (Slice 9; Slice 11 Stage 2b)
+        run: |
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and grantee in ('anon', 'authenticated')
+              and table_name = 'reports' and privilege_type <> 'SELECT'")
+          if [ -n "$bad" ]; then echo "::error::reports is user-writable: $bad"; exit 1; fi
+          n=$(psql "$DATABASE_URL" -tAc "
+            select count(*) from pg_trigger t join pg_class c on c.oid = t.tgrelid
+            where c.relname = 'reports' and t.tgname = 'reports_immutable' and not t.tgisinternal")
+          [ "$n" = "1" ] || { echo "::error::reports has no immutability trigger"; exit 1; }
+          p=$(psql "$DATABASE_URL" -tAc "select public from storage.buckets where id = 'reports'")
+          [ "$p" = "f" ] || { echo "::error::reports bucket missing or public ($p)"; exit 1; }
+          # The storage.objects UPDATE/DELETE check above covers this bucket too.
+          k=$(psql "$DATABASE_URL" -tAc "select string_agg(kind || ':' || format, ',' order by kind) from app.report_kinds()")
+          echo "report kinds = $k"
+          # Slice 10, Stage 6 (D-097): the three stakeholder reports, each a PDF that records an exposure snapshot.
+          [ "$k" = "evidence_index:xlsx,evidence_pack:pdf,exposure_brief:pdf,gap_action_tracker:xlsx,legal_position:pdf,owner_action_pack:pdf,processor_exposure:pdf,programme_status:pdf,ropa_register:xlsx,security_breach:pdf" ] \
+            || { echo "::error::the report kinds in SQL are not the approved ten ($k)"; exit 1; }
+          x=$(psql "$DATABASE_URL" -tAc "select string_agg(kind, ',' order by kind) from app.report_kinds() where records_exposure")
+          [ "$x" = "evidence_pack,exposure_brief,legal_position,processor_exposure,programme_status,security_breach" ] \
+            || { echo "::error::a report that prints exposure does not record its snapshot ($x)"; exit 1; }
+          # Slice 11, Stage 2b (D-133.1): three kinds keep the document they printed, written once by the finish step;
+          # a narrated version is made only by begin_narrated_report, from version N's stored figures.
+          nk=$(psql "$DATABASE_URL" -tAc "select array_to_string(app.report_narratable_kinds(), ',')")
+          [ "$nk" = "evidence_pack,exposure_brief,programme_status" ] || { echo "::error::the narratable report kinds are not the approved three ($nk)"; exit 1; }
+          fn=$(psql "$DATABASE_URL" -tAc "
+            select string_agg(p.oid::regprocedure::text, ',' order by p.proname) from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+            where n.nspname = 'public' and p.proname in ('begin_report', 'begin_narrated_report', 'complete_report', 'fail_report')")
+          [ "$fn" = "begin_narrated_report(uuid,uuid,uuid),begin_report(uuid,text,text,uuid),complete_report(uuid,uuid,jsonb),fail_report(uuid,uuid,text)" ] \
+            || { echo "::error::a report is written by other functions than the approved four ($fn)"; exit 1; }
+          im=$(psql "$DATABASE_URL" -tAc "select (def like '%''document''%' and def like '%OLD.document IS NULL%' and def like '%narrative_draft_id%')::text
+            from (select pg_get_functiondef('app.report_is_immutable()'::regprocedure) as def) x")
+          [ "$im" = "true" ] || { echo "::error::a report's stored document is not written once by the finish step ($im)"; exit 1; }
+          an=$(psql "$DATABASE_URL" -tAc "select has_function_privilege('anon', 'public.begin_narrated_report(uuid,uuid,uuid)', 'EXECUTE')::text")
+          [ "$an" = "false" ] || { echo "::error::anon may narrate a report ($an)"; exit 1; }
+
+      - name: Every register's documents are evidence, attached as work on that register (Slice 10, Stage 6)
+        run: |
+          # The eight link types, and the two Stage 6 adds guarded by their registers' write permissions and "reopen it" rules.
+          c=$(psql "$DATABASE_URL" -tAc "select pg_get_constraintdef(oid) from pg_constraint where conname = 'evidence_links_entity_type_check'")
+          for t in assessment_response gap_action ropa_record vendor retention_schedule ai_system breach_incident rights_request; do
+            echo "$c" | grep -q "'$t'" || { echo "::error::evidence_links does not admit $t ($c)"; exit 1; }
+          done
+          f=$(psql "$DATABASE_URL" -tAc "
+            select (pg_get_functiondef('app.evidence_link_before_insert()'::regprocedure) like '%breach_incident%breach.write%rights_request%rights.write%')::text
+                   || '/' || (pg_get_functiondef('app.evidence_link_before_delete()'::regprocedure) like '%breach_incident%''closed'', ''dismissed''%rights_request%''responded'', ''withdrawn'', ''void''%')::text")
+          [ "$f" = "true/true" ] || { echo "::error::a breach's or a request's documents are not guarded by its register ($f)"; exit 1; }
+
+      - name: A gap is derived, and an action cannot be closed on a promise (Slice 6)
+        run: |
+          # The gap threshold (<= 3, NOT the red-flag <= 2), the severity →
+          # priority table and the 30/60/90 due days, straight from SQL.
+          r=$(psql "$DATABASE_URL" -tAc "select app.gap_max_adjusted() || '/' || app.red_flag_max_adjusted() || '/' || app.question_priority('critical') || '/' || app.question_priority('high') || '/' || app.question_priority('medium') || '/' || app.question_priority('low') || '/' || app.question_priority('improvement') || '/' || app.question_priority('no_gap') || '/' || app.gap_due_days('P0') || '/' || app.gap_due_days('P1') || '/' || app.gap_due_days('P2') || '/' || coalesce(app.gap_due_days('P3')::text, 'next-cycle')")
+          echo "gap threshold / red-flag threshold / priorities / due days = $r"
+          [ "$r" = "3/2/P0/P1/P2/P3/P3/Monitor/30/60/90/next-cycle" ] || { echo "::error::the gap rules are wrong ($r)"; exit 1; }
+          # An unevidenced claim of 5 is a High / P1 gap; a Blocked action cannot close directly.
+          w=$(psql "$DATABASE_URL" -tAc "select app.question_priority(app.question_severity(app.adjusted_score(5, null))) || '/' || app.gap_action_transition_allowed('blocked', 'closed') || '/' || app.gap_action_transition_allowed('closed', 'in_progress')")
+          [ "$w" = "P1/false/true" ] || { echo "::error::the action workflow is wrong ($w)"; exit 1; }
+          # No user may write a gap at all, nor insert or delete an action.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and grantee in ('anon', 'authenticated')
+              and table_name in ('assessment_gaps', 'gap_actions')
+              and privilege_type <> 'SELECT'")
+          if [ -n "$bad" ]; then echo "::error::a gap table is user-writable: $bad"; exit 1; fi
+          # …and may UPDATE exactly six columns of an action — never the ones
+          # the database stamps when an action is closed.
+          cols=$(psql "$DATABASE_URL" -tAc "
+            select string_agg(column_name, ',' order by column_name) from information_schema.column_privileges
+            where table_schema = 'public' and grantee = 'authenticated'
+              and table_name = 'gap_actions' and privilege_type in ('INSERT', 'UPDATE')")
+          echo "user-writable action columns = $cols"
+          [ "$cols" = "due_date,notes,owner_role,owner_user_id,status,title" ] \
+            || { echo "::error::gap_actions exposes the wrong columns to users ($cols)"; exit 1; }
+          # A finalised register is frozen for tooling too, and every action
+          # change goes through the closing rule. ENABLED, not merely present:
+          # the backfill migration switches the freeze off and back on.
+          n=$(psql "$DATABASE_URL" -tAc "
+            select count(*) from pg_trigger t join pg_class c on c.oid = t.tgrelid
+            where not t.tgisinternal and t.tgenabled = 'O'
+              and ((c.relname = 'assessment_gaps' and t.tgname = 'assessment_gaps_frozen_when_finalised')
+                or (c.relname = 'gap_actions' and t.tgname = 'gap_actions_before_update'))")
+          [ "$n" = "2" ] || { echo "::error::a gap trigger is missing or disabled ($n of 2)"; exit 1; }
+
+      - name: A ROPA record's completeness and risk are the database's, never a user's (Slice 7)
+        run: |
+          # The thirteen weights total 100; each band boundary belongs to the
+          # LOWER band; the risk boundaries likewise; Unknown is not complete.
+          r=$(psql "$DATABASE_URL" -tAc "select (select sum(app.ropa_area_weight(a)) from unnest(app.ropa_area_codes()) a) || '/' || app.ropa_band(30) || '/' || app.ropa_band(31) || '/' || app.ropa_band(60) || '/' || app.ropa_band(61) || '/' || app.ropa_band(80) || '/' || app.ropa_band(81) || '/' || app.ropa_risk_rating(2) || '/' || app.ropa_risk_rating(3) || '/' || app.ropa_risk_rating(8) || '/' || app.ropa_risk_rating(9) || '/' || app.ropa_text_complete('Unknown') || '/' || app.ropa_text_complete('To be legally reviewed') || '/' || app.ropa_effective_risk('high', 'low') || '/' || (select count(*) from app.ropa_gap_rules()) || '/' || app.ropa_notice_required('employment') || '/' || app.ropa_consent_required(null) || '/' || array_length(app.ropa_lawful_bases(), 1) || '/' || app.ropa_risk_model_version()")
+          # D-065: a legitimate use needs no notice; an undecided ground needs consent; eleven grounds.
+          echo "weights / bands 30,31,60,61,80,81 / risk 2,3,8,9 / unknown / legal review / lowered / gap rules / notice for employment / consent if undecided / grounds / risk model = $r"
+          [ "$r" = "100/incomplete/basic/basic/usable/usable/strong/low/medium/high/critical/false/false/high/15/false/true/11/1.0.0" ] \
+            || { echo "::error::the ROPA rules are wrong ($r)"; exit 1; }
+          # No user may write a derived, counted or stamped column of a record,
+          # nor delete one (it is archived), nor write a ROPA gap at all.
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select table_name || '.' || column_name || ':' || privilege_type from information_schema.column_privileges
+            where table_schema = 'public' and grantee in ('anon', 'authenticated')
+              and privilege_type in ('INSERT', 'UPDATE') and table_name = 'ropa_records'
+              and column_name in ('completeness_score', 'completeness_band', 'completeness_missing', 'risk_factors', 'risk_points',
+                                  'risk_rating_derived', 'risk_rating', 'system_link_count', 'vendor_link_count', 'evidence_count',
+                                  'version', 'approved_by', 'approved_at', 'created_by', 'updated_by', 'vendor_contract_gaps',
+                                  'risk_model_version')
+            union all
+            select table_name || ':' || privilege_type from information_schema.role_table_grants
+            where table_schema = 'public' and grantee in ('anon', 'authenticated')
+              and ((table_name = 'ropa_gaps' and privilege_type <> 'SELECT')
+                or (table_name = 'ropa_records' and privilege_type = 'DELETE'))")
+          if [ -n "$bad" ]; then echo "::error::a ROPA table is user-writable where it must not be: $bad"; exit 1; fi
+          # Derivation and the lifecycle run on every write, and are switched on.
+          n=$(psql "$DATABASE_URL" -tAc "
+            select count(*) from pg_trigger t join pg_class c on c.oid = t.tgrelid
+            where not t.tgisinternal and t.tgenabled = 'O'
+              and c.relname = 'ropa_records' and t.tgname = 'ropa_records_before_write'")
+          [ "$n" = "1" ] || { echo "::error::the ROPA record trigger is missing or disabled"; exit 1; }
+
+      - name: A published legal basis is a citation, never the workbook placeholder (D-013)
+        run: |
+          n=$(psql "$DATABASE_URL" -tAc "select count(*) from question_versions where legal_control_basis ilike '%operational readiness requirement%'")
+          [ "$n" = "0" ] || { echo "::error::$n question versions carry the placeholder legal basis"; exit 1; }
+
+      - name: Every public table has RLS enabled and at least one policy
+        run: |
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace
+            where n.nspname = 'public' and c.relkind = 'r' and c.relname <> '_prisma_migrations'
+              and (not c.relrowsecurity
+                   or not exists (select 1 from pg_policies p where p.schemaname = 'public' and p.tablename = c.relname))")
+          if [ -n "$bad" ]; then echo "::error::tables without RLS or policy: $bad"; exit 1; fi
+
+      - name: anon holds no privilege on any public table (D-019; _prisma_migrations was open until Slice 1)
+        run: |
+          bad=$(psql "$DATABASE_URL" -tAc "
+            select distinct table_name from information_schema.role_table_grants
+            where table_schema = 'public' and grantee = 'anon'")
+          if [ -n "$bad" ]; then echo "::error::anon has grants on: $bad"; exit 1; fi
+
+      - name: Supabase DB types are up to date
+        run: node tools/gen_db_types.mjs --check
+
+      - name: Gate 5 — RLS (direct to Postgres)
+        run: pnpm test:rls
+
+      - run: pnpm build
+
+      - name: Service-role key value absent from client bundle
+        run: node tools/check_service_role.mjs --build-output apps/web/.next/static
+
+      - run: pnpm --filter web exec playwright install --with-deps chromium
+
+      - name: Gate 5 — API · e2e
+        run: pnpm test:e2e
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: apps/web/playwright-report
+          retention-days: 7

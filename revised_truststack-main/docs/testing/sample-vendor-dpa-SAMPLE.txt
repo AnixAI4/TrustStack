@@ -1,0 +1,9 @@
+SAMPLE ARTEFACT - for the Slice 10 Stage 4a manual test. Not a real document.
+
+Data Processing Agreement (illustrative) between Demo Clinic Network and its
+cloud health-records provider, signed 1 August 2026.
+
+Clause 7: the processor processes personal data only on the clinic's
+documented instructions.
+Clause 9: the processor maintains reasonable security safeguards and tells
+the clinic of a personal data breach within 24 hours.

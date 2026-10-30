@@ -1,0 +1,139 @@
+name: docs
+
+# Guards the handoff system itself. Application gates live in app.yml.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# D-132: a newer push cancels this branch's run still in progress (as app.yml does).
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Required files exist
+        run: |
+          set -e
+          for f in CLAUDE.md README.md .env.example .gitignore \
+                   docs/STATE.md docs/DECISIONS.md docs/SLICES.md \
+                   docs/QUESTION_FORMAT.md docs/question_packs/INVENTORY.md \
+                   docs/question_packs/OVERLAP_UNIVERSITY_CORE.md \
+                   packages/db/question-bank/core-pack.json \
+                   packages/db/question-bank/workbook-sample.json \
+                   packages/db/question-bank/ropa-register.json \
+                   tools/question_inventory.py tools/extract_core_pack.py; do
+            test -f "$f" || { echo "::error::missing $f"; exit 1; }
+          done
+
+      - name: Code changes carry a STATE.md update (D-010)
+        if: github.event_name == 'pull_request'
+        run: |
+          base="origin/${{ github.base_ref }}"
+          changed=$(git diff --name-only "$base"...HEAD)
+          if echo "$changed" | grep -qE '^(apps|packages|supabase)/' \
+             && ! echo "$changed" | grep -qx 'docs/STATE.md'; then
+            echo "::error::application code changed but docs/STATE.md did not"; exit 1
+          fi
+
+      # The cap is about keeping CLAUDE.md scannable at the start of a session,
+      # not a byte budget. Each slice adds a DPDP invariant or two, so it has to
+      # move occasionally — but only after squeezing real redundancy out first.
+      # Raised 150 -> 160 in Slice 5, which added three scoring invariants and
+      # the frozen-migration rule; in the same change the stale pinned version
+      # list (duplicated from package.json) and several two-line rules came out,
+      # so the file grew by 4 lines net, not 14. Squeeze before raising it again.
+      - name: CLAUDE.md stays under its 160-line cap
+        run: |
+          n=$(wc -l < CLAUDE.md)
+          echo "CLAUDE.md = $n lines"
+          [ "$n" -le 160 ] || { echo "::error::CLAUDE.md is $n lines (cap 160)"; exit 1; }
+
+      - name: Every slice in SLICES.md has a prompt file
+        run: |
+          set -e
+          n=$(ls docs/slices/SLICE_*.md | wc -l)
+          echo "slice files: $n"
+          [ "$n" -ge 14 ] || { echo "::error::expected >=14 slice files, found $n"; exit 1; }
+
+      - name: No secrets committed
+        run: |
+          set -e
+          if git ls-files | grep -E '^\.env($|\.)' | grep -v '\.env\.example'; then
+            echo "::error::an env file is tracked"; exit 1
+          fi
+          # Scan exactly what git tracks (tool-independent; includes dotfiles).
+          # Covers Supabase JWT keys, new sb_secret_ keys, and Anthropic keys.
+          if git grep -nE '(eyJ[A-Za-z0-9_-]{30,}|sk-ant-[A-Za-z0-9_-]{20,}|sb_secret_[A-Za-z0-9_-]{20,})' -- . ':!.env.example'; then
+            echo "::error::possible live credential committed"; exit 1
+          fi
+
+      - name: Industry question packs — unique codes, 16/16 domains
+        run: python3 tools/question_inventory.py
+
+      - name: The core pack, sample and ROPA fixtures match the Excel workbook
+        run: |
+          python3 -m pip install --quiet openpyxl
+          python3 tools/extract_core_pack.py --check
+
+      - name: The confirmed University overlay is 10 questions (D-029.1)
+        run: |
+          set -e
+          test -f docs/question_packs/OVERLAP_UNIVERSITY_CORE.md \
+            || { echo "::error::the University/core overlap map is missing"; exit 1; }
+          b=$(sed -n '/^export const UNIVERSITY_BASELINE_QUESTIONS/,/^\]);/p' packages/core/src/packs.ts \
+              | grep -cE '^  "UNI-')
+          echo "baseline overlay questions: $b"
+          [ "$b" = "10" ] || { echo "::error::the University baseline overlay is $b questions, not the 10 confirmed in D-029.1"; exit 1; }
+
+      - name: INVENTORY.md is up to date
+        run: |
+          python3 tools/question_inventory.py --markdown /tmp/INVENTORY.md > /dev/null
+          diff -u docs/question_packs/INVENTORY.md /tmp/INVENTORY.md \
+            || { echo "::error::INVENTORY.md is stale — run: python3 tools/question_inventory.py --markdown docs/question_packs/INVENTORY.md"; exit 1; }
+
+      - name: CSV question packs validate
+        run: |
+          python3 - <<'PY'
+          import csv, glob, sys, os
+          REQ = ["question_id","pack","domain_id","default_applicability","question",
+                 "evidence_required","legal_control_basis","criticality",
+                 "default_owner","truststack_module","recommended_fix"]
+          DOMAINS = {f"D{i:02d}" for i in range(1,17)}
+          CRIT = {"Critical","High","Medium"}
+          PLACEHOLDER = "operational readiness requirement"
+          seen, errs = {}, []
+          files = sorted(glob.glob("docs/question_packs/*.csv")
+                         + glob.glob("docs/templates/*.csv"))
+          for path in files:
+              pack_from_name = os.path.basename(path).replace(".csv","")
+              for i, r in enumerate(csv.DictReader(open(path, encoding="utf-8")), start=2):
+                  where = f"{path}:{i}"
+                  for c in REQ:
+                      if not (r.get(c) or "").strip():
+                          errs.append(f"{where} empty required column '{c}'")
+                  qid = (r.get("question_id") or "").strip()
+                  if qid in seen:
+                      errs.append(f"{where} duplicate question_id '{qid}' (also {seen[qid]})")
+                  elif qid:
+                      seen[qid] = where
+                  if (r.get("domain_id") or "").strip() not in DOMAINS:
+                      errs.append(f"{where} bad domain_id '{r.get('domain_id')}'")
+                  if (r.get("criticality") or "").strip() not in CRIT:
+                      errs.append(f"{where} bad criticality '{r.get('criticality')}'")
+                  if PLACEHOLDER in (r.get("legal_control_basis") or ""):
+                      errs.append(f"{where} legal_control_basis is the generic placeholder")
+                  if not path.startswith("docs/templates/") \
+                     and (r.get("pack") or "").strip() != pack_from_name:
+                      errs.append(f"{where} pack '{r.get('pack')}' != filename '{pack_from_name}'")
+          print(f"validated {len(files)} file(s), {len(seen)} question(s)")
+          for e in errs: print(f"::error::{e}")
+          sys.exit(1 if errs else 0)
+          PY

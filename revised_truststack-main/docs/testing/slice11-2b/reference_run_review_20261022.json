@@ -1,0 +1,1148 @@
+{
+  "version": "2026-10-22.2b-3",
+  "base": "http://localhost:3100",
+  "ranAt": "2026-10-22T14:00:26.113Z",
+  "results": [
+    {
+      "id": "R1",
+      "task": "question_helper",
+      "ok": true,
+      "failures": [],
+      "seconds": 20.3,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "answer": "This asks whether the university has a written, published way for people to ask what personal data it holds about them and how it uses it.",
+        "whyItMatters": "A university holds personal data on students, applicants, alumni, staff and parents, and many students may be children. People who gave consent can ask for a summary of their data and who it was shared with. A clear, published route helps the university answer such requests consistently.",
+        "nextStep": {
+          "label": "Answer this question",
+          "page": "answer_question"
+        },
+        "moreDetail": "A Data Principal (the person the data is about, including a parent for a child) can ask a Data Fiduciary (here, the university, which decides why and how data is used) for three things: a summary of their personal data and how it is processed; the names of other organisations and vendors it was shared with, and what was shared; and any other information the Rules prescribe (s.11(1)). This right applies where the person gave consent, including where they voluntarily provided data for a specified purpose (s.7(a)). Where data is held on another legitimate use, such as employment of staff (s.7(i)), the access right does not apply in the same way. Which records fall where, for example admissions, examinations or hostel data, is for the university and counsel to confirm. The Rules require the university to publish prominently on its website or app how to make a request and what identifier it needs, such as an enrolment ID or application number (Rule 14(1), Rule 14(5)). Every response must give the contact of a person who can answer questions about the processing (Rule 9). These Rules apply from 13 May 2027. The law sets no deadline for answering an access request. TrustStack's target is thirty days, with ninety days as its outer limit; this is TrustStack's method, not the law. A reviewer decides whether any evidence you add meets the question.",
+        "law": [
+          {
+            "citation": "s.11(1)",
+            "point": "A person who gave consent can ask for a summary of their data, the processing done, and who it was shared with.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.11(2)",
+            "point": "Sharing with authorities for preventing or investigating offences, on written request, need not be disclosed.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(1)",
+            "point": "The university must prominently publish how to make a rights request and the identifier it needs.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(5)",
+            "point": "An identifier includes an enrolment ID, application reference number, email address or mobile number.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 9",
+            "point": "Every response to a rights request must give the contact of a person who can answer questions about the processing.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.2(j)",
+            "point": "For a child, the Data Principal includes the parent or lawful guardian.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 1(4)",
+            "point": "Rules 9 and 14 apply eighteen months after publication, from 13 May 2027.",
+            "source": "statute"
+          }
+        ],
+        "suggestedEvidence": [
+          "Rights request SOP covering access requests: intake, identity checks, who handles it, and the response template",
+          "Screenshot or link to the published web page explaining how to make a rights request and which identifier is needed",
+          "Response template that includes the contact of the person answering questions about processing",
+          "Register or log format used to track access requests",
+          "Note mapping which data sets rest on consent and which on other legitimate uses, reviewed by counsel"
+        ],
+        "missingInformation": [
+          "Whether a rights request procedure already exists, even in draft",
+          "Which channels (portal, email, office) students, staff and parents use to raise requests",
+          "Which data sets rest on consent and which on other legitimate uses",
+          "How requests about children or by parents are verified"
+        ],
+        "counselToConfirm": true,
+        "confidence": "high",
+        "task": "question_helper",
+        "sourceReferences": [
+          "s.11(1)",
+          "s.11(2)",
+          "Rule 14(1)",
+          "Rule 14(5)",
+          "Rule 9",
+          "s.2(j)",
+          "Rule 1(4)"
+        ],
+        "requiresHumanReview": true,
+        "legalReviewRequired": false,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "R4",
+      "task": "question_helper",
+      "ok": true,
+      "failures": [],
+      "seconds": 12.4,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "answer": "No — consent needs a clear affirmative action by the person, and a pre-ticked box involves no such action, so it is unlikely to be enough.",
+        "whyItMatters": "A university collects personal data from students, applicants, alumni and staff through portals, forms and apps. Where any of that rests on consent, the university must be able to prove that consent was validly given. Pre-ticked boxes on admission or alumni forms would weaken that proof.",
+        "nextStep": {
+          "label": "Answer this question",
+          "page": "answer_question"
+        },
+        "moreDetail": "The Act says consent must be free, specific, informed, unconditional and unambiguous, given with a clear affirmative action (s.6(1)). A clear affirmative action means the person does something positive, such as ticking an empty box or clicking 'I agree'. A box already ticked for them is not their action. Consent must also be limited to the data needed for the stated purpose (s.6(1)). So bundling unrelated uses, such as marketing alongside admissions, into one tick is also a risk.\n\nThe request for consent must come with, or after, a notice (a plain statement of what data is used and why) (s.5(1)). It must be in clear, plain language, with an option for English or a language in the Eighth Schedule to the Constitution (s.6(3)). Withdrawing consent must be as easy as giving it (s.6(4)). If ever questioned, the university, as Data Fiduciary (the body deciding why and how data is used), must prove the notice and consent (s.6(10)). That is why logs matter.\n\nNot all university processing needs consent. Some may rest on another legitimate use under s.7, for example employment for staff (s.7(i)). Which basis applies to each activity is for the university and its counsel to confirm. The detailed notice requirements in Rule 3 apply from 13 May 2027.\n\nWhen you answer, a reviewer decides whether any evidence you add supports it.",
+        "law": [
+          {
+            "citation": "s.6(1)",
+            "point": "Consent must be unambiguous and given by a clear affirmative action, limited to data needed for the specified purpose.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(10)",
+            "point": "Where consent is the basis, the Data Fiduciary must prove that notice was given and consent was validly obtained.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.5(1)",
+            "point": "A consent request must be accompanied or preceded by a notice explaining the data, the purpose and how to exercise rights.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(4)",
+            "point": "Withdrawing consent must be as easy as giving it.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3",
+            "point": "The notice must itemise the data and purposes, and explain how to withdraw consent and exercise rights; applies from 13 May 2027.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.7(i)",
+            "point": "Processing for employment purposes is a legitimate use that does not rely on consent.",
+            "source": "statute"
+          }
+        ],
+        "suggestedEvidence": [
+          "Screenshots of consent screens on admission, student and alumni portals showing unticked boxes or an 'I agree' action",
+          "Sample consent logs showing who consented, when, to which notice version and for which purpose",
+          "Notice text shown alongside each consent request",
+          "Screenshots of the consent withdrawal option",
+          "A list of processing activities showing which rely on consent and which on another basis"
+        ],
+        "missingInformation": [
+          "Which of the university's processing activities rely on consent",
+          "Whether any current forms or portals use pre-ticked boxes or bundled consent",
+          "Whether consent events are logged and retained"
+        ],
+        "counselToConfirm": true,
+        "confidence": "high",
+        "task": "question_helper",
+        "sourceReferences": [
+          "s.6(1)",
+          "s.6(10)",
+          "s.5(1)",
+          "s.6(4)",
+          "Rule 3",
+          "s.7(i)"
+        ],
+        "requiresHumanReview": true,
+        "legalReviewRequired": false,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "R5",
+      "task": "question_helper",
+      "ok": true,
+      "failures": [],
+      "seconds": 17.1,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "answer": "This question asks whether Mumbai University gives people a clear notice before, or at the same time as, it asks for their consent to collect personal data.",
+        "whyItMatters": "A university collects personal data at many points: admissions, enrolment, examinations, hostels, alumni and events. Each consent-based collection form or portal needs a notice, and where consent is challenged the university must be able to prove the notice was given. Many forms may also involve students under eighteen, which brings extra rules on parental consent.",
+        "nextStep": {
+          "label": "Answer this question",
+          "page": "answer_question"
+        },
+        "moreDetail": "The Act says every request for consent must come with, or be preceded by, a notice from the Data Fiduciary (here, the university, which decides why and how personal data is used). The notice must tell the Data Principal (the person the data is about; for a child, this includes the parent or lawful guardian) what personal data is being collected and why, how to withdraw consent and raise a grievance, and how to complain to the Data Protection Board of India. The Rules add detail. The notice must stand on its own and use clear, plain language. It must itemise the data and describe the specific purpose and service. It must give a link to the website or app for withdrawing consent, exercising rights and complaining to the Board. People must be able to read it in English or any language in the Eighth Schedule to the Constitution, such as Marathi or Hindi. Where people consented before the Act began, the university must give them a notice as soon as reasonably practicable. Timing: Rule 3, which sets out the notice details, applies from 13 May 2027. The duty in the Act itself sits in s.5. Not every collection rests on consent. Some data may be processed for a 'legitimate use' under s.7, for example employment records of staff under s.7(i). Which collections need a consent notice is for the university and its counsel to confirm. To answer this question, list the main collection points: admission portals, enrolment and exam forms, hostel and library forms, alumni and event sign-ups. For each one, check whether a notice appears before or at the point of collection. A reviewer then decides whether the evidence you add is accepted.",
+        "law": [
+          {
+            "citation": "s.5(1)",
+            "point": "Every request for consent must be accompanied or preceded by a notice setting out the data, the purpose, how to exercise rights and how to complain to the Board.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.5(2)",
+            "point": "Where consent was given before the Act began, a notice must be given as soon as reasonably practicable.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.5(3)",
+            "point": "People must have the option to read the notice in English or any Eighth Schedule language.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3",
+            "point": "The notice must stand alone, be in plain language, itemise the data and purposes, and give links for withdrawing consent, exercising rights and complaining to the Board. This applies from 13 May 2027.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(10)",
+            "point": "If consent is questioned before the Board, the university must prove that notice was given and consent obtained.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.9(1)",
+            "point": "Verifiable parental consent is needed before processing a child's data, which matters for any applicants under eighteen.",
+            "source": "statute"
+          }
+        ],
+        "suggestedEvidence": [
+          "Screenshots of admission and enrolment forms showing the notice before or at the point of collection",
+          "Links to published privacy or collection notices for each portal",
+          "Versions of notices in English and in Marathi or Hindi",
+          "An inventory of collection points mapped to the notice used for each",
+          "A record of how notices are shown and how acknowledgement is logged, to support proof under s.6(10)",
+          "A plan or record of notices sent to people who consented before the Act began"
+        ],
+        "missingInformation": [
+          "Which collection points (admissions, exams, hostel, alumni, staff) rely on consent and which rely on a legitimate use",
+          "Whether existing notices include withdrawal, rights and Board complaint links",
+          "Which languages the notices are offered in",
+          "Whether any forms collect data from people under eighteen"
+        ],
+        "counselToConfirm": true,
+        "confidence": "high",
+        "task": "question_helper",
+        "sourceReferences": [
+          "s.5(1)",
+          "s.5(2)",
+          "s.5(3)",
+          "Rule 3",
+          "s.6(10)",
+          "s.9(1)"
+        ],
+        "requiresHumanReview": true,
+        "legalReviewRequired": false,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "R6",
+      "task": "question_helper",
+      "ok": true,
+      "failures": [],
+      "seconds": 12.8,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "answer": "Tell the Board without delay on becoming aware, then send a detailed report within seventy-two hours, unless the Board allows longer on written request.",
+        "whyItMatters": "A university holds personal data on many students, staff and applicants, including children's data where students are under eighteen. A playbook lets IT/Security and Legal act within the seventy-two hours rather than working it out under pressure. This question is mandatory and is not yet answered.",
+        "nextStep": {
+          "label": "Answer this question",
+          "page": "answer_question"
+        },
+        "moreDetail": "A personal data breach means any unauthorised processing, or accidental disclosure, loss, alteration or destruction, that compromises personal data (s.2(u)). Your university is the Data Fiduciary, the body that decides why and how personal data is used. On becoming aware of a breach it must tell the Data Protection Board of India (the Board) in two stages. First, without delay, it sends a description of the breach: its nature, extent, timing, location and likely impact. Second, within seventy-two hours of becoming aware, it sends a fuller report. This covers updated details, the facts and reasons behind the breach, mitigation measures, any findings about who caused it, steps to prevent recurrence, and a report on the notices sent to affected people. The Board can allow a longer period if you ask in writing (Rule 7(2)). You must also tell each affected person without delay, in clear and plain words (Rule 7(1)). These breach Rules apply from 13 May 2027, so there is time to prepare. A DPDP-specific playbook would set out who decides that the clock has started, who drafts each notice, and how you would request an extension. TrustStack also sends breach-clock alerts when forty-eight hours and twelve hours remain. That is TrustStack's own target, not the law. Whether a given incident counts as a breach is for your team and counsel to decide. A reviewer decides whether any playbook you upload is accepted as evidence.",
+        "law": [
+          {
+            "citation": "s.8(6)",
+            "point": "The Data Fiduciary must tell the Board and each affected person about a personal data breach, in the form and manner prescribed.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 7(2)",
+            "point": "Send the Board an initial description without delay, then a detailed report within seventy-two hours of becoming aware, or longer if the Board allows on written request.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 7(1)",
+            "point": "Tell each affected person without delay what happened, its likely consequences, the mitigation steps, what they can do, and who to contact.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 1(4)",
+            "point": "Rule 7 comes into force eighteen months after publication, which is 13 May 2027.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 7(2)",
+            "point": "TrustStack's own breach-clock alerts at forty-eight and twelve hours remaining are TrustStack's target, not the law.",
+            "source": "truststack_default"
+          }
+        ],
+        "suggestedEvidence": [
+          "Breach response playbook referencing the DPDP Act and Rule 7, with named roles for IT/Security and Legal",
+          "Templates for the initial Board notice, the seventy-two-hour report and the notice to affected people",
+          "Escalation contact list and a record of who decides when the university 'became aware'",
+          "Procedure for a written request to the Board for more time",
+          "Record of a tabletop exercise testing the playbook"
+        ],
+        "missingInformation": [
+          "Whether a breach or incident response plan already exists, and whether it covers DPDP notification",
+          "Who owns breach decisions across IT, Legal and university administration"
+        ],
+        "counselToConfirm": false,
+        "confidence": "high",
+        "task": "question_helper",
+        "sourceReferences": [
+          "s.8(6)",
+          "Rule 7(2)",
+          "Rule 7(1)",
+          "Rule 1(4)"
+        ],
+        "requiresHumanReview": true,
+        "legalReviewRequired": false,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": null
+      }
+    },
+    {
+      "id": "R13",
+      "task": "evidence_helper",
+      "ok": false,
+      "failures": [
+        "says \"must appoint a data protection officer\""
+      ],
+      "seconds": 11.6,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "answer": "Not yet: the one file was reviewed as partial, so it does not fully support the claimed top maturity, and nothing has been accepted.",
+        "whyItMatters": "Mumbai University claims the highest maturity for having a named DPDP owner, but the evidence held that claim down. A university handles personal data of many students, staff and applicants, so a clearly appointed person to answer questions and handle grievances is central to readiness.",
+        "nextStep": {
+          "label": "Add a signed office order",
+          "page": "add_evidence"
+        },
+        "moreDetail": "One file is attached, named 'office-order-dpdp-owner-SAMPLE.txt'. A reviewer marked it 'partial'. I cannot see inside the file, so I cannot say why. The word 'SAMPLE' in the name and the plain-text format suggest it may be a template or draft rather than an issued order, but only the reviewer can confirm that. A reviewer would usually look for a final, issued document: for example, an office order or appointment letter on university letterhead, signed and dated by an authorised authority (such as the Registrar or Vice-Chancellor). It should name the person or role, state their DPDP responsibilities, and show the date it took effect. It also helps to show the appointment is in use. Examples are the published business contact details of the person who answers questions about processing, and their role in the grievance process. The Act requires your university, as a Data Fiduciary (the organisation that decides why and how personal data is used), to publish the contact of someone able to answer people's questions about their data. It must also run an effective grievance mechanism. A formal Data Protection Officer is legally required only if the Government notifies the university as a Significant Data Fiduciary; TrustStack does not assume that. A reviewer decides whether any new evidence is accepted; the score is set by TrustStack's scoring engine.",
+        "law": [
+          {
+            "citation": "s.8(9)",
+            "point": "A Data Fiduciary must publish the business contact of a Data Protection Officer, if applicable, or a person able to answer questions about processing.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 9",
+            "point": "That contact must be prominently published on the website or app and given in every response to a rights request.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.8(10)",
+            "point": "A Data Fiduciary must set up an effective mechanism to handle grievances.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.10(2)",
+            "point": "Only a notified Significant Data Fiduciary must appoint a Data Protection Officer.",
+            "source": "statute"
+          }
+        ],
+        "suggestedEvidence": [
+          "Final signed and dated office order or appointment letter naming the DPDP owner or nodal officer",
+          "Document setting out the officer's DPDP responsibilities and reporting line",
+          "Screenshot or link showing the published contact details of the person who answers data questions",
+          "Grievance procedure naming the officer as point of contact"
+        ],
+        "missingInformation": [
+          "Whether the attached file is a final issued order or a template",
+          "The reviewer's reason for the 'partial' verdict",
+          "Who signed the appointment and from what date it took effect"
+        ],
+        "counselToConfirm": false,
+        "confidence": "medium",
+        "task": "evidence_helper",
+        "sourceReferences": [
+          "s.8(9)",
+          "Rule 9",
+          "s.8(10)",
+          "s.10(2)"
+        ],
+        "requiresHumanReview": true,
+        "legalReviewRequired": false,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": null
+      }
+    },
+    {
+      "id": "R18",
+      "task": "score_helper",
+      "ok": true,
+      "failures": [],
+      "seconds": 12.6,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "answer": "Security safeguards has no score yet because none of its nine questions has been answered, so there is nothing for TrustStack to score.",
+        "whyItMatters": "Mumbai University holds personal data about students, staff and applicants, and the Act expects reasonable security safeguards to protect it. Until the nine questions are answered, TrustStack cannot show how ready the university is in this area.",
+        "nextStep": {
+          "label": "Answer the security questions",
+          "page": "answer_question"
+        },
+        "moreDetail": "The stored score for Security safeguards shows the status 'Not started'. There are nine questions, and all nine are unanswered. None has been answered as applicable and none has been marked not applicable. So there is no points score, no maturity band and no evidence confidence figure yet. The score is also marked provisional, not finalised.\n\nUnanswered questions are neither scored nor excluded. They simply wait. They do not count against the university, and they do not drop out of the area either.\n\nEvidence has not held anything down here. In TrustStack, each answer counts only as far as its reviewed evidence supports it. Because no answers have been given, no answers were held down and no answer points were lost.\n\nWhat would lift it: first, answering the nine questions. Then adding evidence for each answer, such as security policies, access-control records or backup procedures. A reviewer decides whether to accept each piece of evidence, and TrustStack's scoring engine then works out the score.\n\nPlease note that the readiness score, maturity bands and evidence levels are TrustStack's own method. They are not classifications set by the law. The law's requirement is the duty itself. A Data Fiduciary (the organisation that decides why and how personal data is used) must take reasonable security safeguards to prevent a personal data breach. The Rules list minimum measures, such as encryption, access control, logs and backups. Those Rules apply from 13 May 2027.",
+        "law": [
+          {
+            "citation": "s.8(5)",
+            "point": "A Data Fiduciary must protect personal data it holds, including data handled by its vendors, by taking reasonable security safeguards to prevent a personal data breach.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 6(1)",
+            "point": "Sets minimum safeguards: encryption or masking, access control, logs and monitoring, backups, keeping logs for one year, security terms in vendor contracts, and organisational measures.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.2(i)",
+            "point": "Defines a Data Fiduciary as the person who decides the purpose and means of processing personal data.",
+            "source": "statute"
+          }
+        ],
+        "suggestedEvidence": [
+          "Information security policy approved by the university",
+          "Access-control procedure for student and staff record systems",
+          "Logging and monitoring configuration showing log retention",
+          "Backup and recovery procedure with a recent test record",
+          "Security clauses in contracts with data processors (vendors)"
+        ],
+        "missingInformation": [
+          "Answers to the nine Security safeguards questions"
+        ],
+        "counselToConfirm": false,
+        "confidence": "high",
+        "task": "score_helper",
+        "sourceReferences": [
+          "s.8(5)",
+          "Rule 6(1)",
+          "s.2(i)"
+        ],
+        "requiresHumanReview": true,
+        "legalReviewRequired": false,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": null
+      }
+    },
+    {
+      "id": "R20",
+      "task": "question_helper",
+      "ok": true,
+      "failures": [],
+      "seconds": 13.8,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "answer": "The Act and the Rules set no period for answering an access request; TrustStack's target is thirty days, with ninety days as its outer limit.",
+        "whyItMatters": "As a university, Mumbai University holds personal data on students, applicants, alumni and staff, so access requests may come from many directions. Publishing a clear process and a response time helps the Registrar and Legal teams handle requests consistently. Staff data held for employment may not carry the access right at all, which counsel should confirm.",
+        "nextStep": {
+          "label": "Answer this question",
+          "page": "answer_question"
+        },
+        "moreDetail": "The right of access lets a Data Principal (the person the data is about; for a child, this includes the parent or lawful guardian) ask for a summary of the personal data held about them. It also covers the processing done with it, and who else it has been shared with (s.11(1)). The law does not set a deadline for replying to an access request. TrustStack suggests a thirty-day target, with ninety days as its outer limit. These are TrustStack's targets, not the law. The ninety-day period in the law applies to grievances (complaints about how you handled data or a request). You must publish your grievance response period, and it cannot exceed ninety days (s.13(2), Rule 14(3)). The access right applies where the person gave consent, including data they provided voluntarily for a purpose (s.7(a)). Where you rely on another legitimate use, such as employment for staff (s.7(i)), the access right does not apply. Counsel should confirm which of the university's data sets carry the right. You must publish on your website or app how people can make a request, and any identifier you need, such as an enrolment ID (Rule 14(1), Rule 14(5)). Every reply must give the business contact of the person who can answer questions about the processing (Rule 9). These Rules apply from 13 May 2027. To answer this question, describe your rights request procedure. A reviewer decides whether any evidence you add supports it.",
+        "law": [
+          {
+            "citation": "s.11(1)",
+            "point": "A Data Principal can ask the organisation she consented to for a summary of her data, the processing done, and who it was shared with.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.13(2)",
+            "point": "Grievances must be answered within the prescribed period; the Act sets no period for access requests.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(3)",
+            "point": "The grievance response period you publish must not exceed ninety days.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(1)",
+            "point": "You must publish how to make a rights request and the identifier you need.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 9",
+            "point": "Every reply to a rights request must give the contact details of someone who can answer questions about the processing.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.7(i)",
+            "point": "Processing for employment is a legitimate use; the access right does not attach to it.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(3)",
+            "point": "TrustStack's target: answer rights requests within thirty days, with ninety days as its outer limit. This is not the law.",
+            "source": "truststack_default"
+          }
+        ],
+        "suggestedEvidence": [
+          "Rights request SOP covering access requests, intake, identity checks and response steps",
+          "Published web page explaining how students, alumni and others can make a request, and the identifier needed (e.g. enrolment ID)",
+          "Response template including the contact person's business details",
+          "Published grievance response period (not exceeding ninety days)",
+          "Request log or tracker showing dates received and answered"
+        ],
+        "missingInformation": [
+          "Which data sets rest on consent and which rest on other legitimate uses, such as staff employment records",
+          "Whether a rights request process or contact point already exists",
+          "The response period the university intends to set and publish"
+        ],
+        "counselToConfirm": true,
+        "confidence": "high",
+        "task": "question_helper",
+        "sourceReferences": [
+          "s.11(1)",
+          "s.13(2)",
+          "Rule 14(3)",
+          "Rule 14(1)",
+          "Rule 9",
+          "s.7(i)"
+        ],
+        "requiresHumanReview": true,
+        "legalReviewRequired": false,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "R21",
+      "task": "question_helper",
+      "ok": true,
+      "failures": [],
+      "seconds": 16.2,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "answer": "Probably not for payroll: the s.11 access right covers data given with consent, and payroll usually rests on the employment legitimate use; counsel to confirm.",
+        "whyItMatters": "As a university, you hold data on students, applicants and staff on different legal bases. Your rights request process needs to tell staff which requests fall under s.11 and which do not. It also needs a clear way to route other staff queries, such as grievances.",
+        "nextStep": {
+          "label": "Answer the access-request question",
+          "page": "answer_question"
+        },
+        "moreDetail": "The right of access in s.11(1) lets a Data Principal (the person the data is about) ask for a summary of their personal data and how it is used. It applies only against a Data Fiduciary (your university, which decides how the data is used) that the person gave consent to. That includes the 'voluntarily provided' use in s.7(a). Payroll processing usually rests on s.7(i), which covers processing for the purposes of employment. Where data is processed only on that basis, the s.11 access right does not apply by its own terms. Some staff data may still rest on consent or on s.7(a), for example an optional benefit the staff member signed up for. Whether s.11 reaches any part of this request depends on facts not given here, so counsel should confirm. Even where s.11 does not apply, the staff member keeps the right to grievance redressal under s.13. Your university must answer a grievance within the period it publishes, which cannot exceed ninety days (Rule 14(3)). Any response to a rights request should give the business contact of a person who can answer questions about the processing (Rule 9). Other employment laws or your own staff policies may also give access, but these are outside this corpus. You may choose to share the payroll data anyway as good practice. The Act and the Rules set no period for answering an access request. TrustStack's target is thirty days, which is TrustStack's own default and not the law. The relevant Rules apply from 13 May 2027. For the assessment, your rights request SOP (standard operating procedure) should explain how the university decides whether s.11 applies. A reviewer decides whether to accept that evidence.",
+        "law": [
+          {
+            "citation": "s.11(1)",
+            "point": "The access right is against a Data Fiduciary the person gave consent to, including under s.7(a).",
+            "source": "statute"
+          },
+          {
+            "citation": "s.7(i)",
+            "point": "Allows processing for the purposes of employment without consent.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.13(1)",
+            "point": "Grievance redressal is available whatever the basis of processing.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(3)",
+            "point": "Grievances must be answered within the published period, not exceeding ninety days.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 9",
+            "point": "Every response to a rights request gives the business contact of a person who can answer questions about the processing.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(1)",
+            "point": "Publish how to make a rights request and the identifier you need.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 1(4)",
+            "point": "Rules 9 and 14 come into force on 13 May 2027.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.11(1)",
+            "point": "TrustStack's target is to answer a rights request within thirty days; the law sets no period.",
+            "source": "truststack_default"
+          }
+        ],
+        "suggestedEvidence": [
+          "Rights request SOP covering access requests, including how the university checks the basis of processing",
+          "Register mapping staff data, including payroll, to its basis (consent, s.7(a) or s.7(i))",
+          "Published page showing how to make a request and the identifier needed",
+          "Response template that includes the Rule 9 contact details",
+          "Grievance procedure showing the published response period"
+        ],
+        "missingInformation": [
+          "The basis on which payroll and other staff data are processed",
+          "Whether any staff data was given with consent or under s.7(a)",
+          "Whether other employment laws or staff policies give access to payroll records"
+        ],
+        "counselToConfirm": true,
+        "confidence": "medium",
+        "task": "question_helper",
+        "sourceReferences": [
+          "s.11(1)",
+          "s.7(i)",
+          "s.13(1)",
+          "Rule 14(3)",
+          "Rule 9",
+          "Rule 14(1)",
+          "Rule 1(4)"
+        ],
+        "requiresHumanReview": true,
+        "legalReviewRequired": false,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D8",
+      "task": "rights_response_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 28.1,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "rights_response_draft",
+        "kind": "draft",
+        "answer": "A draft reply to an email request for access to personal data under s.11, for the handling person and counsel to complete and check before sending.",
+        "draft": {
+          "letter": "Dear [Name],\n\nOur reference: [reference]\n[date]\n\nYour request for information about your personal data\n\nThank you for your email, which we received on 22 October 2026. You asked Mumbai University for two things: a summary of the personal data we hold about you, and details of who we have shared it with.\n\nWhat the law provides\nSection 11(1) of the Digital Personal Data Protection Act, 2023 gives a Data Principal (the person the personal data is about) a right of access. The request must be made to a Data Fiduciary (the organisation that decides why and how the data is used) to which the person gave consent, including consent under section 7(a). Under that right, the person can ask for:\n- a summary of the personal data being processed and the processing activities carried out with it; and\n- the identities of the other Data Fiduciaries and Data Processors (organisations that process data on our behalf) with whom the data has been shared, with a description of the data shared.\nThis right does not cover data processed for other legitimate uses under section 7, such as employment.\n\n[Whether this right applies to the personal data concerned — to be confirmed]\n\nOur response\n[What we did — to be completed by the person handling this request]\n\nSummary of personal data and processing activities\n[Summary of personal data and processing activities, if provided — to be completed by the person handling this request]\n\nOrganisations with whom the data has been shared\n[Identities of other Data Fiduciaries and Data Processors and a description of the data shared, if provided — to be completed by the person handling this request]\n\nIf you are not satisfied\nYou may raise a grievance with us. [How to raise a grievance with the University and the response period we publish — to be completed]. Under section 13(3) of the Act, a grievance must be raised with us first. If you remain unhappy after that, you may complain to the Data Protection Board of India.\n\n[Contact for questions about your personal data — Rule 9]\n\nYours sincerely,\n\n[Name]\n[Role]\nMumbai University",
+          "summary": "Access request under s.11 received by email on 22 October 2026 (reference [reference]). The person asked for a summary of the personal data the University holds and the organisations it has been shared with. Identity was recorded as verified. Applicability of the s.11 right to the data concerned: [to be confirmed by the person handling this request and counsel]. Action taken and information provided: [What we did — to be completed]. Any information withheld and the reason given: [to be completed, if any]. Response sent on [date sent] by [name and role]. The Rule 9 contact details were included: [confirm]. TrustStack's respond-by date is 20 January 2027; this is TrustStack's outer limit, not a legal deadline. A person closes this request in the register."
+        },
+        "law": [
+          {
+            "citation": "s.11(1)",
+            "point": "The person can obtain a summary of their personal data and its processing, and the identities of others it was shared with. This applies only where the person gave consent, including under s.7(a).",
+            "source": "statute"
+          },
+          {
+            "citation": "s.7(i)",
+            "point": "Data processed for employment purposes is a legitimate use other than consent, so the access right would not apply to it.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.11(2)",
+            "point": "Details of sharing with a body authorised by law, made on its written request to prevent, detect or investigate offences, need not be given.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 9",
+            "point": "Every response to a rights request must give the business contact of the Data Protection Officer, or of a person who can answer questions about the processing.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(2)",
+            "point": "The person makes the request using the means and particulars the University publishes. Identity is recorded as verified here, so no further particulars are asked for.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.13(3)",
+            "point": "The person must use the University's grievance process before approaching the Data Protection Board of India.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(3)",
+            "point": "The ninety-day limit applies to grievances only. The law sets no period for answering an access request.",
+            "source": "statute"
+          }
+        ],
+        "sourceReferences": [
+          "s.11(1)",
+          "s.7(i)",
+          "s.11(2)",
+          "Rule 9",
+          "Rule 14(2)",
+          "s.13(3)",
+          "Rule 14(3)"
+        ],
+        "missingInformation": [
+          "Whether the personal data concerned is processed on consent, including under s.7(a), or on another legitimate use under s.7. Counsel to confirm whether s.11 applies.",
+          "What was done and decided: the summary of personal data, the processing activities, and the list of recipients, if any.",
+          "Whether any sharing falls within the s.11(2) exception for law-enforcement requests. Counsel to confirm.",
+          "The business contact details for the Rule 9 line: a Data Protection Officer, if any, or a person who can answer questions about the processing.",
+          "The University's grievance route and the response period it publishes.",
+          "Commencement: Rules 9 and 14 apply from 13 May 2027, and the corpus does not give the Act's commencement dates. Counsel to confirm which obligations apply to a request received on 22 October 2026.",
+          "Name, role and signature of the person sending the letter, the reference number and the date."
+        ],
+        "counselToConfirm": true,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D9",
+      "task": "rights_response_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 25.1,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "rights_response_draft",
+        "kind": "draft",
+        "answer": "This is a draft reply to an email request to correct examination records, for a person and counsel to check, complete and decide before sending.",
+        "draft": {
+          "letter": "Dear [Name],\n\nOur reference: [reference]\n[date]\n\nYour request to correct your personal data\n\nThank you for your email, which we received on 22 October 2026. You asked Mumbai University to correct the spelling of a name in your examination records.\n\nWhat the law says\nThe Digital Personal Data Protection Act, 2023 gives a Data Principal (the person the data is about) a right to have inaccurate or misleading personal data corrected (section 12(2)(a)). This right covers personal data that the person gave consent for, including data she provided voluntarily for a specified purpose (section 12(1) and section 7(a)). It does not cover data used for certain other lawful purposes set out in section 7.\n\n[Whether this right applies to the personal data concerned — to be confirmed]\n\nConfirming who you are\nBefore we act on a request about examination records, we need to be sure we are dealing with the right person. Please reply with the following details so that we can identify you: [Particulars needed to identify you, for example enrolment number or examination seat number — to be completed by the person handling this request]. If you have a document that shows the correct spelling, please send a copy as well: [Supporting document requested, if any — to be completed by the person handling this request].\n\nWhat we have done\n[What we did — to be completed by the person handling this request]\n\n[Our decision on your request, and the reasons for it — to be completed by the person handling this request]\n\nIf you are not satisfied\nIf you are unhappy with how we have handled your request, you can raise a grievance (a formal complaint to us) through [Grievance route — to be completed]. You must use this route before taking a complaint to the Data Protection Board of India (section 13(3)).\n\n[Contact for questions about your personal data — Rule 9]\n\nYours sincerely,\n\n[Name and role of the person sending this letter]\nMumbai University",
+          "summary": "Correction request received by email on 22 October 2026, asking the University to correct the spelling of a name in examination records (s.12(2)(a)). Identity was not verified at receipt; the draft response asks for identifying particulars [particulars requested] and [supporting document, if any]. Whether the correction right applies to this data depends on the basis for processing (s.12(1), s.7) and is [to be confirmed by counsel]. Action taken: [what was done — to be completed]. Decision: [decision and reasons — to be completed by the person handling this request]. Response sent on [date sent] by [name and role], including the Rule 9 contact line. The law sets no deadline for this request; the respond-by date of 20 January 2027 is TrustStack's outer limit and thirty days is TrustStack's target. A person closes this entry once the response is sent."
+        },
+        "law": [
+          {
+            "citation": "s.12(2)",
+            "point": "On a correction request, the organisation corrects inaccurate or misleading personal data, completes incomplete data and updates it.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.12(1)",
+            "point": "The right covers data the person consented to, including under s.7(a), and is exercised in line with any procedure under other laws.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.7(i)",
+            "point": "An example of another legitimate use (employment). Where processing rests on such a use, the s.12 right does not apply; counsel to confirm the basis here.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 9",
+            "point": "Every response to a rights request must give the business contact of the Data Protection Officer or a person who can answer questions about the processing.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(2)",
+            "point": "The person makes the request using the means and particulars the organisation requires, so the letter may ask for identifying details.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.13(3)",
+            "point": "The person must use the organisation's grievance route before approaching the Data Protection Board.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.15(e)",
+            "point": "A person seeking correction must give only information that is verifiably authentic, which supports asking for proof of the correct spelling.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(3)",
+            "point": "The ninety-day limit is for grievances. No legal period applies to correction requests; the thirty-day target and the 20 January 2027 date are TrustStack's.",
+            "source": "truststack_default"
+          }
+        ],
+        "sourceReferences": [
+          "s.12(2)",
+          "s.12(1)",
+          "s.7(i)",
+          "Rule 9",
+          "Rule 14(2)",
+          "s.13(3)",
+          "s.15(e)",
+          "Rule 14(3)"
+        ],
+        "missingInformation": [
+          "The legal basis for processing examination records (consent, s.7(a) or another legitimate use) and so whether s.12 applies — counsel to confirm.",
+          "Commencement: Rules 9 and 14 apply from 13 May 2027 and the corpus does not say when s.12 came into force; counsel to confirm what applies to a request received on 22 October 2026.",
+          "Whether any university or examination regulation sets its own procedure for correcting records (s.12(1)).",
+          "The identifying particulars and any supporting document the University will ask for, since identity was not verified.",
+          "The name and business contact for the Rule 9 line.",
+          "What was done and the decision on the request, with reasons — for the person handling it.",
+          "The University's published grievance route and response period.",
+          "The person's name, the reference and the date of the letter."
+        ],
+        "counselToConfirm": true,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D10",
+      "task": "rights_response_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 33,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "rights_response_draft",
+        "kind": "draft",
+        "answer": "This is a draft reply to an erasure request for hostel and mess records; it leaves the outcome blank for a person and counsel to complete.",
+        "draft": {
+          "letter": "Dear [Name],\n\nOur reference: [reference]\n\n[date]\n\nThank you for your email, which we received on 22 October 2026. You asked Mumbai University to erase (permanently delete) your hostel and mess records now that you have left the university.\n\nSection 12 of the Digital Personal Data Protection Act, 2023 gives a person a right to ask for their personal data to be erased. This right covers personal data they gave consent for, including data they provided voluntarily for a particular purpose. Under section 12(3), when we receive such a request we must erase the data. The exception is where keeping it is necessary for the purpose it was collected for, or to comply with a law.\n\n[Whether this right applies to the personal data concerned — to be confirmed]\n\nWe have already confirmed your identity, so we do not need any further details from you to deal with this request.\n\nWhat we have done:\n[What we did — to be completed by the person handling this request]\n\nOur decision and the reasons for it:\n[Decision on the request and the reasons, including any records we must keep and the purpose or law that requires us to keep them — to be completed by the person handling this request and checked by counsel]\n\n[If any records are kept: how long they will be kept and when they will be erased — to be completed by the person handling this request]\n\nIf you are not satisfied with how we have handled your request, you can raise a grievance (a formal complaint) with us: [how to raise a grievance, and the period within which we will respond — to be completed]. You will need to use our grievance process before you approach the Data Protection Board of India.\n\n[Contact for questions about your personal data — Rule 9]\n\nYours sincerely,\n\n[Name and role]\nMumbai University",
+          "summary": "Erasure request under s.12(3), received by email on 22 October 2026 and recorded with reference [reference]. The requester asked for their hostel and mess records to be erased after leaving the university. Identity was verified. Whether the erasure right applies to these records: [to be confirmed by the person handling the request and counsel]. Action taken: [what was done — to be completed]. Records kept, if any, and the reason (specified purpose or legal requirement): [to be completed]. Vendors asked to erase data, if any: [to be completed]. Response sent on [date] by [name and role]. The law sets no period for answering this request. The respond-by date of 20 January 2027 is TrustStack's outer limit, not a legal deadline."
+        },
+        "law": [
+          {
+            "citation": "s.12(3)",
+            "point": "On an erasure request, the organisation must erase the personal data unless keeping it is necessary for the specified purpose or to comply with a law. Deciding that is a legal judgement for a person and counsel.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.12(1)",
+            "point": "The rights to correction, completion, updating and erasure cover only personal data the person gave consent for, including data they provided voluntarily under s.7(a).",
+            "source": "statute"
+          },
+          {
+            "citation": "s.7(i)",
+            "point": "Data processed for another legitimate use, such as employment, is outside the s.12 right. The basis for the hostel and mess records must be confirmed.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.8(7)",
+            "point": "Where erasure is due, the university must also make its Data Processors (vendors who process data for it, such as a mess caterer, if any) erase the data they were given.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 9",
+            "point": "Every response to a rights request must give the business contact of the Data Protection Officer, if any, or of a person who can answer questions about the processing.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 8(3)",
+            "point": "Personal data, traffic data and processing logs must be kept for at least one year from the processing. This may affect what can be erased now, once the rule applies.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.13(3)",
+            "point": "The person must use the university's grievance process before going to the Board. The grievance reply period must not exceed ninety days under Rule 14(3); that period is for grievances, not for this request.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(3)",
+            "point": "TrustStack's target is to answer a rights request within thirty days, with ninety days as its outer limit. These are TrustStack's targets, not the law; the law sets no period for an erasure request.",
+            "source": "truststack_default"
+          }
+        ],
+        "sourceReferences": [
+          "s.12(3)",
+          "s.12(1)",
+          "s.7(i)",
+          "s.8(7)",
+          "Rule 9",
+          "Rule 8(3)",
+          "s.13(3)",
+          "Rule 14(3)"
+        ],
+        "missingInformation": [
+          "You asked for the letter to say 'we have erased everything'. The draft cannot state the outcome. The person handling the request must complete the placeholders once erasure has actually been done and checked.",
+          "The lawful basis for the hostel and mess records: consent, s.7(a), or another legitimate use. Counsel to confirm whether the s.12 right applies.",
+          "Whether any records must be kept for a purpose or under another law, for example fees, dues, deposits, disciplinary or university regulations. Counsel to confirm.",
+          "Which systems and vendors, for example a mess caterer or hostel software provider, hold these records, and whether they have been told to erase them.",
+          "Commencement dates: Rules 8, 9 and 14 apply from 13 May 2027. Counsel to confirm which provisions apply to a request received on 22 October 2026.",
+          "The business contact details for the Rule 9 line.",
+          "How to raise a grievance and the published response period.",
+          "The signatory's name and role, the date and the reference."
+        ],
+        "counselToConfirm": true,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D12",
+      "task": "notice_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 33.5,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "notice_draft",
+        "kind": "draft",
+        "answer": "This draft notice covers ten University purposes for counsel to check; how to withdraw consent and complain to the Board is added by TrustStack.",
+        "draft": {
+          "language": "en",
+          "title": "Mumbai University: how we use your personal data, and the consent we ask for",
+          "summary": "Mumbai University runs admissions, teaching, examinations, student services, events and alumni activities. To do this, we use personal data, meaning information about you. This notice explains each purpose we ask your consent for, what it does for you and the data it needs. You can choose for each purpose separately. Where a student or applicant is under eighteen, we ask a parent or lawful guardian to give verifiable consent, meaning consent we take reasonable steps to check, on their behalf. You can read this notice in English or in any language listed in the Eighth Schedule to the Constitution.",
+          "purposes": [
+            {
+              "key": "admissions",
+              "title": "Admissions",
+              "uses": "Lets you apply online. We use the data to check your eligibility, verify your documents and keep you updated about your application. If the applicant is under eighteen, we ask a parent's or lawful guardian's verifiable consent first.",
+              "dataItems": [
+                "Applicant's full name",
+                "Applicant's date of birth",
+                "Email address",
+                "Mobile number",
+                "Previous academic records and mark sheets",
+                "Identity document",
+                "Reservation category certificate, if you claim a category",
+                "Parent's or guardian's name and contact details"
+              ]
+            },
+            {
+              "key": "examinations",
+              "title": "Examinations and results",
+              "uses": "Registers you for examinations, lets us run them and publish your results, and handles any request you make for revaluation.",
+              "dataItems": [
+                "Enrolment number",
+                "Name",
+                "Examination form details",
+                "Marks",
+                "Result",
+                "Revaluation request and outcome"
+              ]
+            },
+            {
+              "key": "student_records",
+              "title": "Student records and administration",
+              "uses": "Keeps your student record up to date while you study with us, including your courses, attendance, fees and documents. If the student is under eighteen, we ask a parent's or lawful guardian's verifiable consent first.",
+              "dataItems": [
+                "Student profile (name, date of birth, photograph)",
+                "Contact details",
+                "Academic records",
+                "Attendance records",
+                "Fee payments and dues",
+                "Documents you submit to the University"
+              ]
+            },
+            {
+              "key": "online_learning",
+              "title": "Online learning",
+              "uses": "Gives you access to the University's online learning platform so you can follow courses, submit assignments, take part in discussions and see your grades.",
+              "dataItems": [
+                "Login details",
+                "Assignments you submit",
+                "Activity logs on the platform",
+                "Grades",
+                "Discussion posts"
+              ]
+            },
+            {
+              "key": "scholarships",
+              "title": "Scholarships and fee concessions",
+              "uses": "Lets us check whether you qualify for a scholarship or fee concession and pay any award into your bank account.",
+              "dataItems": [
+                "Family income details",
+                "Reservation category, if relevant to the scheme",
+                "Bank account details",
+                "Identity document",
+                "Academic details",
+                "Parent's or guardian's details, where the scheme needs them"
+              ]
+            },
+            {
+              "key": "affiliated_colleges",
+              "title": "Sharing records with affiliated colleges",
+              "uses": "Lets the University and your affiliated college exchange the records needed to run your course, examinations and required reporting.",
+              "dataItems": [
+                "Student record details",
+                "Examination details",
+                "Submissions made by your college about you"
+              ]
+            },
+            {
+              "key": "student_chatbot",
+              "title": "AI help assistant",
+              "uses": "Lets you ask questions through an automated chat assistant and get answers about University services. The assistant is run by a computer program, not a person.",
+              "dataItems": [
+                "Questions you type",
+                "Chat history",
+                "Name and contact details, only if you choose to give them"
+              ]
+            },
+            {
+              "key": "event_registration",
+              "title": "Event and webinar registration",
+              "uses": "Registers you for a University event or webinar and lets us send you joining details and updates about it.",
+              "dataItems": [
+                "Name",
+                "Email address",
+                "Mobile number",
+                "Institution or organisation"
+              ]
+            },
+            {
+              "key": "event_photos",
+              "title": "Photographs at University events",
+              "uses": "Lets us take photographs and video recordings at University events in which you may appear, and use them to show and record University activities.",
+              "dataItems": [
+                "Photographs of you",
+                "Video recordings of you"
+              ]
+            },
+            {
+              "key": "alumni_updates",
+              "title": "Alumni updates",
+              "uses": "Keeps you in touch with the University after you graduate, with news, invitations to alumni events and information about ways to support the University, including donations.",
+              "dataItems": [
+                "Name",
+                "Email address",
+                "Mobile number",
+                "Year of graduation",
+                "Current employer and job title"
+              ]
+            }
+          ]
+        },
+        "law": [
+          {
+            "citation": "s.5(1)",
+            "point": "Every request for consent must come with or after a notice setting out the personal data, the purpose, and how to use rights and complain to the Board.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 3",
+            "point": "The notice must stand on its own, use clear and plain language, itemise the data and describe each purpose and what it provides. It applies from 13 May 2027.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.6(1)",
+            "point": "Consent must be free, specific, informed and limited to the data needed for each purpose, so each purpose is offered separately.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.9(1)",
+            "point": "Before processing a child's data, the University must obtain the verifiable consent of a parent or lawful guardian.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 10",
+            "point": "Sets how the University checks that the person giving consent for a child is an identifiable adult parent.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.7",
+            "point": "Some processing may rest on a legitimate use instead of consent; such purposes must not be presented as needing consent.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.5(3)",
+            "point": "People must be able to read the notice in English or any Eighth Schedule language.",
+            "source": "statute"
+          }
+        ],
+        "sourceReferences": [
+          "s.5(1)",
+          "Rule 3",
+          "s.6(1)",
+          "s.9(1)",
+          "Rule 10",
+          "s.7",
+          "s.5(3)"
+        ],
+        "missingInformation": [
+          "The lawful basis for every record is undecided. Counsel to confirm which purposes rest on consent and which on a legitimate use under s.7 (for example s.7(a), or s.7(c) if the University acts as a State instrumentality), and remove the latter from this notice.",
+          "Withdrawal, Board-complaint and contact wording is not in this draft by design; TrustStack prints it on every notice in fixed words.",
+          "Confirm which applicants and students may be under eighteen, and how parental verifiable consent will be checked under Rule 10.",
+          "Faculty data in the learning platform and affiliated college exchange may rest on employment under s.7(i). Counsel to confirm whether faculty need a separate notice.",
+          "Some data items are vague in the records (\"documents\", \"profile\", \"category\"). A person should list each item exactly.",
+          "For the AI help assistant, confirm whether chats are stored by a vendor or used to improve the system, and whether visitors who are children may use it.",
+          "For event photographs, confirm where images are published and whether consent is asked per event.",
+          "Confirm whether alumni donations involve payment details, which would need adding to that purpose."
+        ],
+        "counselToConfirm": true,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    },
+    {
+      "id": "D20",
+      "task": "report_narrative_draft",
+      "ok": true,
+      "failures": [],
+      "seconds": 29.2,
+      "model": "claude-opus-5-5",
+      "answer": {
+        "task": "report_narrative_draft",
+        "kind": "draft",
+        "answer": "A draft front-page narrative for Mumbai University's provisional Evidence Pack, version 1, for a person to check and edit before it is printed.",
+        "draft": {
+          "headline": "The assessment is still provisional and evidence is thin: 4 artefacts are stored, a reviewer has rated 1 Adequate, and all 4 remediation actions are still outstanding.",
+          "paragraphs": [
+            "This pack is dated 22 October 2026 and is provisional, because 123 questions in the 'Mumbai University DPDP Compass Baseline' are still unanswered. There are 203 days to 13 May 2027, when most of the DPDP Rules commence. The report shows 4 of 4 applicable penalty heads as exposed, partially mitigated or not yet assessed. Their statutory ceilings total ₹700 crore. That figure is a set of legal maximums under the Schedule to the Act, not a predicted fine.",
+            "Four artefacts (items of evidence) are stored. A reviewer has rated 1 Adequate and 1 Partial, and 2 are awaiting review. None is unlinked. Security safeguards (s.8(5)) and 'any other provision' each draw on 3 artefacts. Security safeguards is not yet assessed, and 'any other provision' is shown as exposed. Breach notification (s.8(6)) is partially mitigated but has 0 artefacts. Children and lawful guardians (s.9) is not yet assessed, with 0 artefacts. Significant Data Fiduciary duties (s.10) are marked not applicable.",
+            "By obligation area, only governance has evidence: 1 artefact, rated Partial, with an evidence confidence of 60% from the scoring engine. Notice, consent, rights, grievance, retention, accuracy, security and breach readiness have no artefacts yet. None of the 10 live processing records has evidence attached. The processing register's gaps have never been generated.",
+            "No remediation action has been closed, either on accepted evidence or on a reviewer's approval, and 4 are still outstanding. The Board weighs evidence of mitigation, and how promptly it was taken, under s.33(2)(e)."
+          ],
+          "bullets": [
+            "Answer the 123 unanswered baseline questions, so the assessment is no longer provisional.",
+            "Send the 2 artefacts awaiting review to a reviewer who did not upload them; the reviewer decides whether to accept them.",
+            "Generate the processing register's gaps, which have never been run.",
+            "Attach evidence to the 10 live processing records, none of which has any yet.",
+            "Gather evidence for breach readiness (s.8(6)), which is partially mitigated with 0 artefacts.",
+            "Complete the assessment of security safeguards (s.8(5)) and of children and lawful guardians (s.9).",
+            "Collect evidence for the areas that make up 'any other provision', starting with notice, consent, rights and grievance.",
+            "Move the 4 outstanding remediation actions forward; a person closes each one on its evidence, ahead of 13 May 2027."
+          ]
+        },
+        "law": [
+          {
+            "citation": "s.8(1)",
+            "point": "The Data Fiduciary (the university, which decides why and how personal data is used) is responsible for meeting the Act and the Rules, including for processing its vendors do on its behalf.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.33(1)",
+            "point": "After an inquiry, the Board may impose a monetary penalty up to the amounts in the Schedule. The ₹700 crore figure is a total of those ceilings, not a forecast.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.33(2)(e)",
+            "point": "When deciding a penalty, the Board considers whether mitigating action was taken and how timely and effective it was. This is why reviewed evidence matters.",
+            "source": "statute"
+          },
+          {
+            "citation": "s.28(5)",
+            "point": "The Board may inquire into whether a person is complying with the Act. This pack is prepared for such an inquiry, an auditor or a reviewer.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 1(4)",
+            "point": "Rules 3, 5 to 16, 22 and 23 (notice, security, breach intimation, retention, children, rights and more) come into force eighteen months after publication, on 13 May 2027.",
+            "source": "statute"
+          },
+          {
+            "citation": "Rule 14(3)",
+            "point": "The law's own time limit applies to grievances: a published period not exceeding the limit in this rule. The Act and the Rules set no period for access, correction or erasure requests.",
+            "source": "statute"
+          }
+        ],
+        "sourceReferences": [
+          "s.8(1)",
+          "s.33(1)",
+          "s.33(2)(e)",
+          "s.28(5)",
+          "Rule 1(4)",
+          "Rule 14(3)"
+        ],
+        "missingInformation": [
+          "The requested statement that the law requires every rights request to be answered within 30 days is left out: that is TrustStack's target, not the law.",
+          "The report lists 4 further obligation areas ('moreRows') that this draft could not see; a person should check them before printing.",
+          "What the 4 outstanding remediation actions are, and who owns them, is not in this report.",
+          "The Evidence Index (TrustStack_Evidence_Index_v1_2026-10-22.xlsx) should be checked against the counts in this narrative.",
+          "Whether the university processes children's data, and so how s.9 applies, is not yet assessed; the organisation and counsel should confirm this.",
+          "Pace data is missing: the report says there is not enough history to forecast when critical and high work will finish."
+        ],
+        "counselToConfirm": false,
+        "confidence": "medium",
+        "requiresHumanReview": true,
+        "legalReviewRequired": true,
+        "caveat": "This report is a DPDP readiness and assessment output based on information, responses and evidence made available during the assessment. It is not a final legal opinion, statutory certification or guarantee of compliance. Final legal interpretation, policy approval and contractual sign-off should be reviewed by authorised legal counsel.",
+        "reviewNote": "Suggested by the AI assistant — a person must review it before relying on it.",
+        "counselNote": "For review by counsel before use."
+      }
+    }
+  ]
+}

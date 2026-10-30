@@ -1,0 +1,345 @@
+<meta name="dash-one-writer">
+<style>
+  .ft { display: grid; gap: var(--cds-gap-lg); font-family: var(--font-anthropic-sans); color: var(--color-fg); }
+  .ft-head { display: grid; gap: var(--cds-gap-xs); }
+  .ft-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+  .ft-take { margin: 0; font-size: var(--cds-font-size-body); max-width: 70ch; }
+  .ft-take b, .ft-note b { font-variant-numeric: tabular-nums; }
+  .ft-note { margin: 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .ft-warnline { color: var(--color-warn); }
+  .ft-tiles { display: grid; gap: var(--cds-gap-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); }
+  .ft-tile { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-md); display: grid; gap: var(--cds-gap-xs); }
+  .ft-tile-label { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .ft-num { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; min-height: 1.3em; }
+  .ft-tile--warn .ft-num { color: var(--color-warn); }
+  .ft-grid { display: grid; gap: var(--cds-gap-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+  .ft-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-sm); align-content: start; min-width: 0; }
+  .ft-card h2 { margin: 0; font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); }
+  .ft-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm) var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .ft-legend span { display: inline-flex; align-items: center; gap: var(--cds-gap-xs); }
+  .ft-sw { width: 0.625rem; height: 0.625rem; border-radius: 2px; display: inline-block; }
+  .ft-bars { position: relative; display: grid; gap: var(--cds-gap-sm); min-height: 15rem; }
+  .ft-bar-row { display: grid; grid-template-columns: minmax(8rem, 13rem) 1fr 2.5rem; gap: var(--cds-gap-sm); align-items: center; font-size: var(--cds-font-size-caption); }
+  .ft-bar-label { color: var(--color-fg); overflow-wrap: anywhere; }
+  .ft-bar-track { display: flex; height: 1.1rem; border-radius: var(--cds-radius); overflow: hidden; background: var(--cds-chart-grid); }
+  .ft-bar-seg { height: 100%; }
+  .ft-bar-total { text-align: right; color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+  .ft-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 2; }
+  .ft-tip-head { color: var(--cds-text-secondary); }
+  .ft-filters { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: end; }
+  .ft-filters label { display: grid; gap: 2px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .ft-filters input[type="search"], .ft-filters select { font: inherit; font-size: var(--cds-font-size-body); color: var(--color-fg); background: var(--color-bg); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-xs) var(--cds-pad-sm); min-width: 0; }
+  .ft-filters input[type="search"] { width: min(100%, 16rem); }
+  .ft-check { display: inline-flex !important; grid-auto-flow: column; align-items: center; gap: var(--cds-gap-xs) !important; padding-bottom: var(--cds-pad-xs); }
+  .ft-wrap { overflow: auto; max-height: 38rem; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); }
+  .ft-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); }
+  .ft-table th, .ft-table td { text-align: left; vertical-align: top; padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); }
+  .ft-table th { position: sticky; top: 0; background: var(--color-panel); font-weight: var(--cds-font-weight-medium); z-index: 1; white-space: nowrap; }
+  .ft-table th button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  .ft-table th button:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+  .ft-table td { min-width: 0; }
+  .ft-id { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .ft-chip { display: inline-block; padding: 1px var(--cds-pad-xs); border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+  .ft-s-built { color: var(--color-ok); }
+  .ft-s-partial { color: var(--color-warn); }
+  .ft-s-not_built { color: var(--color-fg-muted); }
+  .ft-s-dropped { color: var(--color-fg-muted); text-decoration: line-through; }
+  .ft-bad { color: var(--color-bad); }
+  .ft-good { color: var(--color-ok); }
+  .ft-muted { color: var(--color-fg-muted); }
+  @media (max-width: 760px) { .ft-hide-narrow { display: none; } }
+  [data-dash-source-state=empty] { color: transparent; }
+  [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+</style>
+
+<div class="ft">
+  <header class="ft-head" id="top">
+    <h1 class="ft-title">TrustStack feature tracker</h1>
+    <p class="ft-take">Of the <b data-draw="num" data-source="summary" data-field="total" data-row="0">—</b> features planned for the one platform, <b data-draw="num" data-source="summary" data-field="built" data-row="0">—</b> are built and <b data-draw="num" data-source="summary" data-field="partial" data-row="0">—</b> partly built, checked against the code on <b data-draw="text" data-source="features" data-field="checkedRef" data-row="0">—</b> at commit <b data-draw="text" data-source="features" data-field="checkedCommit" data-row="0">—</b>.</p>
+    <p class="ft-note ft-allok" hidden>Every row agrees with the code.</p>
+    <p class="ft-note ft-warnline" hidden><b data-draw="num" data-source="summary" data-field="warnings" data-row="0">—</b> rows disagree with the code — listed under "Where the register and the code disagree".</p>
+    <p class="ft-note">Source: the feature register (old app, new app, PRD and proposal, consolidated in Step 2 of the analysis, approved 28 Oct 2026). Old app = TrustStack v2.3 (frozen); new app = revised TrustStack.</p>
+  </header>
+
+  <section class="ft-tiles" aria-label="Totals">
+    <div class="ft-tile"><span class="ft-tile-label">Built</span><span class="ft-num" data-draw="num" data-source="summary" data-field="built" data-row="0">—</span></div>
+    <div class="ft-tile"><span class="ft-tile-label">Partly built</span><span class="ft-num" data-draw="num" data-source="summary" data-field="partial" data-row="0">—</span></div>
+    <div class="ft-tile"><span class="ft-tile-label">Not built yet</span><span class="ft-num" data-draw="num" data-source="summary" data-field="notBuilt" data-row="0">—</span></div>
+    <div class="ft-tile"><span class="ft-tile-label">Dropped</span><span class="ft-num" data-draw="num" data-source="summary" data-field="dropped" data-row="0">—</span></div>
+    <div class="ft-tile"><span class="ft-tile-label">Sentinel features</span><span class="ft-num" data-draw="num" data-source="summary" data-field="sentinel" data-row="0">—</span></div>
+    <div class="ft-tile ft-tile--warn"><span class="ft-tile-label">Disagree with the code</span><span class="ft-num" data-draw="num" data-source="summary" data-field="warnings" data-row="0">—</span></div>
+  </section>
+
+  <div class="ft-grid">
+    <section class="ft-card" id="by-family">
+      <h2>Progress by family</h2>
+      <p class="ft-note">How many features in each family are built, partly built, not built or dropped.</p>
+      <div class="ft-legend">
+        <span><i class="ft-sw ft-sw-built"></i>Built</span>
+        <span><i class="ft-sw ft-sw-partial"></i>Partly built</span>
+        <span><i class="ft-sw ft-sw-not_built"></i>Not built</span>
+        <span><i class="ft-sw ft-sw-dropped"></i>Dropped</span>
+      </div>
+      <div class="ft-bars" data-draw="families" data-source="byFamily"></div>
+    </section>
+
+    <section class="ft-card" id="by-decision">
+      <h2>What happens to each feature</h2>
+      <p class="ft-note">Keep: the new app's version stands. Merge: bring an old-app strength into it. New: build it. Park: later, on a trigger. Drop: not carried over.</p>
+      <div class="ft-bars" data-draw="decisions" data-source="byDecision"></div>
+    </section>
+  </div>
+
+  <section class="ft-card" id="disagreements">
+    <h2>Where the register and the code disagree</h2>
+    <p class="ft-note">A built or partly built feature names the files that prove it. Each is looked up on the checked commit; a missing file is listed here instead of showing a status the code does not back.</p>
+    <div class="ft-wrap">
+      <table class="ft-table" data-source="warnings" data-row-key="id">
+        <thead><tr><th data-field="id">ID</th><th data-field="name">Feature</th><th data-field="issue">What disagrees</th></tr></thead>
+        <tbody data-draw="warnRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ft-card" id="features">
+    <h2>Every feature</h2>
+    <div class="ft-filters">
+      <label for="ft-q">Search<input id="ft-q" type="search" placeholder="Feature, old app, basis…"></label>
+      <label for="ft-status">Status
+        <select id="ft-status">
+          <option value="">All</option><option value="built">Built</option><option value="partial">Partly built</option><option value="not_built">Not built</option><option value="dropped">Dropped</option>
+        </select>
+      </label>
+      <label for="ft-decision">Decision
+        <select id="ft-decision">
+          <option value="">All</option><option value="KEEP">Keep</option><option value="MERGE">Merge</option><option value="NEW">New</option><option value="PARK">Park</option><option value="DROP">Drop</option>
+        </select>
+      </label>
+      <label for="ft-family">Family
+        <select id="ft-family">
+          <option value="">All</option>
+          <option>Platform foundation</option><option>Assess and score</option><option>Registers and workflows</option><option>See and report</option><option>AI</option><option>Sentinel — continuous assurance</option><option>Reach and growth</option><option>AnixAI side and services</option>
+        </select>
+      </label>
+      <label for="ft-side">For
+        <select id="ft-side">
+          <option value="">Everyone</option><option value="client">Clients</option><option value="anixai">AnixAI</option><option value="both">Both</option>
+        </select>
+      </label>
+      <label class="ft-check" for="ft-sentinel"><input id="ft-sentinel" type="checkbox">Sentinel only</label>
+    </div>
+    <p class="ft-note">Showing <b data-draw="shown" data-source="features">—</b> features. Click a column heading to sort.</p>
+    <div class="ft-wrap">
+      <table class="ft-table" data-source="features" data-row-key="id">
+        <thead>
+          <tr>
+            <th data-field="id"><button type="button" data-sort="id">ID</button></th>
+            <th data-field="name"><button type="button" data-sort="name">Feature</button></th>
+            <th data-field="status"><button type="button" data-sort="status">Status</button></th>
+            <th data-field="decision"><button type="button" data-sort="decision">Decision</button></th>
+            <th data-field="where"><button type="button" data-sort="where">Where / when</button></th>
+            <th data-field="oldApp" class="ft-hide-narrow">Old app</th>
+            <th data-field="newApp" class="ft-hide-narrow">New app</th>
+            <th data-field="basis" class="ft-hide-narrow">DPDP basis</th>
+            <th data-field="codeOk"><button type="button" data-sort="codeOk">Code check</button></th>
+          </tr>
+        </thead>
+        <tbody data-draw="rows"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+  dash.calc('summary', {
+    inputs: ['features'],
+    title: 'Totals by status',
+    description: 'Counts the features by status, the Sentinel flag and the rows whose code check failed.',
+    fn: (features) => [{
+      total: features.length,
+      built: features.filter((f) => f.status === 'built').length,
+      partial: features.filter((f) => f.status === 'partial').length,
+      notBuilt: features.filter((f) => f.status === 'not_built').length,
+      dropped: features.filter((f) => f.status === 'dropped').length,
+      sentinel: features.filter((f) => f.sentinel === 'yes').length,
+      warnings: features.filter((f) => f.codeOk === 'no').length,
+    }],
+  });
+  dash.calc('byFamily', {
+    inputs: ['features'],
+    title: 'Status by family',
+    description: 'For each of the eight families, how many features are built, partly built, not built or dropped.',
+    fn: (features) => ['Platform foundation', 'Assess and score', 'Registers and workflows', 'See and report', 'AI', 'Sentinel — continuous assurance', 'Reach and growth', 'AnixAI side and services'].map((family) => {
+      const of = features.filter((f) => f.family === family);
+      return { family, built: of.filter((f) => f.status === 'built').length, partial: of.filter((f) => f.status === 'partial').length, not_built: of.filter((f) => f.status === 'not_built').length, dropped: of.filter((f) => f.status === 'dropped').length, total: of.length };
+    }),
+  });
+  dash.calc('byDecision', {
+    inputs: ['features'],
+    title: 'Features by decision',
+    description: 'How many features the consolidated map keeps, merges, builds new, parks or drops.',
+    fn: (features) => ['KEEP', 'MERGE', 'NEW', 'PARK', 'DROP'].map((decision) => ({ decision, n: features.filter((f) => f.decision === decision).length })),
+  });
+  dash.calc('warnings', {
+    inputs: ['features'],
+    title: 'Rows the code does not back',
+    description: 'Features whose named files are missing on the checked commit, or that are marked built without naming any.',
+    fn: (features) => features.filter((f) => f.codeOk === 'no').map((f) => ({ id: f.id, name: f.name, issue: f.codeIssues })),
+  });
+
+  const STATUS_LABEL = { built: 'Built', partial: 'Partly built', not_built: 'Not built', dropped: 'Dropped' };
+  const DECISION_LABEL = { KEEP: 'Keep', MERGE: 'Merge', NEW: 'New', PARK: 'Park', DROP: 'Drop' };
+  const STATUS_ORDER = ['built', 'partial', 'not_built', 'dropped'];
+  const segColor = (s) => ({ built: dash.colors[0], partial: dash.colors[1], not_built: 'var(--cds-chart-muted)', dropped: 'var(--cds-chart-reference)' })[s];
+  const fmt = d3.format(',');
+
+  // Legend swatches follow the series colors.
+  dash.onData(() => {
+    for (const s of STATUS_ORDER) document.querySelectorAll(`.ft-sw-${s}`).forEach((el) => { el.style.background = segColor(s); });
+    const sum = dash.data('summary');
+    const w = sum.status === 'ok' && sum.data[0] ? sum.data[0].warnings : null;
+    document.querySelectorAll('.ft-allok').forEach((el) => { el.hidden = w !== 0; });
+    document.querySelectorAll('.ft-warnline').forEach((el) => { el.hidden = !(w > 0); });
+  });
+
+  const one = (el) => {
+    const d = dash.data(el.dataset.source);
+    if (d.status !== 'ok') return null;
+    const row = d.data[Number(el.dataset.row ?? 0)];
+    return row ? row[el.dataset.field] : null;
+  };
+  dash.draw('num', (el) => { const v = one(el); el.textContent = v === null || v === undefined ? '—' : fmt(v); });
+  dash.draw('text', (el) => { const v = one(el); el.textContent = v === null || v === undefined || v === '' ? '—' : String(v); });
+
+  function tipper(box) {
+    let tip = box.querySelector('.ft-tip');
+    if (!tip) { tip = document.createElement('div'); tip.className = 'ft-tip'; tip.hidden = true; box.appendChild(tip); }
+    return (ev, head, lines) => {
+      if (!ev) { tip.hidden = true; return; }
+      tip.replaceChildren();
+      const h = document.createElement('div'); h.className = 'ft-tip-head'; h.textContent = head; tip.appendChild(h);
+      for (const [color, text] of lines) {
+        const line = document.createElement('div');
+        if (color) { const sw = document.createElement('i'); sw.className = 'ft-sw'; sw.style.background = color; sw.style.marginRight = '6px'; line.appendChild(sw); }
+        line.appendChild(document.createTextNode(text));
+        tip.appendChild(line);
+      }
+      tip.hidden = false;
+      const r = box.getBoundingClientRect();
+      const x = Math.min(ev.clientX - r.left + 12, Math.max(0, box.clientWidth - tip.offsetWidth));
+      tip.style.left = `${x}px`;
+      tip.style.top = `${ev.clientY - r.top + 12}px`;
+    };
+  }
+
+  dash.draw('families', (el) => {
+    const d = dash.data('byFamily');
+    el.replaceChildren();
+    if (d.status !== 'ok') return;
+    const max = d3.max(d.data, (r) => r.total) || 1;
+    const show = tipper(el);
+    for (const r of d.data) {
+      const row = document.createElement('div'); row.className = 'ft-bar-row';
+      const label = document.createElement('span'); label.className = 'ft-bar-label'; label.textContent = r.family;
+      const track = document.createElement('div'); track.className = 'ft-bar-track'; track.style.width = `${(r.total / max) * 100}%`;
+      for (const s of STATUS_ORDER) {
+        if (!r[s]) continue;
+        const seg = document.createElement('div'); seg.className = 'ft-bar-seg';
+        seg.style.width = `${(r[s] / r.total) * 100}%`; seg.style.background = segColor(s);
+        track.appendChild(seg);
+      }
+      track.addEventListener('pointermove', (ev) => show(ev, r.family, STATUS_ORDER.filter((s) => r[s]).map((s) => [segColor(s), `${STATUS_LABEL[s]}: ${fmt(r[s])}`])));
+      track.addEventListener('pointerleave', () => show(null));
+      const total = document.createElement('span'); total.className = 'ft-bar-total'; total.textContent = fmt(r.total);
+      row.append(label, track, total);
+      el.appendChild(row);
+    }
+  });
+
+  dash.draw('decisions', (el) => {
+    const d = dash.data('byDecision');
+    el.replaceChildren();
+    if (d.status !== 'ok') return;
+    const max = d3.max(d.data, (r) => r.n) || 1;
+    const show = tipper(el);
+    for (const r of d.data) {
+      const row = document.createElement('div'); row.className = 'ft-bar-row';
+      const label = document.createElement('span'); label.className = 'ft-bar-label'; label.textContent = DECISION_LABEL[r.decision] ?? r.decision;
+      const track = document.createElement('div'); track.className = 'ft-bar-track'; track.style.background = 'transparent';
+      const seg = document.createElement('div'); seg.className = 'ft-bar-seg';
+      seg.style.width = `${(r.n / max) * 100}%`; seg.style.background = dash.colors[2]; seg.style.borderRadius = 'var(--cds-radius)';
+      track.appendChild(seg);
+      track.addEventListener('pointermove', (ev) => show(ev, DECISION_LABEL[r.decision] ?? r.decision, [[null, `${fmt(r.n)} features`]]));
+      track.addEventListener('pointerleave', () => show(null));
+      const total = document.createElement('span'); total.className = 'ft-bar-total'; total.textContent = fmt(r.n);
+      row.append(label, track, total);
+      el.appendChild(row);
+    }
+  });
+
+  dash.draw('warnRows', (tbody) => {
+    const d = dash.data('warnings');
+    tbody.replaceChildren();
+    if (d.status !== 'ok') return;
+    for (const r of d.data) {
+      const tr = document.createElement('tr');
+      for (const [k, cls] of [['id', 'ft-id'], ['name', ''], ['issue', 'ft-bad']]) {
+        const td = document.createElement('td'); td.className = cls; td.textContent = r[k]; tr.appendChild(td);
+      }
+      tbody.appendChild(tr);
+    }
+  });
+
+  // The table: filters and sort are the page's own state.
+  const state = { key: 'id', dir: 1 };
+  const val = (id) => { const el = document.getElementById(id); return el ? (el.type === 'checkbox' ? el.checked : el.value) : ''; };
+  function filtered() {
+    const d = dash.data('features');
+    if (d.status !== 'ok') return null;
+    const q = String(val('ft-q')).trim().toLowerCase();
+    const want = { status: val('ft-status'), decision: val('ft-decision'), family: val('ft-family'), side: val('ft-side') };
+    const sentinelOnly = val('ft-sentinel');
+    const rows = d.data.filter((f) =>
+      Object.entries(want).every(([k, v]) => !v || f[k] === v) &&
+      (!sentinelOnly || f.sentinel === 'yes') &&
+      (!q || [f.id, f.name, f.family, f.oldApp, f.newApp, f.basis, f.where, f.note].join(' ').toLowerCase().includes(q)));
+    return rows.sort((a, b) => state.dir * String(a[state.key]).localeCompare(String(b[state.key]), 'en', { numeric: true }));
+  }
+  dash.draw('shown', (el) => {
+    const rows = filtered();
+    const all = dash.data('features');
+    el.textContent = rows ? `${fmt(rows.length)} of ${fmt(all.data.length)}` : '—';
+  });
+  dash.draw('rows', (tbody) => {
+    const rows = filtered();
+    tbody.replaceChildren();
+    if (!rows) return;
+    for (const f of rows) {
+      const tr = document.createElement('tr');
+      const cell = (text, cls) => { const td = document.createElement('td'); if (cls) td.className = cls; td.textContent = text; tr.appendChild(td); return td; };
+      cell(f.id, 'ft-id');
+      const name = cell(f.name);
+      if (f.note) { const n = document.createElement('div'); n.className = 'ft-muted'; n.textContent = f.note; name.appendChild(n); }
+      const st = cell(''); const chip = document.createElement('span'); chip.className = `ft-chip ft-s-${f.status}`; chip.textContent = STATUS_LABEL[f.status] ?? f.status; st.appendChild(chip);
+      cell(DECISION_LABEL[f.decision] ?? f.decision);
+      cell(f.where);
+      cell(f.oldApp || '—', 'ft-hide-narrow');
+      cell(f.newApp || '—', 'ft-hide-narrow');
+      cell(f.basis, 'ft-hide-narrow');
+      if (f.codeOk === 'yes') cell(f.checks ? 'Matches the code' : 'Nothing to check', f.checks ? 'ft-good' : 'ft-muted');
+      else cell(f.codeIssues, 'ft-bad');
+      tbody.appendChild(tr);
+    }
+  });
+
+  const redraw = () => { dash.draw('rows'); dash.draw('shown'); };
+  document.querySelectorAll('#ft-q').forEach((el) => el.addEventListener('input', redraw));
+  document.querySelectorAll('#ft-status, #ft-decision, #ft-family, #ft-side, #ft-sentinel').forEach((el) => el.addEventListener('change', redraw));
+  document.querySelectorAll('[data-sort]').forEach((btn) => btn.addEventListener('click', () => {
+    const key = btn.dataset.sort;
+    state.dir = state.key === key ? -state.dir : 1;
+    state.key = key;
+    document.querySelectorAll('[data-sort]').forEach((b) => b.closest('th')?.setAttribute('aria-sort', b.dataset.sort === key ? (state.dir === 1 ? 'ascending' : 'descending') : 'none'));
+    redraw();
+  }));
+</script>

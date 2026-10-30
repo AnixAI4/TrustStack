@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+  Slice 10 Stage 3b — a stand-in for an organisation's own website, for the
+  manual test (docs/testing/SLICE_10_stage3b_manual_test.md). Serve this folder
+  on another port, e.g.
+
+    python3 -m http.server 8090 --bind 127.0.0.1 --directory docs/testing
+
+  and open http://127.0.0.1:8090/consent-widget-demo.html
+
+  Query parameters (all optional):
+    app   where TrustStack runs            (default http://localhost:3001)
+    org   the organisation's public address (default demo-clinic)
+    lang  a language the widget offers      (e.g. hi, mr)
+    kind  "child" or "guardian_ward"         (a parent or guardian consents)
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demo Clinic — a stand-in website</title>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; color: #1e293b; }
+      code { background: #f1f5f9; padding: 1px 4px; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <h1>Demo Clinic</h1>
+    <p>This page stands in for the clinic's own website. The TrustStack consent widget is embedded below it, exactly as the snippet on the <em>Notice and consent</em> page says.</p>
+    <p>Widget from <code id="from"></code> for <code id="org"></code>.</p>
+    <p><button type="button" onclick="window.TrustStackConsent && window.TrustStackConsent.open()">Open privacy choices</button></p>
+    <script>
+      (function () {
+        var q = new URLSearchParams(location.search);
+        var app = q.get("app") || "http://localhost:3001";
+        var org = q.get("org") || "demo-clinic";
+        document.getElementById("from").textContent = app;
+        document.getElementById("org").textContent = org;
+        var s = document.createElement("script");
+        s.src = app + "/widget/consent-v1.js";
+        s.async = true;
+        s.setAttribute("data-org", org);
+        if (q.get("lang")) s.setAttribute("data-lang", q.get("lang"));
+        if (q.get("kind")) s.setAttribute("data-principal-kind", q.get("kind"));
+        document.body.appendChild(s);
+      })();
+    </script>
+  </body>
+</html>
